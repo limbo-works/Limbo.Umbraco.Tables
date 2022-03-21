@@ -40,7 +40,6 @@
     <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\**\*.html" />
     <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\**\*.js" />
     <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\Lang\*.xml" />
-    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\package.manifest" />
   </ItemGroup>
 
   <!-- Include the targets file -->
