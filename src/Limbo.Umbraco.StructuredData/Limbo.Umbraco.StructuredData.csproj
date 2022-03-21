@@ -1,0 +1,61 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <LangVersion>9.0</LangVersion>
+    <TargetFramework>net5.0</TargetFramework>
+    <ContentTargetFolders>content</ContentTargetFolders>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>1.0.0-beta001</Version>
+    <Company>Limbo</Company>
+    <Authors>Anders Bjerner</Authors>
+    <Copyright>Copyright © 2022</Copyright>
+    <Title>Limbo StructuredData</Title>
+    <Description>Structured data table editor for Umbraco 9.</Description>
+  </PropertyGroup>
+
+  <!-- Information for the NuGet package -->
+  <PropertyGroup>
+    <PackageId>Limbo.Umbraco.StructuredData</PackageId>
+    <PackageTags>Skybrud, Limbo, Umbraco, StructuredData, Table</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/limbo-works/Limbo.Umbraco.StructuredData</PackageProjectUrl>
+    <PackageIcon>Limbo.png</PackageIcon>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/limbo-works/Limbo.Umbraco.StructuredData</RepositoryUrl>
+  </PropertyGroup>
+
+  <!-- Include NuGet dependencies -->
+  <ItemGroup>
+    <PackageReference Include="Skybrud.Essentials" Version="1.1.37" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="9.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0" />
+  </ItemGroup>
+
+  <!-- Include backoffice assets -->
+  <ItemGroup>
+    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\**\*.css" />
+    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\**\*.html" />
+    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\**\*.js" />
+    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\Lang\*.xml" />
+    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\package.manifest" />
+  </ItemGroup>
+
+  <!-- Include the targets file -->
+  <ItemGroup>
+    <Content Include="../build/$(AssemblyName).targets" PackagePath="build\$(AssemblyName).targets" />
+  </ItemGroup>
+
+  <!-- Include package icon for NuGet -->
+  <ItemGroup>
+    <Content Include="../build/Limbo.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <!-- Generate XML documentation -->
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>

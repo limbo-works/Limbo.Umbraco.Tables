@@ -1,0 +1,45 @@
+﻿<div ng-controller="Limbo.Umbraco.StructuredData.Overlay.Controller as vm">
+
+    <form name="propertiesForm" ng-submit="save()" novalidate val-form-manager>
+
+        <umb-editor-view>
+
+            <umb-editor-header name="model.title"
+                               hide-icon="true"
+                               hide-alias="true"
+                               name-locked="true"
+                               hide-description="true">
+            </umb-editor-header>
+
+
+            <umb-editor-container>
+                <umb-box>
+                    <umb-box-content>
+                        <umb-property property="model.prop">
+                            <umb-property-editor model="model.prop" />
+                        </umb-property>
+                    </umb-box-content>
+                </umb-box>
+            </umb-editor-container>
+
+            <umb-editor-footer>
+                <umb-editor-footer-content-right>
+                    <umb-button type="button"
+                                button-style="link"
+                                label-key="general_close"
+                                action="model.close()">
+                    </umb-button>
+                    <umb-button type="submit"
+                                button-style="success"
+                                label-key="general_continue">
+                    </umb-button>
+                </umb-editor-footer-content-right>
+            </umb-editor-footer>
+
+        </umb-editor-view>
+
+
+
+    </form>
+
+</div>

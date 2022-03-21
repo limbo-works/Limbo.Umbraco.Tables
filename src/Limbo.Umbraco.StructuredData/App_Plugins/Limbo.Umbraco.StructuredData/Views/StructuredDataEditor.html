@@ -1,0 +1,137 @@
+﻿<div class="limbo-structured-data" ng-controller="Limbo.Umbraco.StructuredData.Editor.Controller as vm">
+    <div class="table-editor">
+
+        <div class="umb-scrollable row-fluid">
+
+            <div class="editor">
+
+                <div class="toolbar">
+
+                    <div class="toolbar__buttons is-fullwidth">
+
+                        <div>
+                            <label for="tableSummary">Tabelbeskrivelse</label><br />
+                            <textarea id="tableSummary" ng-model="vm.table.summary" class="textarea"></textarea>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="showSummary" ng-model="vm.table.showSummary" />
+                            <label for="showSummary">Vis tabelbeskrivelse</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="useFirstRowAsHeader" ng-model="vm.table.useFirstRowAsHeader" ng-change="reIndexCells()" />
+                            <label for="useFirstRowAsHeader">Brug første række som header</label>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="useFirstColumnAsHeader" ng-model="vm.table.useFirstColumnAsHeader" ng-change="reIndexCells()" />
+                            <label for="useFirstColumnAsHeader">Brug første kolonne som header</label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="toolbar">
+
+                    <div class="toolbar__buttons is-fullwidth">
+
+                        <a class="buttons__button btn" ng-click="addRow()">
+                            <i class="icon icon-add"></i>Tilføj række
+                        </a>
+
+                        <a class="buttons__button btn" ng-click="addColumn()">
+                            <i class="icon icon-add"></i>Tilføj kolonne
+                        </a>
+
+                    </div>
+
+                </div>
+
+                <div class="table">
+
+                    <!--Column controls-->
+                    <div class="controls">
+
+                        <div class="controls__control" ng-repeat="column in vm.table.columns">
+
+                            <a class="control__button btn" ng-click="removeColumn($index)">
+                                <i class="icon icon-trash"></i>
+                            </a>
+
+                        </div>
+
+                        <div class="controls__control no-opacity">
+
+                            <a class="control__button btn">
+                                <i class="icon icon-navigation"></i>
+                            </a>
+
+                            <a class="control__button btn">
+                                <i class="icon icon-trash"></i>
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <div ui-sortable="sortableOptions" ng-model="vm.table.cells" class="table-element" ng-class="getTableClass()">
+
+                        <div class="table__row--wrapper" ng-repeat="row in vm.table.cells; track by $index">
+
+                            <div class="table__row" ng-class="getRowClass($index)">
+
+                                <div class="table__column" ng-class="getColumnClass(cell)" ng-repeat="cell in row; track by $index" ng-click="editCell(cell)">
+
+                                    <div class="table__column--placeholder" ng-if="cell.value.length === 0">
+
+                                        <div>
+                                            <p>
+                                                Tilføj indhold
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="table__column--content"
+                                         ng-if="cell.value.length > 0"
+                                         ng-bind-html="cell.value">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="buttons">
+
+                                <a class="control__button btn ui-sortable-handle" title="Move" ng-click="$event.stopPropagation();">
+                                    <i class="icon icon-navigation"></i>
+                                </a>
+
+                                <a class="control__button btn" ng-click="removeRow($index)">
+                                    <i class="icon icon-trash"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!--<pre>{{vm.table | json}}</pre>-->
+
+        <umb-overlay ng-if="vm.richTextEditor.show"
+                     model="vm.richTextEditor"
+                     position="right"
+                     view="vm.richTextEditor.view">
+        </umb-overlay>
+
+    </div>
+</div>
