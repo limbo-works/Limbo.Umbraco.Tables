@@ -5,14 +5,6 @@
                 <div class="toolbar">
                     <div class="toolbar__buttons is-fullwidth">
                         <div>
-                            <label for="tableSummary">Tabelbeskrivelse</label><br />
-                            <textarea id="tableSummary" ng-model="vm.table.summary" class="textarea"></textarea>
-                        </div>
-                        <div>
-                            <input type="checkbox" id="showSummary" ng-model="vm.table.showSummary" />
-                            <label for="showSummary">Vis tabelbeskrivelse</label>
-                        </div>
-                        <div>
                             <input type="checkbox" id="useFirstRowAsHeader" ng-model="vm.table.useFirstRowAsHeader" ng-change="reIndexCells()" />
                             <label for="useFirstRowAsHeader">Brug første række som header</label>
                         </div>

@@ -239,16 +239,12 @@
 	}
 
 	function _initTable() {
-		console.log('initTable');
 		vm.table = {
 			rows: [],
 			columns: [],
 			cells: [],
 			useFirstRowAsHeader: false,
-			useFirstColumnAsHeader: false,
-			caption: '',
-			summary: '',
-			showSummary: false
+			useFirstColumnAsHeader: false
 		};
 		_addRow();
 	}
