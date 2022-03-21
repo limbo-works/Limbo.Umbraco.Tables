@@ -12,7 +12,7 @@ namespace Limbo.Umbraco.StructuredData.Manifests {
                 PackageName = StructuredDataPackage.Alias,
                 BundleOptions = BundleOptions.Independent,
                 Scripts = new[] {
-                    $"/App_Plugins/{StructuredDataPackage.Alias}/Controllers/StructuredDataEditor.js",
+                    $"/App_Plugins/{StructuredDataPackage.Alias}/Scripts/Controllers/StructuredDataEditor.js",
                     $"/App_Plugins/{StructuredDataPackage.Alias}/Scripts/Controllers/StructuredDataOverlay.js"
                 },
                 Stylesheets = new[] {
