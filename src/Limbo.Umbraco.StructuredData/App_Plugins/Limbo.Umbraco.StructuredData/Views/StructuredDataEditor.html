@@ -6,26 +6,31 @@
                     <div class="toolbar__buttons is-fullwidth">
                         <div>
                             <input type="checkbox" id="useFirstRowAsHeader" ng-model="vm.table.useFirstRowAsHeader" ng-change="reIndexCells()" />
-                            <label for="useFirstRowAsHeader">Brug første række som header</label>
+                            <label for="useFirstRowAsHeader">
+                                <localize key="limboStructuredData_useFirstRowAsHeader">Use first row as header</localize>
+                            </label>
                         </div>
                         <div>
                             <input type="checkbox" id="useFirstColumnAsHeader" ng-model="vm.table.useFirstColumnAsHeader" ng-change="reIndexCells()" />
-                            <label for="useFirstColumnAsHeader">Brug første kolonne som header</label>
+                            <label for="useFirstColumnAsHeader">
+                                <localize key="limboStructuredData_useFirstColumnAsHeader">Use first column as header</localize>
+                            </label>
                         </div>
                     </div>
                 </div>
                 <div class="toolbar">
                     <div class="toolbar__buttons is-fullwidth">
                         <a class="buttons__button btn" ng-click="addRow()">
-                            <i class="icon icon-add"></i>Tilføj række
+                            <i class="icon icon-add"></i>
+                            <localize key="limboStructuredData_addRow">Add row</localize>
                         </a>
                         <a class="buttons__button btn" ng-click="addColumn()">
-                            <i class="icon icon-add"></i>Tilføj kolonne
+                            <i class="icon icon-add"></i>
+                            <localize key="limboStructuredData_addColumn">Add column</localize>
                         </a>
                     </div>
                 </div>
                 <div class="table">
-                    <!--Column controls-->
                     <div class="controls">
                         <div class="controls__control" ng-repeat="column in vm.table.columns">
                             <a class="control__button btn" ng-click="removeColumn($index)">
@@ -48,7 +53,7 @@
                                     <div class="table__column--placeholder" ng-if="cell.value.length === 0">
                                         <div>
                                             <p>
-                                                Tilføj indhold
+                                                <localize key="limboStructuredData_addContent">Add content</localize>
                                             </p>
                                         </div>
                                     </div>
@@ -71,11 +76,5 @@
                 </div>
             </div>
         </div>
-        <!--<pre>{{vm.table | json}}</pre>-->
-        <umb-overlay ng-if="vm.richTextEditor.show"
-                     model="vm.richTextEditor"
-                     position="right"
-                     view="vm.richTextEditor.view">
-        </umb-overlay>
     </div>
 </div>

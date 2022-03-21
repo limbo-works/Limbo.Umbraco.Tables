@@ -1,4 +1,4 @@
-﻿function tablesEditorController($scope, $routeParams, editorService) {
+﻿function tablesEditorController($scope, $routeParams, editorService, localizationService) {
 	var vm = this;
 
 	function _addRow() {
@@ -145,62 +145,70 @@
 	}
 
 	function _editCell(cell) {
-		editorService.open( {
-			view: "/App_Plugins/Limbo.Umbraco.StructuredData/Views/StructuredDataOverlay.html",
-			show: true,
-			title: "Edit cell value",
-			size: "medium",
-			prop: {
-				alias: "value",
-				label: "",
-				view: "rte",
-				config: {
-					editor: {
-						toolbar: [
-							"ace",
-							//	"removeformat",
-							//"styleselect",
-							"bold",
-							"italic",
-							//	"underline",
-							//	"strikethrough",
-							"alignleft",
-							"aligncenter",
-							"alignright",
-							//	"alignjustify",
-							"bullist",
-							"numlist",
-							"outdent",
-							"indent",
-							"link",
-							"unlink",
-							//"umbmediapicker",
-							//	"umbmacro",
-							//	"umbembeddialog",
-							//	"hr",
-							//	"subscript",
-							//	"superscript",
-							//	"charmap",
-							//	"rtl",
-							//	"ltr"
-						],
-						dimensions: {
-							height: 500,
-							width: 0
-						}
-					}
-				},
-				value: cell.value
-			},
-			submit: function (model) {
-				cell.value = model.prop.value;
-				editorService.close();
-			},
-			close: function (model) {
-				editorService.close();
-			}
-		});
-	}
+
+        const o = {
+            view: "/App_Plugins/Limbo.Umbraco.StructuredData/Views/StructuredDataOverlay.html",
+            show: true,
+            title: "Edit cell contentff",
+            size: "medium",
+            prop: {
+                alias: "value",
+                label: "",
+                view: "rte",
+                config: {
+                    editor: {
+                        toolbar: [
+                            "ace",
+                            //	"removeformat",
+                            //"styleselect",
+                            "bold",
+                            "italic",
+                            //	"underline",
+                            //	"strikethrough",
+                            "alignleft",
+                            "aligncenter",
+                            "alignright",
+                            //	"alignjustify",
+                            "bullist",
+                            "numlist",
+                            "outdent",
+                            "indent",
+                            "link",
+                            "unlink",
+                            //"umbmediapicker",
+                            //	"umbmacro",
+                            //	"umbembeddialog",
+                            //	"hr",
+                            //	"subscript",
+                            //	"superscript",
+                            //	"charmap",
+                            //	"rtl",
+                            //	"ltr"
+                        ],
+                        dimensions: {
+                            height: 500,
+                            width: 0
+                        }
+                    }
+                },
+                value: cell.value
+            },
+            submit: function(model) {
+                cell.value = model.prop.value;
+                editorService.close();
+            },
+            close: function(model) {
+                editorService.close();
+            }
+        };
+
+		editorService.open(o);
+
+        localizationService.localize("limboStructuredData_editCellContent").then(function(value) {
+            o.title = value;
+        });
+
+    }
 
 	function _getCssClass(backgroundColour) {
 		return '';
