@@ -4,10 +4,10 @@ Structured data table editor for Umbraco 9.
 
 ## Installation
 
-Install for Umbraco 9 via [NuGet](https://www.nuget.org/packages/Limbo.Umbraco.StructuredData/1.0.0-alpha001):
+Install for Umbraco 9 via [NuGet](https://www.nuget.org/packages/Limbo.Umbraco.StructuredData/1.0.0-beta001):
 
 ```
-dotnet add package Limbo.Umbraco.StructuredData --version 1.0.0-alpha001
+dotnet add package Limbo.Umbraco.StructuredData --version 1.0.0-beta001
 ```
 
 ## Documentation
