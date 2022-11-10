@@ -1,10 +1,10 @@
-﻿function tablesEditorController($scope, $routeParams, editorService, localizationService) {
+﻿angular.module("umbraco").controller("Limbo.Umbraco.Tables.Editor.Controller", function ($scope, $routeParams, editorService, localizationService) {
 
-    const vm = this;
+	const vm = this;
 
-	vm.addRow = function() {
+	vm.addRow = function () {
 
-        const row = {};
+		const row = {};
 
 		vm.table.rows.push(row);
 
@@ -15,11 +15,11 @@
 
 		vm.addEmptyCells();
 
-    }
+	}
 
-	vm.addColumn = function() {
+	vm.addColumn = function () {
 
-        if (vm.table.columns.length >= 12) {
+		if (vm.table.columns.length >= 12) {
 			return;
 		}
 
@@ -27,18 +27,18 @@
 
 		vm.table.columns.push(column);
 
-        vm.addEmptyCells();
+		vm.addEmptyCells();
 
-    }
+	}
 
-	vm.addEmptyCells = function() {
+	vm.addEmptyCells = function () {
 
-        if (vm.table.cells.length === 0) {
+		if (vm.table.cells.length === 0) {
 			vm.addNewRows(vm.table.rows.length);
-            return;
-        }
+			return;
+		}
 
-        // Get column difference
+		// Get column difference
 		const firstCell = vm.table.cells[0];
 		const diffColumns = vm.table.columns.length - firstCell.length;
 
@@ -62,7 +62,7 @@
 		if (diffRows < 0) {
 			// Remove rows
 			vm.table.cells.splice(diffRows, diffRows);
-		}  else if (diffRows > 0) {
+		} else if (diffRows > 0) {
 			vm.addNewRows(diffRows);
 		}
 
@@ -71,15 +71,15 @@
 	vm.addNewRows = function (count) {
 		for (let i = 0; i < count; i++) {
 			const rows = [];
-            for (let column = 0; column < vm.table.columns.length; column++) {
+			for (let column = 0; column < vm.table.columns.length; column++) {
 				const cell = vm.getEmptyCell((vm.table.rows.length - 1) + i, column);
 				rows.push(cell);
 			}
-            vm.table.cells.push(rows);
+			vm.table.cells.push(rows);
 		}
 	}
 
-	vm.getEmptyCell = function(rowIndex, columnIndex) {
+	vm.getEmptyCell = function (rowIndex, columnIndex) {
 		return {
 			rowIndex: rowIndex,
 			columnIndex: columnIndex,
@@ -89,7 +89,7 @@
 		};
 	}
 
-	vm.reIndexCells = function() {
+	vm.reIndexCells = function () {
 		vm.table.cells.forEach(function (row, rowIndex) {
 			row.forEach(function (cell, colIndex) {
 				if (vm.table.useFirstRowAsHeader && vm.table.useFirstColumnAsHeader) {
@@ -111,15 +111,15 @@
 					cell.type = "td";
 					cell.scope = null;
 				}
-                cell.columnIndex = colIndex;
+				cell.columnIndex = colIndex;
 				cell.rowIndex = rowIndex;
 			});
 		});
 	}
 
-	vm.removeColumn = function(index) {
+	vm.removeColumn = function (index) {
 
-        if (vm.table.columns.length === 1) {
+		if (vm.table.columns.length === 1) {
 			return;
 		}
 
@@ -128,13 +128,13 @@
 			row.splice(index, 1);
 		});
 
-        vm.reIndexCells();
+		vm.reIndexCells();
 
-    }
+	}
 
-	vm.removeRow = function(index) {
+	vm.removeRow = function (index) {
 
-        if (vm.table.rows.length === 1) {
+		if (vm.table.rows.length === 1) {
 			return;
 		}
 
@@ -142,115 +142,115 @@
 		vm.table.cells.splice(index, 1);
 		vm.reIndexCells();
 
-    }
+	}
 
-	vm.editCell = function(cell) {
+	vm.editCell = function (cell) {
 
-        const o = {
-            view: "/App_Plugins/Limbo.Umbraco.StructuredData/Views/StructuredDataOverlay.html",
-            show: true,
-            title: "Edit cell contentff",
-            size: "medium",
-            prop: {
-                alias: "value",
-                label: "",
-                view: "rte",
-                config: {
-                    editor: {
-                        toolbar: [
-                            "ace",
-                            //	"removeformat",
-                            //"styleselect",
-                            "bold",
-                            "italic",
-                            //	"underline",
-                            //	"strikethrough",
-                            "alignleft",
-                            "aligncenter",
-                            "alignright",
-                            //	"alignjustify",
-                            "bullist",
-                            "numlist",
-                            "outdent",
-                            "indent",
-                            "link",
-                            "unlink",
-                            //"umbmediapicker",
-                            //	"umbmacro",
-                            //	"umbembeddialog",
-                            //	"hr",
-                            //	"subscript",
-                            //	"superscript",
-                            //	"charmap",
-                            //	"rtl",
-                            //	"ltr"
-                        ],
-                        dimensions: {
-                            height: 500,
-                            width: 0
-                        }
-                    }
-                },
-                value: cell.value
-            },
-            submit: function(model) {
-                cell.value = model.prop.value;
-                editorService.close();
-            },
-            close: function() {
-                editorService.close();
-            }
-        };
+		const o = {
+			view: "/App_Plugins/Limbo.Umbraco.StructuredData/Views/StructuredDataOverlay.html",
+			show: true,
+			title: "Edit cell contentff",
+			size: "medium",
+			prop: {
+				alias: "value",
+				label: "",
+				view: "rte",
+				config: {
+					editor: {
+						toolbar: [
+							"ace",
+							//	"removeformat",
+							//"styleselect",
+							"bold",
+							"italic",
+							//	"underline",
+							//	"strikethrough",
+							"alignleft",
+							"aligncenter",
+							"alignright",
+							//	"alignjustify",
+							"bullist",
+							"numlist",
+							"outdent",
+							"indent",
+							"link",
+							"unlink",
+							//"umbmediapicker",
+							//	"umbmacro",
+							//	"umbembeddialog",
+							//	"hr",
+							//	"subscript",
+							//	"superscript",
+							//	"charmap",
+							//	"rtl",
+							//	"ltr"
+						],
+						dimensions: {
+							height: 500,
+							width: 0
+						}
+					}
+				},
+				value: cell.value
+			},
+			submit: function (model) {
+				cell.value = model.prop.value;
+				editorService.close();
+			},
+			close: function () {
+				editorService.close();
+			}
+		};
 
 		editorService.open(o);
 
-        localizationService.localize("limboStructuredData_editCellContent").then(function(value) {
-            o.title = value;
-        });
+		localizationService.localize("limboStructuredData_editCellContent").then(function (value) {
+			o.title = value;
+		});
 
-    }
+	}
 
-	vm.getCssClass = function() {
+	vm.getCssClass = function () {
 		return "";
 	}
 
-    vm.getTableClas = function() {
+	vm.getTableClas = function () {
 		return "";
 	}
 
-    vm.getRowClass = function(rowIndex) {
+	vm.getRowClass = function (rowIndex) {
 		return "";
 	}
 
-    vm.getColumnClass = function(cell) {
+	vm.getColumnClass = function (cell) {
 		return "";
 	}
 
-    vm.showRowAndColumnSettings = function() {
+	vm.showRowAndColumnSettings = function () {
 		return "";
 	}
 
 
-    function loadTable() {
-        if (!$scope.model.value || !($scope.model.value instanceof Object)) return;
-        vm.table = $scope.model.value;
-    }
+	function loadTable() {
+		if (!$scope.model.value || !($scope.model.value instanceof Object)) return;
+		vm.table = $scope.model.value;
+	}
 
 	function save() {
 
 		// Re-index all the cells
-        vm.reIndexCells();
+		vm.reIndexCells();
 
 		// Set the model value to empty if all cells are empty
-        if (vm.table.cells.filter(x => !x.value).length > 0) {
-            $scope.model.value = vm.table;
-        } else {
-            $scope.model.value = "";
-        }
+		if (vm.table.cells.filter(x => !x.value).length > 0) {
+			$scope.model.value = vm.table;
+		} else {
+			$scope.model.value = "";
+		}
 
-    }
+	}
 
-    function initTable() {
+	function initTable() {
 		vm.table = {
 			rows: [],
 			columns: [],
@@ -262,13 +262,11 @@
 	}
 
 	function init() {
-        initTable();
-        if ($routeParams.id !== "-1") loadTable();
-        $scope.$on("formSubmitting", save);
+		initTable();
+		if ($routeParams.id !== "-1") loadTable();
+		$scope.$on("formSubmitting", save);
 	}
 
 	init();
 
-}
-
-angular.module("umbraco").controller("Limbo.Umbraco.Tables.Editor.Controller", tablesEditorController);
+});
