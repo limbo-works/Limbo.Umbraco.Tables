@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Limbo.Umbraco.Tables</name>
+    </assembly>
+    <members>
+        <member name="T:Limbo.Umbraco.Tables.Composers.TablesComposer">
+            <inheritdoc />
+        </member>
+        <member name="M:Limbo.Umbraco.Tables.Composers.TablesComposer.Compose(Umbraco.Cms.Core.DependencyInjection.IUmbracoBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Limbo.Umbraco.Tables.Manifests.TablesManifestFilter">
+            <inheritdoc />
+        </member>
+        <member name="M:Limbo.Umbraco.Tables.Manifests.TablesManifestFilter.Filter(System.Collections.Generic.List{Umbraco.Cms.Core.Manifest.PackageManifest})">
+            <inheritdoc />
+        </member>
+        <member name="T:Limbo.Umbraco.Tables.Models.TablesDataCell">
+            <summary>
+            Class representing a cell in a <see cref="T:Limbo.Umbraco.Tables.Models.TablesDataModel"/> value.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataCell.RowIndex">
+            <summary>
+            Gets the row index.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataCell.Row">
+            <summary>
+            Gets a reference to the row.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataCell.ColumnIndex">
+            <summary>
+            Gets the column index.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataCell.Column">
+            <summary>
+            Gets a reference to the column.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataCell.Value">
+            <summary>
+            Gets a reference to the column value.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataCell.Type">
+            <summary>
+            Gets a reference to the type of the cell - eg. <c>td</c> or <c>th</c>.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataCell.Scope">
+            <summary>
+            Gets a reference to the scope of the cell - eg. <c>row</c> or <c>col</c>.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.Tables.Models.TablesDataColumn">
+            <summary>
+            Class representing a column in a <see cref="T:Limbo.Umbraco.Tables.Models.TablesDataModel"/> value.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataColumn.Index">
+            <summary>
+            Gets the column index.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.Tables.Models.TablesDataModel">
+            <summary>
+            Class representing the value of a <see cref="T:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor"/>.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataModel.UseFirstRowAsHeader">
+            <summary>
+            Gets whether the first row of the table should be used as a header.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataModel.UseFirstColumnAsHeader">
+            <summary>
+            Gets whether the first column of the table should be used as a header.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataModel.Rows">
+            <summary>
+            Gets a list of the rows in the structued data table.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataModel.Columns">
+            <summary>
+            Gets a list of the columns in the structued data table.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataModel.Cells">
+            <summary>
+            Gets a list of the cells in the structued data table.
+            </summary>
+        </member>
+        <member name="M:Limbo.Umbraco.Tables.Models.TablesDataModel.Parse(Newtonsoft.Json.Linq.JObject,Limbo.Umbraco.Tables.Parsers.TablesHtmlParser,System.Boolean)">
+            <summary>
+            Returns a new instance of <see cref="T:Limbo.Umbraco.Tables.Models.TablesDataModel"/> parsed from the specified <paramref name="json"/> object, or <c>null</c> if <paramref name="json"/> is null.
+            </summary>
+            <param name="json">The JSON object.</param>
+            <param name="htmlParser">An instance of <see cref="T:Limbo.Umbraco.Tables.Parsers.TablesHtmlParser"/> to be used for parsing HTML values.</param>
+            <param name="preview">Whether the model is part of a page being viewed in preview mode.</param>
+            <returns>An instance of <see cref="T:Limbo.Umbraco.Tables.Models.TablesDataModel"/>, or <c>null</c> if <paramref name="json"/> is null.</returns>
+        </member>
+        <member name="T:Limbo.Umbraco.Tables.Models.TablesDataRow">
+            <summary>
+            Class representing a row in a <see cref="T:Limbo.Umbraco.Tables.Models.TablesDataModel"/> value.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.Tables.Models.TablesDataRow.Index">
+            <summary>
+            Gets the index of the row.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.Tables.Parsers.TablesHtmlParser">
+            <summary>
+            HTML parsed used by the <see cref="T:Limbo.Umbraco.Tables.PropertyEditors.TablesDataValueConverter"/> class.
+            </summary>
+        </member>
+        <member name="M:Limbo.Umbraco.Tables.Parsers.TablesHtmlParser.#ctor(Umbraco.Cms.Core.Templates.HtmlLocalLinkParser,Umbraco.Cms.Core.Templates.HtmlUrlParser,Umbraco.Cms.Core.Templates.HtmlImageSourceParser)">
+            <summary>
+            Initializes a new instance based on the specified dependencies.
+            </summary>
+            <param name="linkParser"></param>
+            <param name="urlParser"></param>
+            <param name="imageSourceParser"></param>
+        </member>
+        <member name="M:Limbo.Umbraco.Tables.Parsers.TablesHtmlParser.Parse(System.String,System.Boolean)">
+            <summary>
+            Parses the specified <paramref name="sourceString"/>.
+            </summary>
+            <param name="sourceString">The HTML string to be parsed.</param>
+            <param name="preview">Whether the HTML string should be parsed in preview mode.</param>
+            <returns>The parsed HTML string.</returns>
+        </member>
+        <member name="T:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor">
+            <summary>
+            Represents a block list property editor.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor.EditorAlias">
+            <summary>
+            Gets the alias of the <see cref="T:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor"/> property editor.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor.EditorName">
+            <summary>
+            Gets the name of the <see cref="T:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor"/> property editor.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor.EditorView">
+            <summary>
+            Gets the URL of the view of the <see cref="T:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor"/> property editor.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor.EditorIcon">
+            <summary>
+            Gets the icon of the <see cref="T:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor"/> property editor.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.Tables.PropertyEditors.TablesDataValueConverter">
+            <summary>
+            Property value converter for <see cref="T:Limbo.Umbraco.Tables.PropertyEditors.TablesDataEditor"/>.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.Tables.TablesPackage">
+            <summary>
+            Static class with various information and constants about the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.TablesPackage.Alias">
+            <summary>
+            Gets the alias of the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.TablesPackage.Name">
+            <summary>
+            Gets the friendly name of the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.TablesPackage.Version">
+            <summary>
+            Gets the version of the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.TablesPackage.SemVersion">
+            <summary>
+            Gets the semantic version of the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.TablesPackage.GitHubUrl">
+            <summary>
+            Gets the URL of the GitHub repository for this package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.TablesPackage.IssuesUrl">
+            <summary>
+            Gets the URL of the issue tracker for this package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.Tables.TablesPackage.DocumentationUrl">
+            <summary>
+            Gets the URL of the documentation for this package.
+            </summary>
+        </member>
+    </members>
+</doc>

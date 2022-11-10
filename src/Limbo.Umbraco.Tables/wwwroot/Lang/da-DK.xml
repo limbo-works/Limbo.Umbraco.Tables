@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<language alias="en" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+	<area alias="limboTables">
+		<key alias="addRow">Tilføj række</key>
+		<key alias="addColumn">Tilføj kolonne</key>
+		<key alias="addContent">Tilføj indhold</key>
+		<key alias="useFirstRowAsHeader">Brug første række som header</key>
+		<key alias="useFirstColumnAsHeader">Brug første kolonne som header</key>
+		<key alias="addCellContent">Tilføj cellens indhold</key>
+		<key alias="editCellContent">Redigér cellens indhold</key>
+	</area>
+</language>

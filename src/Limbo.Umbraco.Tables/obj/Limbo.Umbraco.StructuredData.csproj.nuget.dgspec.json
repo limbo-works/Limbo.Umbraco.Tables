@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Repositories\\Limbo.Umbraco.StructuredData (Umbraco 10)\\src\\Limbo.Umbraco.StructuredData\\Limbo.Umbraco.StructuredData.csproj": {}
+  },
+  "projects": {
+    "D:\\Repositories\\Limbo.Umbraco.StructuredData (Umbraco 10)\\src\\Limbo.Umbraco.StructuredData\\Limbo.Umbraco.StructuredData.csproj": {
+      "version": "2.0.0-beta001",
+      "restore": {
+        "projectUniqueName": "D:\\Repositories\\Limbo.Umbraco.StructuredData (Umbraco 10)\\src\\Limbo.Umbraco.StructuredData\\Limbo.Umbraco.StructuredData.csproj",
+        "projectName": "Limbo.Umbraco.StructuredData",
+        "projectPath": "D:\\Repositories\\Limbo.Umbraco.StructuredData (Umbraco 10)\\src\\Limbo.Umbraco.StructuredData\\Limbo.Umbraco.StructuredData.csproj",
+        "packagesPath": "C:\\Users\\ander\\.nuget\\packages\\",
+        "outputPath": "D:\\Repositories\\Limbo.Umbraco.StructuredData (Umbraco 10)\\src\\Limbo.Umbraco.StructuredData\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\ander\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\nuget": {},
+          "D:\\Repositories\\Skybrud.dk\\Skybrud.Essentials\\releases\\nuget": {},
+          "https://www.myget.org/F/umbracocore/api/v3/index.json": {},
+          "https://www.myget.org/F/umbracoprereleases/api/v3/index.json": {},
+          "https://www.nuget.org/api/v2/": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Skybrud.Essentials": {
+              "target": "Package",
+              "version": "[1.1.43, )"
+            },
+            "Umbraco.Cms.Core": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "Umbraco.Cms.Web.BackOffice": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            },
+            "Umbraco.Cms.Web.Website": {
+              "target": "Package",
+              "version": "[10.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

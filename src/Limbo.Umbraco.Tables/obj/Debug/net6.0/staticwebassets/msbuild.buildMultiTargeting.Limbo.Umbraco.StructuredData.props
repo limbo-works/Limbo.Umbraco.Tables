@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Limbo.Umbraco.StructuredData.props" />
+</Project>

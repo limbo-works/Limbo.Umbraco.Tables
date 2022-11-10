@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Limbo.Umbraco.StructuredData</name>
+    </assembly>
+    <members>
+        <member name="T:Limbo.Umbraco.StructuredData.Composers.StructuredDataComposer">
+            <inheritdoc />
+        </member>
+        <member name="M:Limbo.Umbraco.StructuredData.Composers.StructuredDataComposer.Compose(Umbraco.Cms.Core.DependencyInjection.IUmbracoBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Limbo.Umbraco.StructuredData.Manifests.StructuredDataManifestFilter">
+            <inheritdoc />
+        </member>
+        <member name="M:Limbo.Umbraco.StructuredData.Manifests.StructuredDataManifestFilter.Filter(System.Collections.Generic.List{Umbraco.Cms.Core.Manifest.PackageManifest})">
+            <inheritdoc />
+        </member>
+        <member name="T:Limbo.Umbraco.StructuredData.Models.StructuredDataCell">
+            <summary>
+            Class representing a cell in a <see cref="T:Limbo.Umbraco.StructuredData.Models.StructuredDataModel"/> value.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataCell.RowIndex">
+            <summary>
+            Gets the row index.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataCell.Row">
+            <summary>
+            Gets a reference to the row.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataCell.ColumnIndex">
+            <summary>
+            Gets the column index.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataCell.Column">
+            <summary>
+            Gets a reference to the column.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataCell.Value">
+            <summary>
+            Gets a reference to the column value.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataCell.Type">
+            <summary>
+            Gets a reference to the type of the cell - eg. <c>td</c> or <c>th</c>.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataCell.Scope">
+            <summary>
+            Gets a reference to the scope of the cell - eg. <c>row</c> or <c>col</c>.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.StructuredData.Models.StructuredDataColumn">
+            <summary>
+            Class representing a column in a <see cref="T:Limbo.Umbraco.StructuredData.Models.StructuredDataModel"/> value.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataColumn.Index">
+            <summary>
+            Gets the column index.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.StructuredData.Models.StructuredDataModel">
+            <summary>
+            Class representing the value of a <see cref="T:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor"/>.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataModel.UseFirstRowAsHeader">
+            <summary>
+            Gets whether the first row of the table should be used as a header.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataModel.UseFirstColumnAsHeader">
+            <summary>
+            Gets whether the first column of the table should be used as a header.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataModel.Rows">
+            <summary>
+            Gets a list of the rows in the structued data table.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataModel.Columns">
+            <summary>
+            Gets a list of the columns in the structued data table.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataModel.Cells">
+            <summary>
+            Gets a list of the cells in the structued data table.
+            </summary>
+        </member>
+        <member name="M:Limbo.Umbraco.StructuredData.Models.StructuredDataModel.Parse(Newtonsoft.Json.Linq.JObject,Limbo.Umbraco.StructuredData.Parsers.StructuredDataHtmlParser,System.Boolean)">
+            <summary>
+            Returns a new instance of <see cref="T:Limbo.Umbraco.StructuredData.Models.StructuredDataModel"/> parsed from the specified <paramref name="json"/> object, or <c>null</c> if <paramref name="json"/> is null.
+            </summary>
+            <param name="json">The JSON object.</param>
+            <param name="htmlParser">An instance of <see cref="T:Limbo.Umbraco.StructuredData.Parsers.StructuredDataHtmlParser"/> to be used for parsing HTML values.</param>
+            <param name="preview">Whether the model is part of a page being viewed in preview mode.</param>
+            <returns>An instance of <see cref="T:Limbo.Umbraco.StructuredData.Models.StructuredDataModel"/>, or <c>null</c> if <paramref name="json"/> is null.</returns>
+        </member>
+        <member name="T:Limbo.Umbraco.StructuredData.Models.StructuredDataRow">
+            <summary>
+            Class representing a row in a <see cref="T:Limbo.Umbraco.StructuredData.Models.StructuredDataModel"/> value.
+            </summary>
+        </member>
+        <member name="P:Limbo.Umbraco.StructuredData.Models.StructuredDataRow.Index">
+            <summary>
+            Gets the index of the row.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.StructuredData.Parsers.StructuredDataHtmlParser">
+            <summary>
+            HTML parsed used by the <see cref="T:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataValueConverter"/> class.
+            </summary>
+        </member>
+        <member name="M:Limbo.Umbraco.StructuredData.Parsers.StructuredDataHtmlParser.#ctor(Umbraco.Cms.Core.Templates.HtmlLocalLinkParser,Umbraco.Cms.Core.Templates.HtmlUrlParser,Umbraco.Cms.Core.Templates.HtmlImageSourceParser)">
+            <summary>
+            Initializes a new instance based on the specified dependencies.
+            </summary>
+            <param name="linkParser"></param>
+            <param name="urlParser"></param>
+            <param name="imageSourceParser"></param>
+        </member>
+        <member name="M:Limbo.Umbraco.StructuredData.Parsers.StructuredDataHtmlParser.Parse(System.String,System.Boolean)">
+            <summary>
+            Parses the specified <paramref name="sourceString"/>.
+            </summary>
+            <param name="sourceString">The HTML string to be parsed.</param>
+            <param name="preview">Whether the HTML string should be parsed in preview mode.</param>
+            <returns>The parsed HTML string.</returns>
+        </member>
+        <member name="T:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor">
+            <summary>
+            Represents a block list property editor.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor.EditorAlias">
+            <summary>
+            Gets the alias of the <see cref="T:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor"/> property editor.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor.EditorName">
+            <summary>
+            Gets the name of the <see cref="T:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor"/> property editor.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor.EditorView">
+            <summary>
+            Gets the URL of the view of the <see cref="T:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor"/> property editor.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor.EditorIcon">
+            <summary>
+            Gets the icon of the <see cref="T:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor"/> property editor.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataValueConverter">
+            <summary>
+            Property value converter for <see cref="T:Limbo.Umbraco.StructuredData.PropertyEditors.StructuredDataEditor"/>.
+            </summary>
+        </member>
+        <member name="T:Limbo.Umbraco.StructuredData.StructuredDataPackage">
+            <summary>
+            Static class with various information and constants about the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.StructuredDataPackage.Alias">
+            <summary>
+            Gets the alias of the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.StructuredDataPackage.Name">
+            <summary>
+            Gets the friendly name of the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.StructuredDataPackage.Version">
+            <summary>
+            Gets the version of the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.StructuredDataPackage.SemVersion">
+            <summary>
+            Gets the semantic version of the package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.StructuredDataPackage.GitHubUrl">
+            <summary>
+            Gets the URL of the GitHub repository for this package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.StructuredDataPackage.IssuesUrl">
+            <summary>
+            Gets the URL of the issue tracker for this package.
+            </summary>
+        </member>
+        <member name="F:Limbo.Umbraco.StructuredData.StructuredDataPackage.DocumentationUrl">
+            <summary>
+            Gets the URL of the documentation for this package.
+            </summary>
+        </member>
+    </members>
+</doc>
