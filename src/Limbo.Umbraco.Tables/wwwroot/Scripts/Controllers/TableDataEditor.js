@@ -227,14 +227,22 @@
 		// Re-index all the cells
 		vm.reIndexCells();
 
-		// Set the model value to empty if all cells are empty
-		if (vm.table.cells.filter(x => !x.value).length > 0) {
-			$scope.model.value = vm.table;
-		} else {
-			$scope.model.value = "";
-		}
+		// Determine whether all cells are currently empty
+		let allEmpty = true;
+        for (let i = 0; i < vm.table.cells.length; i++) {
+            if (!allEmpty) break;
+			for (let j = 0; j < vm.table.cells[i].length; j++) {
+				if (vm.table.cells[i][j].value) {
+					allEmpty = false;
+                    break;
+                }
+            }
+        }
 
-	}
+		// Persist the table model back to the property value, but not if all cells are empty
+		$scope.model.value = allEmpty ? "" : vm.table;
+
+    }
 
 	function initTable() {
 		vm.table = {
