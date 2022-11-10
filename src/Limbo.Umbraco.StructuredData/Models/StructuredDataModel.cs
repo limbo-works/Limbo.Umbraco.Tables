@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Limbo.Umbraco.StructuredData.Parsers;
 using Limbo.Umbraco.StructuredData.PropertyEditors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 
 namespace Limbo.Umbraco.StructuredData.Models {
 
@@ -85,7 +86,7 @@ namespace Limbo.Umbraco.StructuredData.Models {
                 int columnIndex = c;
                 StructuredDataColumn column = Columns[columnIndex];
 
-                temp.Add(array.GetObject(c, x => new StructuredDataCell(x, index, row, columnIndex, column, htmlParser, preview)));
+                temp.Add(array.GetObject(c, x => new StructuredDataCell(x, index, row, columnIndex, column, htmlParser, preview))!);
 
             }
 
@@ -104,7 +105,8 @@ namespace Limbo.Umbraco.StructuredData.Models {
         /// <param name="htmlParser">An instance of <see cref="StructuredDataHtmlParser"/> to be used for parsing HTML values.</param>
         /// <param name="preview">Whether the model is part of a page being viewed in preview mode.</param>
         /// <returns>An instance of <see cref="StructuredDataModel"/>, or <c>null</c> if <paramref name="json"/> is null.</returns>
-        public static StructuredDataModel Parse(JObject json, StructuredDataHtmlParser htmlParser, bool preview) {
+        [return: NotNullIfNotNull("json")]
+        public static StructuredDataModel? Parse(JObject? json, StructuredDataHtmlParser htmlParser, bool preview) {
             return json == null ? null : new StructuredDataModel(json, htmlParser, preview);
         }
 

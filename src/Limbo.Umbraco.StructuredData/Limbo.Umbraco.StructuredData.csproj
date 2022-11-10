@@ -1,18 +1,19 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <LangVersion>9.0</LangVersion>
-    <TargetFramework>net5.0</TargetFramework>
-    <ContentTargetFolders>content</ContentTargetFolders>
+    <LangVersion>10.0</LangVersion>
+    <TargetFramework>net6.0</TargetFramework>
+    <StaticWebAssetBasePath>App_Plugins/$(AssemblyName)</StaticWebAssetBasePath>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>1.0.0-beta001</Version>
+    <Version>2.0.0-beta001</Version>
     <Company>Limbo</Company>
     <Authors>Anders Bjerner</Authors>
     <Copyright>Copyright © 2022</Copyright>
-    <Title>Limbo StructuredData</Title>
-    <Description>Structured data table editor for Umbraco 9.</Description>
+    <Title>Limbo Structured Data</Title>
+    <Description>Structured data table editor for Umbraco 10.</Description>
   </PropertyGroup>
 
   <!-- Information for the NuGet package -->
@@ -28,23 +29,16 @@
 
   <!-- Include NuGet dependencies -->
   <ItemGroup>
-    <PackageReference Include="Skybrud.Essentials" Version="1.1.37" />
-    <PackageReference Include="Umbraco.Cms.Core" Version="9.0.0" />
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="9.0.0" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="9.0.0" />
+    <PackageReference Include="Skybrud.Essentials" Version="1.1.43" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="10.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="10.0.0" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.0" />
   </ItemGroup>
 
-  <!-- Include backoffice assets -->
+  <!-- Backoffice assets -->
   <ItemGroup>
-    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\**\*.css" />
-    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\**\*.html" />
-    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\**\*.js" />
-    <Content Include="App_Plugins\Limbo.Umbraco.StructuredData\Lang\*.xml" />
-  </ItemGroup>
-
-  <!-- Include the targets file -->
-  <ItemGroup>
-    <Content Include="../build/$(AssemblyName).targets" PackagePath="build\$(AssemblyName).targets" />
+    <Content Remove="compilerconfig.json" />
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
   <!-- Include package icon for NuGet -->

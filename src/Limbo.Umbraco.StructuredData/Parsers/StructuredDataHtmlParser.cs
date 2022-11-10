@@ -1,4 +1,5 @@
-﻿using Limbo.Umbraco.StructuredData.PropertyEditors;
+﻿using System.Diagnostics.CodeAnalysis;
+using Limbo.Umbraco.StructuredData.PropertyEditors;
 using Umbraco.Cms.Core.Templates;
 
 namespace Limbo.Umbraco.StructuredData.Parsers {
@@ -30,7 +31,8 @@ namespace Limbo.Umbraco.StructuredData.Parsers {
         /// <param name="sourceString">The HTML string to be parsed.</param>
         /// <param name="preview">Whether the HTML string should be parsed in preview mode.</param>
         /// <returns>The parsed HTML string.</returns>
-        public string Parse(string sourceString, bool preview) {
+        [return: NotNullIfNotNull("sourceString")]
+        public string? Parse(string? sourceString, bool preview) {
 
             if (sourceString == null) return null;
 

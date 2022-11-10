@@ -2,7 +2,7 @@
 using Limbo.Umbraco.StructuredData.Models;
 using Limbo.Umbraco.StructuredData.Parsers;
 using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json;
+using Skybrud.Essentials.Json.Newtonsoft;
 using Umbraco.Cms.Core.Models.PublishedContent;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Extensions;
@@ -26,16 +26,12 @@ namespace Limbo.Umbraco.StructuredData.PropertyEditors {
             return propertyType.EditorAlias == StructuredDataEditor.EditorAlias;
         }
 
-        public override object ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object source, bool preview) {
+        public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object? source, bool preview) {
             return source is string str && str.DetectIsJson() ? JsonUtils.ParseJsonObject(str) : null;
         }
 
-        public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview) {
+        public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object? inter, bool preview) {
             return StructuredDataModel.Parse(inter as JObject, _htmlParser, preview);
-        }
-
-        public override object ConvertIntermediateToXPath(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview) {
-            return null;
         }
 
         public override Type GetPropertyValueType(IPublishedPropertyType propertyType) {

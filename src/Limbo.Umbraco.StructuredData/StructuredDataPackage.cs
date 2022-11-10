@@ -22,7 +22,7 @@ namespace Limbo.Umbraco.StructuredData {
         /// <summary>
         /// Gets the version of the package.
         /// </summary>
-        public static readonly Version Version = typeof(StructuredDataPackage).Assembly.GetName().Version;
+        public static readonly Version Version = typeof(StructuredDataPackage).Assembly.GetName().Version!;
 
         /// <summary>
         /// Gets the semantic version of the package.

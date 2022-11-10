@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Extensions;
+using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 
 namespace Limbo.Umbraco.StructuredData.Models {
 
@@ -17,7 +17,7 @@ namespace Limbo.Umbraco.StructuredData.Models {
 
             for (int i = 0; i < array.Count; i++) {
 
-                temp.Add(callback(i, array.GetObject(i)));
+                temp.Add(callback(i, array.GetObject(i)!));
 
             }
 
@@ -31,7 +31,7 @@ namespace Limbo.Umbraco.StructuredData.Models {
 
             for (int i = 0; i < array.Count; i++) {
 
-                temp.Add(callback(i, array.GetArray(i)));
+                temp.Add(callback(i, array.GetArray(i)!));
 
             }
 
