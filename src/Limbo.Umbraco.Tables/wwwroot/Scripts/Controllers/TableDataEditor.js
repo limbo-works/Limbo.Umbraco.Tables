@@ -147,7 +147,7 @@
 	vm.editCell = function (cell) {
 
 		const o = {
-			view: "/App_Plugins/Limbo.Umbraco.StructuredData/Views/StructuredDataOverlay.html",
+			view: "/App_Plugins/Limbo.Umbraco.Tables/Views/TableOverlay.html",
 			show: true,
 			title: "Edit cell contentff",
 			size: "medium",
