@@ -233,14 +233,21 @@
 
     function loadTable() {
         if (!$scope.model.value || !($scope.model.value instanceof Object)) return;
-        console.log($scope.model.value);
         vm.table = $scope.model.value;
     }
 
-    function save() {
-        console.log("saving", vm.table);
+	function save() {
+
+		// Re-index all the cells
         vm.reIndexCells();
-        $scope.model.value = vm.table;
+
+		// Set the model value to empty if all cells are empty
+        if (vm.table.cells.filter(x => !x.value).length > 0) {
+            $scope.model.value = vm.table;
+        } else {
+            $scope.model.value = "";
+        }
+
     }
 
     function initTable() {
