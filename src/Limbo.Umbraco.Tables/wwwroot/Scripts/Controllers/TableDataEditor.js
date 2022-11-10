@@ -159,31 +159,17 @@
 					editor: {
 						toolbar: [
 							"ace",
-							//	"removeformat",
-							//"styleselect",
 							"bold",
 							"italic",
-							//	"underline",
-							//	"strikethrough",
 							"alignleft",
 							"aligncenter",
 							"alignright",
-							//	"alignjustify",
 							"bullist",
 							"numlist",
 							"outdent",
 							"indent",
 							"link",
-							"unlink",
-							//"umbmediapicker",
-							//	"umbmacro",
-							//	"umbembeddialog",
-							//	"hr",
-							//	"subscript",
-							//	"superscript",
-							//	"charmap",
-							//	"rtl",
-							//	"ltr"
+							"unlink"
 						],
 						dimensions: {
 							height: 500,
