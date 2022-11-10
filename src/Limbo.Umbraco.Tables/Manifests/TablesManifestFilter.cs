@@ -13,8 +13,8 @@ namespace Limbo.Umbraco.Tables.Manifests {
                 PackageName = TablesPackage.Alias.ToKebabCase(),
                 BundleOptions = BundleOptions.Independent,
                 Scripts = new[] {
-                    $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/StructuredDataEditor.js",
-                    $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/StructuredDataOverlay.js"
+                    $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/TableDataEditor.js",
+                    $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/TableDataOverlay.js"
                 },
                 Stylesheets = new[] {
                     $"/App_Plugins/{TablesPackage.Alias}/Styles/Styles.css"
