@@ -12,6 +12,6 @@ build_property.RootNamespace = Limbo.Umbraco.Tables
 build_property.ProjectDir = D:\Repositories\Limbo.Umbraco.Tables (Umbraco 10)\src\Limbo.Umbraco.Tables\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = true
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = D:\Repositories\Limbo.Umbraco.Tables (Umbraco 10)\src\Limbo.Umbraco.Tables
 build_property._RazorSourceGeneratorDebug = 
