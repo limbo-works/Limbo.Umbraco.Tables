@@ -1,18 +1,57 @@
-# Limbo Structured Data  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/v/Limbo.Umbraco.StructuredData.svg)](https://www.nuget.org/packages/Limbo.Umbraco.StructuredData) [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.StructuredData.svg)](https://www.nuget.org/packages/Limbo.Umbraco.StructuredData) <!--[![Our Umbraco](https://img.shields.io/badge/our-umbraco-%233544B1)](https://our.umbraco.com/packages/backoffice-extensions/limbo-structured-data/)-->
+# Limbo Tables  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/v/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables) [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables) [![Our Umbraco](https://img.shields.io/badge/our-umbraco-%233544B1)](https://our.umbraco.com/packages/backoffice-extensions/limbo-tables/)
 
-Structured data table editor for Umbraco 9.
+Table editor for Umbraco 10.
+
+
+<br /><br />
 
 ## Installation
 
-Install for Umbraco 9 via [NuGet](https://www.nuget.org/packages/Limbo.Umbraco.StructuredData/1.0.0-beta001):
+Install for Umbraco 10 via [NuGet](https://www.nuget.org/packages/Limbo.Umbraco.Tables/1.0.0):
 
 ```
-dotnet add package Limbo.Umbraco.StructuredData --version 1.0.0-beta001
+dotnet add package Limbo.Umbraco.Tables --version 1.0.0
 ```
+
+
+<br /><br />
 
 ## Documentation
 
-*Coming soon...*
+The package adds a **Limbo Tables** property that you can use either on a content type or on an element type (eg. in Umbraco's block list).
+
+Properties using this property editor exposes an instance of `Limbo.Umbraco.Tables.Models.TablesDataModel` representing the tabular data. The property is nullable, so if the user hasn't yet entered any data, or all cells are empty, `null` will be returned instead.
+
+The returned offers a number of different properties for accessing and rendering the data - eg. the `Cells` containing a two-dimensional array with the tabular data:
+
+```cshtml
+@{
+    var value = block.Content.Value("data");
+    if (value is TablesDataModel data)
+    {
+        <table>
+            @foreach (var row in data.Cells)
+            {
+                <tr>
+                    @foreach (var cell in row) {
+                        @if (cell.Scope == "th")
+                        {
+                            <th>@Html.Raw(cell.Value)</th>
+                        }
+                        else
+                        {
+                            <td>@Html.Raw(cell.Value)</td>
+                        }
+                    }
+                </tr>
+            }
+        </table>
+    }
+}
+```
+
+
+<br /><br />
 
 ## Property Editor
 
