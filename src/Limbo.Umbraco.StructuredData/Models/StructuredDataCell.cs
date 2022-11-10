@@ -51,7 +51,7 @@ namespace Limbo.Umbraco.StructuredData.Models {
         /// Gets a reference to the scope of the cell - eg. <c>row</c> or <c>col</c>.
         /// </summary>
         [JsonProperty("scope")]
-        public string Scope { get; }
+        public string? Scope { get; }
 
         internal StructuredDataCell(JObject json, int rowIndex, StructuredDataRow row, int columnIndex, StructuredDataColumn column, StructuredDataHtmlParser htmlParser, bool preview) : base(json) {
             RowIndex = rowIndex;
@@ -59,6 +59,8 @@ namespace Limbo.Umbraco.StructuredData.Models {
             ColumnIndex = columnIndex;
             Column = column;
             Value = json.GetString("value", x => htmlParser.Parse(x, preview))!;
+            Type = json.GetString("type")!;
+            Scope = json.GetString("scope");
         }
 
     }
