@@ -1,16 +1,16 @@
 # Limbo Tables  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/v/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables) [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables) [![Our Umbraco](https://img.shields.io/badge/our-umbraco-%233544B1)](https://our.umbraco.com/packages/backoffice-extensions/limbo-tables/)
 
-Table editor for Umbraco 10.
+Table editor for Umbraco 10+.
 
 
 <br /><br />
 
 ## Installation
 
-Install for Umbraco 10 via [NuGet](https://www.nuget.org/packages/Limbo.Umbraco.Tables/1.0.0):
+Install for Umbraco 10+ via [NuGet](https://www.nuget.org/packages/Limbo.Umbraco.Tables/1.0.1):
 
 ```
-dotnet add package Limbo.Umbraco.Tables --version 1.0.0
+dotnet add package Limbo.Umbraco.Tables --version 1.0.1
 ```
 
 
