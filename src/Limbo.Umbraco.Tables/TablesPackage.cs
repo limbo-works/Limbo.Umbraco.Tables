@@ -42,7 +42,7 @@ namespace Limbo.Umbraco.Tables {
         /// <summary>
         /// Gets the URL of the documentation for this package.
         /// </summary>
-        public const string DocumentationUrl = "https://github.com/limbo-works/Limbo.Umbraco.Tables#documentation";
+        public const string DocumentationUrl = "https://packages.limbo.works/limbo.umbraco.tables/v1/docs/";
 
 
     }

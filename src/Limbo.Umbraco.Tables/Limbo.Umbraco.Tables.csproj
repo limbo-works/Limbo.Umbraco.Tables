@@ -14,7 +14,7 @@
     <Authors>Anders Bjerner</Authors>
     <Copyright>Copyright © 2022</Copyright>
     <Title>Limbo Tables</Title>
-    <Description>Table editor for Umbraco 10.</Description>
+    <Description>Table editor for Umbraco 10+.</Description>
   </PropertyGroup>
 
   <!-- Information for the NuGet package -->
@@ -22,7 +22,7 @@
     <PackageId>Limbo.Umbraco.Tables</PackageId>
     <PackageTags>Skybrud, Limbo, Umbraco, Tables, Data, StructuredData, Table, Umbraco-Marketplace</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/limbo-works/Limbo.Umbraco.Tables</PackageProjectUrl>
+    <PackageProjectUrl>https://packages.limbo.works/limbo.umbraco.tables/v1/docs/</PackageProjectUrl>
     <PackageIcon>Limbo.png</PackageIcon>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/limbo-works/Limbo.Umbraco.Tables</RepositoryUrl>
@@ -31,9 +31,9 @@
   <!-- Include NuGet dependencies -->
   <ItemGroup>
     <PackageReference Include="Skybrud.Essentials" Version="1.1.43" />
-    <PackageReference Include="Umbraco.Cms.Core" Version="10.0.0" />
-    <PackageReference Include="Umbraco.Cms.Web.Website" Version="10.0.0" />
-    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="10.0.0" />
+    <PackageReference Include="Umbraco.Cms.Core" Version="[10.0.0,12.0)" />
+    <PackageReference Include="Umbraco.Cms.Web.Website" Version="[10.0.0,12.0)" />
+    <PackageReference Include="Umbraco.Cms.Web.BackOffice" Version="[10.0.0,12.0)" />
   </ItemGroup>
 
   <!-- Backoffice assets -->
