@@ -27,7 +27,13 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
         }
 
         public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object? source, bool preview) {
-            return source is string str && str.DetectIsJson() ? JsonUtils.ParseJsonObject(str) : null;
+            var sourceString = source?.ToString();
+            if (string.IsNullOrWhiteSpace(sourceString))
+            {
+                return null;
+            }
+
+            return sourceString.DetectIsJson() ? JsonUtils.ParseJsonObject(sourceString) : null;
         }
 
         public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object? inter, bool preview) {
