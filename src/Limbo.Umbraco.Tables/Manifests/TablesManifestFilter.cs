@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Skybrud.Essentials.Strings.Extensions;
 using Umbraco.Cms.Core.Manifest;
 
 namespace Limbo.Umbraco.Tables.Manifests {
@@ -10,7 +9,9 @@ namespace Limbo.Umbraco.Tables.Manifests {
         /// <inheritdoc />
         public void Filter(List<PackageManifest> manifests) {
             manifests.Add(new PackageManifest {
-                PackageName = TablesPackage.Alias.ToKebabCase(),
+                AllowPackageTelemetry = true,
+                PackageName = TablesPackage.Name,
+                Version = TablesPackage.InformationalVersion,
                 BundleOptions = BundleOptions.Independent,
                 Scripts = new[] {
                     $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/TableDataEditor.js",
