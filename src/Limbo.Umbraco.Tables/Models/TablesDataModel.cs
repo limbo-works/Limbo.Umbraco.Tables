@@ -30,6 +30,12 @@ namespace Limbo.Umbraco.Tables.Models {
         public bool UseFirstColumnAsHeader { get; }
 
         /// <summary>
+        /// Gets whether the last row of the table should be used as a footer.
+        /// </summary>
+        [JsonProperty("useLastRowAsFooter")]
+        public bool UseLastRowAsFooter { get; }
+
+        /// <summary>
         /// Gets a list of the rows in the structued data table.
         /// </summary>
         [JsonProperty("rows")]
@@ -55,6 +61,7 @@ namespace Limbo.Umbraco.Tables.Models {
 
             UseFirstRowAsHeader = json.GetBoolean("useFirstRowAsHeader");
             UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader");
+            UseLastRowAsFooter = json.GetBoolean("useLastRowAsFooter");
 
             Rows = json.GetArrayOrNew("rows")
                 .ForEach((i, x) => new TablesDataRow(i, x))
