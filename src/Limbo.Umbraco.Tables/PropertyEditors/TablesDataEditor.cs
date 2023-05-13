@@ -40,6 +40,8 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
 
         #endregion
 
+        public override IPropertyIndexValueFactory PropertyIndexValueFactory => new TablesDataPropertyIndexValueFactory();
+
     }
 
 }
