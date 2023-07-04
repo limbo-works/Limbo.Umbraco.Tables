@@ -35,7 +35,7 @@ The returned offers a number of different properties for accessing and rendering
             {
                 <tr>
                     @foreach (TablesDataCell cell in row) {
-                        @if (cell.Type == "row")
+                        @if (cell.Scope == "row")
                         {
                             <th>@Html.Raw(cell.Value)</th>
                         }
