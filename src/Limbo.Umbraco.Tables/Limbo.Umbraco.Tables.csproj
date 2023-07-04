@@ -12,7 +12,7 @@
     <VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
     <Company>Limbo</Company>
     <Authors>Anders Bjerner</Authors>
-    <Copyright>Copyright © 2023</Copyright>
+    <Copyright>Copyright © $([System.DateTime]::UtcNow.ToString(`yyyy`))</Copyright>
     <Title>Limbo Tables</Title>
     <Description>Table editor for Umbraco 10+.</Description>
   </PropertyGroup>
