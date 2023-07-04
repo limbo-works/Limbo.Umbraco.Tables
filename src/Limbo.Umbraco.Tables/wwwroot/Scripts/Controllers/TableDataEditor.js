@@ -149,7 +149,7 @@
 		const o = {
 			view: "/App_Plugins/Limbo.Umbraco.Tables/Views/TableOverlay.html",
 			show: true,
-			title: "Edit cell contentff",
+			title: "Edit cell content",
 			size: "medium",
 			prop: {
 				alias: "value",
@@ -190,7 +190,7 @@
 
 		editorService.open(o);
 
-		localizationService.localize("limboStructuredData_editCellContent").then(function (value) {
+		localizationService.localize("limboTables_editCellContent").then(function (value) {
 			o.title = value;
 		});
 
