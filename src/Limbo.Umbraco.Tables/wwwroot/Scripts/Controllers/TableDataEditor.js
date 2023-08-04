@@ -169,7 +169,9 @@
 							"outdent",
 							"indent",
 							"link",
-							"unlink"
+							"unlink",
+							"subscript",
+							"superscript"
 						],
 						dimensions: {
 							height: 500,
