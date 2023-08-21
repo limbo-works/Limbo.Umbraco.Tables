@@ -164,8 +164,6 @@
 							"alignleft",
 							"aligncenter",
 							"alignright",
-							"bullist",
-							"numlist",
 							"outdent",
 							"indent",
 							"link",
