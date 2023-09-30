@@ -5,7 +5,6 @@ using Limbo.Umbraco.Tables.Parsers;
 using Limbo.Umbraco.Tables.PropertyEditors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Newtonsoft;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 
 namespace Limbo.Umbraco.Tables.Models {
@@ -13,7 +12,7 @@ namespace Limbo.Umbraco.Tables.Models {
     /// <summary>
     /// Class representing the value of a <see cref="TablesDataEditor"/>.
     /// </summary>
-    public class TablesDataModel : JsonObjectBase {
+    public class TablesDataModel : TablesDataObject {
 
         #region Properties
 
