@@ -13,12 +13,16 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
 
         public IEnumerable<KeyValuePair<string, IEnumerable<object?>>> GetIndexValues(IProperty property, string? culture, string? segment, bool published) {
 
+            // Get the source value from the property
             object? source = property.GetValue(culture, segment, published);
 
-            if (source is not string str || !str.DetectIsJson()) {
-                yield break;
-            }
+            // Validate the source value
+            if (source is not string str || !str.DetectIsJson()) yield break;
 
+            // Add the property value (JSON serialized string) to the index
+            yield return new KeyValuePair<string, IEnumerable<object?>>(property.Alias, new[] { str });
+
+            // Parse the property value into a JSON object
             JObject tableData = JsonUtils.ParseJsonObject(str);
 
             // We can't parse via TablesHtmlParser as the HtmlParser attempts to resolve umbraco links
@@ -29,7 +33,8 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
                 .WhereNotNull()
                 .SelectMany(c => c);
 
-            yield return new KeyValuePair<string, IEnumerable<object?>>(property.Alias, processedData);
+            // Return the search friendly text based on the JSON structure
+            yield return new KeyValuePair<string, IEnumerable<object?>>($"{property.Alias}_search", processedData);
 
         }
 
