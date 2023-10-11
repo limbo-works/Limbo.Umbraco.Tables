@@ -7,13 +7,19 @@
                         <div>
                             <input type="checkbox" id="useFirstRowAsHeader" ng-model="vm.table.useFirstRowAsHeader" ng-change="vm.reIndexCells()" />
                             <label for="useFirstRowAsHeader">
-                                <localize key="limboStructuredData_useFirstRowAsHeader">Use first row as header</localize>
+                                <localize key="limboTables_useFirstRowAsHeader">Use first row as header</localize>
                             </label>
                         </div>
                         <div>
                             <input type="checkbox" id="useFirstColumnAsHeader" ng-model="vm.table.useFirstColumnAsHeader" ng-change="vm.reIndexCells()" />
                             <label for="useFirstColumnAsHeader">
-                                <localize key="limboStructuredData_useFirstColumnAsHeader">Use first column as header</localize>
+                                <localize key="limboTables_useFirstColumnAsHeader">Use first column as header</localize>
+                            </label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="useLastRowAsFooter" ng-model="vm.table.useLastRowAsFooter" ng-change="vm.reIndexCells()" />
+                            <label for="useLastRowAsFooter">
+                                <localize key="useLastRowAsFooter">Use last row as footer</localize>
                             </label>
                         </div>
                     </div>
@@ -22,11 +28,11 @@
                     <div class="toolbar__buttons is-fullwidth">
                         <a class="buttons__button btn" ng-click="vm.addRow()">
                             <i class="icon icon-add"></i>
-                            <localize key="limboStructuredData_addRow">Add row</localize>
+                            <localize key="limboTables_addRow">Add row</localize>
                         </a>
                         <a class="buttons__button btn" ng-click="vm.addColumn()">
                             <i class="icon icon-add"></i>
-                            <localize key="limboStructuredData_addColumn">Add column</localize>
+                            <localize key="limboTables_addColumn">Add column</localize>
                         </a>
                     </div>
                 </div>
@@ -53,7 +59,7 @@
                                     <div class="table__column--placeholder" ng-if="cell.value.length === 0">
                                         <div>
                                             <p>
-                                                <localize key="limboStructuredData_addContent">Add content</localize>
+                                                <localize key="limboTables_addContent">Add content</localize>
                                             </p>
                                         </div>
                                     </div>

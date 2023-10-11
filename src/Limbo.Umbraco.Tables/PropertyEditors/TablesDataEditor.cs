@@ -1,4 +1,6 @@
-﻿using Umbraco.Cms.Core.PropertyEditors;
+﻿using Umbraco.Cms.Core.IO;
+using Umbraco.Cms.Core.PropertyEditors;
+using Umbraco.Cms.Core.Services;
 
 #pragma warning disable 1591
 
@@ -34,13 +36,24 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
 
         #endregion
 
+        private readonly IIOHelper _ioHelper;
+        private readonly IEditorConfigurationParser _editorConfigurationParser;
+
         #region Constructors
 
-        public TablesDataEditor(IDataValueEditorFactory dataValueEditorFactory) : base(dataValueEditorFactory) { }
+        public TablesDataEditor(
+            IDataValueEditorFactory dataValueEditorFactory,
+            IIOHelper ioHelper,
+            IEditorConfigurationParser editorConfigurationParser) : base(dataValueEditorFactory) {
+            _ioHelper = ioHelper;
+            _editorConfigurationParser = editorConfigurationParser;
+        }
 
         #endregion
 
         public override IPropertyIndexValueFactory PropertyIndexValueFactory => new TablesDataPropertyIndexValueFactory();
+
+        protected override IConfigurationEditor CreateConfigurationEditor() => new TablesDataConfigurationEditor(_ioHelper, _editorConfigurationParser);
 
     }
 

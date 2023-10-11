@@ -7,11 +7,22 @@ Table editor for Umbraco 10+.
 
 ## Installation
 
-Install for Umbraco 10+ via [NuGet](https://www.nuget.org/packages/Limbo.Umbraco.Tables/1.0.2):
+Install for Umbraco 10+ via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.BlockList/3.0.1). Either via the .NET CLI:
 
 ```
-dotnet add package Limbo.Umbraco.Tables --version 1.0.2
+dotnet add package Limbo.Umbraco.Tables --version 1.0.3
 ```
+
+or the NuGet Package Manager:
+
+```
+Install-Package Limbo.Umbraco.Tables -Version 1.0.3
+```
+
+
+
+
+
 
 
 <br /><br />
@@ -25,16 +36,17 @@ Properties using this property editor exposes an instance of `Limbo.Umbraco.Tabl
 The returned offers a number of different properties for accessing and rendering the data - eg. the `Cells` containing a two-dimensional array with the tabular data:
 
 ```cshtml
+@using Limbo.Umbraco.Tables.Models
 @{
     var value = block.Content.Value("data");
     if (value is TablesDataModel data)
     {
         <table>
-            @foreach (var row in data.Cells)
+            @foreach (IReadOnlyList<TablesDataCell> row in data.Cells)
             {
                 <tr>
-                    @foreach (var cell in row) {
-                        @if (cell.Scope == "th")
+                    @foreach (TablesDataCell cell in row) {
+                        @if (cell.Scope == "row")
                         {
                             <th>@Html.Raw(cell.Value)</th>
                         }

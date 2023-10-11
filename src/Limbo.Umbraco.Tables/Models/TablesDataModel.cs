@@ -5,7 +5,6 @@ using Limbo.Umbraco.Tables.Parsers;
 using Limbo.Umbraco.Tables.PropertyEditors;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Newtonsoft;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 
 namespace Limbo.Umbraco.Tables.Models {
@@ -13,7 +12,7 @@ namespace Limbo.Umbraco.Tables.Models {
     /// <summary>
     /// Class representing the value of a <see cref="TablesDataEditor"/>.
     /// </summary>
-    public class TablesDataModel : JsonObjectBase {
+    public class TablesDataModel : TablesDataObject {
 
         #region Properties
 
@@ -28,6 +27,12 @@ namespace Limbo.Umbraco.Tables.Models {
         /// </summary>
         [JsonProperty("useFirstColumnAsHeader")]
         public bool UseFirstColumnAsHeader { get; }
+
+        /// <summary>
+        /// Gets whether the last row of the table should be used as a footer.
+        /// </summary>
+        [JsonProperty("useLastRowAsFooter")]
+        public bool UseLastRowAsFooter { get; }
 
         /// <summary>
         /// Gets a list of the rows in the structued data table.
@@ -55,6 +60,7 @@ namespace Limbo.Umbraco.Tables.Models {
 
             UseFirstRowAsHeader = json.GetBoolean("useFirstRowAsHeader");
             UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader");
+            UseLastRowAsFooter = json.GetBoolean("useLastRowAsFooter");
 
             Rows = json.GetArrayOrNew("rows")
                 .ForEach((i, x) => new TablesDataRow(i, x))

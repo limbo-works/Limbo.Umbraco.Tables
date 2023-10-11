@@ -1,7 +1,6 @@
 ﻿using Limbo.Umbraco.Tables.Parsers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Newtonsoft;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 
 namespace Limbo.Umbraco.Tables.Models {
@@ -9,7 +8,7 @@ namespace Limbo.Umbraco.Tables.Models {
     /// <summary>
     /// Class representing a cell in a <see cref="TablesDataModel"/> value.
     /// </summary>
-    public class TablesDataCell : JsonObjectBase {
+    public class TablesDataCell : TablesDataObject {
 
         /// <summary>
         /// Gets the row index.
