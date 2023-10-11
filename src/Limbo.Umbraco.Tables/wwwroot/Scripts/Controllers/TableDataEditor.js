@@ -156,26 +156,7 @@
 				label: "",
 				view: "rte",
 				config: {
-					editor: {
-						toolbar: [
-							"ace",
-							"bold",
-							"italic",
-							"alignleft",
-							"aligncenter",
-							"alignright",
-							"bullist",
-							"numlist",
-							"outdent",
-							"indent",
-							"link",
-							"unlink"
-						],
-						dimensions: {
-							height: 500,
-							width: 0
-						}
-					}
+					editor: $scope.model.config.editor
 				},
 				value: cell.value
 			},
