@@ -7,6 +7,7 @@
 		<key alias="addContent">Add content</key>
 		<key alias="useFirstRowAsHeader">Use first row as header</key>
 		<key alias="useFirstColumnAsHeader">Use first column as header</key>
+		<key alias="useLastRowAsFooter">Use last row as footer</key>
 		<key alias="addCellContent">Add cell content</key>
 		<key alias="editCellContent">Edit cell content</key>
 	</area>

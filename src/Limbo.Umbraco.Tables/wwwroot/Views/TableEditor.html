@@ -16,6 +16,12 @@
                                 <localize key="limboTables_useFirstColumnAsHeader">Use first column as header</localize>
                             </label>
                         </div>
+                        <div>
+                            <input type="checkbox" id="useLastRowAsFooter" ng-model="vm.table.useLastRowAsFooter" ng-change="vm.reIndexCells()" />
+                            <label for="useLastRowAsFooter">
+                                <localize key="useLastRowAsFooter">Use last row as footer</localize>
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="toolbar">
