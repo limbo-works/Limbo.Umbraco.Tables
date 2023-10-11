@@ -8,31 +8,37 @@ using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Extensions;
 
 namespace Limbo.Umbraco.Tables.PropertyEditors {
+
     internal class TablesDataPropertyIndexValueFactory : IPropertyIndexValueFactory {
 
         public IEnumerable<KeyValuePair<string, IEnumerable<object?>>> GetIndexValues(IProperty property, string? culture, string? segment, bool published) {
-            var source = property.GetValue(culture, segment, published);
+
+            object? source = property.GetValue(culture, segment, published);
+
             if (source is not string str || !str.DetectIsJson()) {
                 yield break;
             }
 
-            var tableData = JsonUtils.ParseJsonObject(str);
+            JObject tableData = JsonUtils.ParseJsonObject(str);
 
             // We can't parse via TablesHtmlParser as the HtmlParser attempts to resolve umbraco links
             // But there is no UmbracoContext at this point, so it throws an exception
             var processedData = tableData
                 .GetArrayOrNew("cells")
-                .ForEach((i, x) => ProcessRow(x))
+                .ForEach((_, x) => ProcessRow(x))
                 .WhereNotNull()
-                .SelectMany((c) => c);
+                .SelectMany(c => c);
 
             yield return new KeyValuePair<string, IEnumerable<object?>>(property.Alias, processedData);
+
         }
 
         private static IEnumerable<string?> ProcessRow(JArray row) {
-            foreach (var cell in row) {
+            foreach (JToken cell in row) {
                 yield return cell.Value<string>("value")?.StripHtml();
             }
         }
+
     }
+
 }

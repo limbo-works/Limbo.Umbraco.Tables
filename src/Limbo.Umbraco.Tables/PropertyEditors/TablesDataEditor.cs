@@ -51,9 +51,13 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
 
         #endregion
 
+        #region Member methods
+
         public override IPropertyIndexValueFactory PropertyIndexValueFactory => new TablesDataPropertyIndexValueFactory();
 
         protected override IConfigurationEditor CreateConfigurationEditor() => new TablesDataConfigurationEditor(_ioHelper, _editorConfigurationParser);
+
+        #endregion
 
     }
 

@@ -6,11 +6,13 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
     /// Represents the configuration for the tables editor.
     /// </summary>
     public class TablesDataConfiguration {
+
         /// <summary>
         /// Editor
         /// </summary>
         [ConfigurationField("editor", "Editor", "views/propertyeditors/rte/rte.prevalues.html", HideLabel = true)]
         public object? Editor { get; set; }
+
     }
 
 }
