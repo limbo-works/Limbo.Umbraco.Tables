@@ -1,36 +1,34 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace Limbo.Umbraco.Tables.Models {
+namespace Limbo.Umbraco.Tables.Models;
+
+/// <summary>
+/// Class representing an object that was parsed from an instance of <see cref="Newtonsoft.Json.Linq.JObject"/>.
+/// </summary>
+public class TableObject {
+
+    #region Properties
 
     /// <summary>
-    /// Class representing an object that was parsed from an instance of <see cref="Newtonsoft.Json.Linq.JObject"/>.
+    /// Gets the internal <see cref="Newtonsoft.Json.Linq.JObject"/> the object was created from.
     /// </summary>
-    public class TableObject {
+    [Newtonsoft.Json.JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
+    public JObject JObject { get; }
 
-        #region Properties
+    #endregion
 
-        /// <summary>
-        /// Gets the internal <see cref="Newtonsoft.Json.Linq.JObject"/> the object was created from.
-        /// </summary>
-        [Newtonsoft.Json.JsonIgnore]
-        [System.Text.Json.Serialization.JsonIgnore]
-        public JObject JObject { get; }
+    #region Constructor
 
-        #endregion
+    /// <summary>
+    /// Initializes a new instance from the specified <paramref name="json"/> object.
+    /// </summary>
+    /// <param name="json">The instance of <see cref="Newtonsoft.Json.Linq.JObject"/> representing the object.</param>
 
-        #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance from the specified <paramref name="json"/> object.
-        /// </summary>
-        /// <param name="json">The instance of <see cref="Newtonsoft.Json.Linq.JObject"/> representing the object.</param>
-
-        protected TableObject(JObject json) {
-            JObject = json;
-        }
-
-        #endregion
-
+    protected TableObject(JObject json) {
+        JObject = json;
     }
+
+    #endregion
 
 }

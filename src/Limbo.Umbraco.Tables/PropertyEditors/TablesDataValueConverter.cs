@@ -9,44 +9,42 @@ using Umbraco.Extensions;
 
 #pragma warning disable 1591
 
-namespace Limbo.Umbraco.Tables.PropertyEditors {
+namespace Limbo.Umbraco.Tables.PropertyEditors;
 
-    /// <summary>
-    /// Property value converter for <see cref="TablesDataEditor"/>.
-    /// </summary>
-    public class TablesDataValueConverter : PropertyValueConverterBase {
+/// <summary>
+/// Property value converter for <see cref="TablesDataEditor"/>.
+/// </summary>
+public class TablesDataValueConverter : PropertyValueConverterBase {
 
-        private readonly TablesHtmlParser _htmlParser;
+    private readonly TablesHtmlParser _htmlParser;
 
-        public TablesDataValueConverter(TablesHtmlParser htmlParser) {
-            _htmlParser = htmlParser;
-        }
+    public TablesDataValueConverter(TablesHtmlParser htmlParser) {
+        _htmlParser = htmlParser;
+    }
 
-        public override bool IsConverter(IPublishedPropertyType propertyType) {
-            return propertyType.EditorAlias == TablesDataEditor.EditorAlias;
-        }
+    public override bool IsConverter(IPublishedPropertyType propertyType) {
+        return propertyType.EditorAlias == TablesDataEditor.EditorAlias;
+    }
 
-        public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object? source, bool preview) {
-            return source switch {
-                JObject json => json,
-                string str => str.DetectIsJson() ? JsonUtils.ParseJsonObject(str) : null,
-                _ => null
-            };
-        }
+    public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object? source, bool preview) {
+        return source switch {
+            JObject json => json,
+            string str => str.DetectIsJson() ? JsonUtils.ParseJsonObject(str) : null,
+            _ => null
+        };
+    }
 
-        public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object? inter, bool preview) {
-            var config = (TablesDataConfiguration) propertyType.DataType.Configuration!;
-            return TableModel.Parse(inter as JObject, config, _htmlParser, preview);
-        }
+    public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object? inter, bool preview) {
+        var config = (TablesDataConfiguration) propertyType.DataType.Configuration!;
+        return TableModel.Parse(inter as JObject, config, _htmlParser, preview);
+    }
 
-        public override Type GetPropertyValueType(IPublishedPropertyType propertyType) {
-            return typeof(TableModel);
-        }
+    public override Type GetPropertyValueType(IPublishedPropertyType propertyType) {
+        return typeof(TableModel);
+    }
 
-        public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType) {
-            return PropertyCacheLevel.Elements;
-        }
-
+    public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType) {
+        return PropertyCacheLevel.Elements;
     }
 
 }
