@@ -1,19 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
 using Limbo.Umbraco.Tables.Parsers;
 using Limbo.Umbraco.Tables.PropertyEditors;
+using Microsoft.AspNetCore.Html;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
+using Skybrud.Essentials.Strings.Extensions;
 
 namespace Limbo.Umbraco.Tables.Models {
 
     /// <summary>
     /// Class representing the value of a <see cref="TablesDataEditor"/>.
     /// </summary>
-    public class TablesDataModel : TablesDataObject {
+    public class TablesDataModel : TablesDataObject, IHtmlContent {
 
         #region Properties
 
@@ -106,6 +110,58 @@ namespace Limbo.Umbraco.Tables.Models {
             }
 
             return temp;
+
+        }
+
+        /// <inheritdoc />
+        public void WriteTo(TextWriter writer, HtmlEncoder encoder) {
+
+            writer.WriteLine("<table>");
+
+            int r = 0;
+
+            if (UseFirstRowAsHeader && Rows.Count > 0) {
+                writer.WriteLine("  <thead>");
+                WriteRow(writer, Rows[0]);
+                writer.WriteLine("  </thead>");
+                r++;
+            }
+
+            int rows = UseLastRowAsFooter ? Rows.Count - 1 : Rows.Count;
+
+            writer.WriteLine("  <tbody>");
+            for (; r < rows; r++) {
+                WriteRow(writer, Rows[r]);
+            }
+            writer.WriteLine("  </tbody>");
+
+            if (UseLastRowAsFooter && Rows.Count > 1) {
+                writer.WriteLine("  <tfoot>");
+                WriteRow(writer, Rows.Last());
+                writer.WriteLine("  </tfoot>");
+            }
+
+            writer.WriteLine("</table>");
+
+        }
+
+        private void WriteRow(TextWriter writer, TablesDataRow row) {
+
+            writer.WriteLine("    <tr>");
+
+            foreach (var cell in row.Table.Cells[row.Index]) {
+
+                writer.Write($"      <{cell.Type.ToLower()}");
+                if (cell.Scope is not TableCellScope.None) writer.Write($" scope=\"{cell.Scope.ToLower()}\"");
+                writer.WriteLine(">");
+
+                writer.WriteLine($"        {cell.Value}");
+
+                writer.WriteLine($"      </{cell.Type.ToLower()}>");
+
+            }
+
+            writer.WriteLine("    </tr>");
 
         }
 
