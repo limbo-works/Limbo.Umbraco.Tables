@@ -9,8 +9,8 @@ namespace Limbo.Umbraco.Tables.PropertyEditors;
 /// <summary>
 /// Represents the configuration editor for the tables editor.
 /// </summary>
-public class TablesDataConfigurationEditor : ConfigurationEditor<TablesDataConfiguration> {
+public class TableConfigurationEditor : ConfigurationEditor<TableConfiguration> {
 
-    public TablesDataConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser) { }
+    public TableConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser) { }
 
 }

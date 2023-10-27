@@ -5,7 +5,7 @@ using Umbraco.Cms.Core.Templates;
 namespace Limbo.Umbraco.Tables.Parsers;
 
 /// <summary>
-/// HTML parsed used by the <see cref="TablesDataValueConverter"/> class.
+/// HTML parsed used by the <see cref="TableValueConverter"/> class.
 /// </summary>
 public class TablesHtmlParser {
 

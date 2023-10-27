@@ -1,12 +1,11 @@
-﻿using Newtonsoft.Json;
-using Umbraco.Cms.Core.PropertyEditors;
+﻿using Umbraco.Cms.Core.PropertyEditors;
 
 namespace Limbo.Umbraco.Tables.PropertyEditors;
 
 /// <summary>
-/// Represents the configuration for the tables editor.
+/// Represents the configuration for <see cref="TableEditor"/>.
 /// </summary>
-public class TablesDataConfiguration {
+public class TableConfiguration {
 
     /// <summary>
     /// Gets or sets whether the <strong>Use first row as header</strong> option is enabled in the property editor.
@@ -29,7 +28,7 @@ public class TablesDataConfiguration {
     /// <summary>
     /// Gets or sets whether the label of the property editor should be hidden.
     /// </summary>
-    [ConfigurationField("hideLabel", "Hide label", "boolean", Description = "Select whether the label and description of properties using this data type should be hidden.<br /><br />Hiding the label and description can be useful in some cases - eg. to give the video picker a bit more horizontal space.")]
+    [ConfigurationField("hideLabel", "Hide label", "boolean", Description = "Select whether the label and description of properties using this data type should be hidden.")]
     public bool HideLabel { get; set; }
 
     /// <summary>

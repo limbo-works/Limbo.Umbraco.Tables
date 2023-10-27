@@ -12,18 +12,18 @@ using Umbraco.Extensions;
 namespace Limbo.Umbraco.Tables.PropertyEditors;
 
 /// <summary>
-/// Property value converter for <see cref="TablesDataEditor"/>.
+/// Property value converter for <see cref="TableEditor"/>.
 /// </summary>
-public class TablesDataValueConverter : PropertyValueConverterBase {
+public class TableValueConverter : PropertyValueConverterBase {
 
     private readonly TablesHtmlParser _htmlParser;
 
-    public TablesDataValueConverter(TablesHtmlParser htmlParser) {
+    public TableValueConverter(TablesHtmlParser htmlParser) {
         _htmlParser = htmlParser;
     }
 
     public override bool IsConverter(IPublishedPropertyType propertyType) {
-        return propertyType.EditorAlias == TablesDataEditor.EditorAlias;
+        return propertyType.EditorAlias == TableEditor.EditorAlias;
     }
 
     public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object? source, bool preview) {
@@ -35,7 +35,7 @@ public class TablesDataValueConverter : PropertyValueConverterBase {
     }
 
     public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object? inter, bool preview) {
-        var config = (TablesDataConfiguration) propertyType.DataType.Configuration!;
+        var config = (TableConfiguration) propertyType.DataType.Configuration!;
         return TableModel.Parse(inter as JObject, config, _htmlParser, preview);
     }
 

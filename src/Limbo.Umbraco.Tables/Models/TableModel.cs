@@ -15,7 +15,7 @@ using Skybrud.Essentials.Strings.Extensions;
 namespace Limbo.Umbraco.Tables.Models;
 
 /// <summary>
-/// Class representing the value of a <see cref="TablesDataEditor"/>.
+/// Class representing the value of a <see cref="TableEditor"/>.
 /// </summary>
 public class TableModel : TableObject, IHtmlContent {
 
@@ -67,7 +67,7 @@ public class TableModel : TableObject, IHtmlContent {
 
     #region Constructors
 
-    private TableModel(JObject json, TablesDataConfiguration config, TablesHtmlParser htmlParser, bool preview) : base(json) {
+    private TableModel(JObject json, TableConfiguration config, TablesHtmlParser htmlParser, bool preview) : base(json) {
 
         UseFirstRowAsHeader = json.GetBoolean("useFirstRowAsHeader") && config.AllowUseFirstRowAsHeader;
         UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader") && config.AllowUseFirstColumnAsHeader;
@@ -178,7 +178,7 @@ public class TableModel : TableObject, IHtmlContent {
     /// <param name="preview">Whether the model is part of a page being viewed in preview mode.</param>
     /// <returns>An instance of <see cref="TableModel"/>, or <c>null</c> if <paramref name="json"/> is null.</returns>
     [return: NotNullIfNotNull("json")]
-    public static TableModel? Parse(JObject? json, TablesDataConfiguration config, TablesHtmlParser htmlParser, bool preview) {
+    public static TableModel? Parse(JObject? json, TableConfiguration config, TablesHtmlParser htmlParser, bool preview) {
         return json == null ? null : new TableModel(json, config, htmlParser, preview);
     }
 

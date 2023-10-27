@@ -9,7 +9,7 @@ using Umbraco.Extensions;
 
 namespace Limbo.Umbraco.Tables.PropertyEditors;
 
-internal class TablesDataPropertyIndexValueFactory : IPropertyIndexValueFactory {
+internal class TablePropertyIndexValueFactory : IPropertyIndexValueFactory {
 
     public IEnumerable<KeyValuePair<string, IEnumerable<object?>>> GetIndexValues(IProperty property, string? culture, string? segment, bool published) {
 
