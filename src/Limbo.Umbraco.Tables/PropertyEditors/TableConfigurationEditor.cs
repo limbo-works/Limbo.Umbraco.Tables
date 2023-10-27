@@ -11,6 +11,19 @@ namespace Limbo.Umbraco.Tables.PropertyEditors;
 /// </summary>
 public class TableConfigurationEditor : ConfigurationEditor<TableConfiguration> {
 
-    public TableConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser) { }
+    public TableConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser) {
+
+        int index1 = Fields.FindIndex(x => x.Key == "rte");
+
+        if (index1 >= 0) {
+            Fields.Insert(index1, new ConfigurationField {
+                Key = "rteSeparator",
+                Name = Fields[index1].Name,
+                View = "/App_Plugins/Limbo.Umbraco.Tables/Views/TableSeparator.html",
+                HideLabel = true
+            });
+        }
+
+    }
 
 }
