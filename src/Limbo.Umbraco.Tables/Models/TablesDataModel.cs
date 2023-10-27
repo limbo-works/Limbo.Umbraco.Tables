@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text.Json.Serialization;
 using Limbo.Umbraco.Tables.Parsers;
 using Limbo.Umbraco.Tables.PropertyEditors;
 using Newtonsoft.Json;
@@ -20,36 +21,42 @@ namespace Limbo.Umbraco.Tables.Models {
         /// Gets whether the first row of the table should be used as a header.
         /// </summary>
         [JsonProperty("useFirstRowAsHeader")]
+        [JsonPropertyName("useFirstRowAsHeader")]
         public bool UseFirstRowAsHeader { get; }
 
         /// <summary>
         /// Gets whether the first column of the table should be used as a header.
         /// </summary>
         [JsonProperty("useFirstColumnAsHeader")]
+        [JsonPropertyName("useFirstColumnAsHeader")]
         public bool UseFirstColumnAsHeader { get; }
 
         /// <summary>
         /// Gets whether the last row of the table should be used as a footer.
         /// </summary>
         [JsonProperty("useLastRowAsFooter")]
+        [JsonPropertyName("useLastRowAsFooter")]
         public bool UseLastRowAsFooter { get; }
 
         /// <summary>
         /// Gets a list of the rows in the structued data table.
         /// </summary>
-        [JsonProperty("rows")]
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public IReadOnlyList<TablesDataRow> Rows { get; }
 
         /// <summary>
         /// Gets a list of the columns in the structued data table.
         /// </summary>
-        [JsonProperty("columns")]
+        [Newtonsoft.Json.JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public IReadOnlyList<TablesDataColumn> Columns { get; }
 
         /// <summary>
         /// Gets a list of the cells in the structued data table.
         /// </summary>
         [JsonProperty("cells")]
+        [JsonPropertyName("cells")]
         public IReadOnlyList<IReadOnlyList<TablesDataCell>> Cells { get; }
 
         #endregion

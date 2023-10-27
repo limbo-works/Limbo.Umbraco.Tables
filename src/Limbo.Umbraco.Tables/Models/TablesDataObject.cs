@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Newtonsoft;
 
 namespace Limbo.Umbraco.Tables.Models {
 
     /// <summary>
     /// Class representing an object that was parsed from an instance of <see cref="Newtonsoft.Json.Linq.JObject"/>.
     /// </summary>
-    public class TablesDataObject : JsonObjectBase {
+    public class TablesDataObject {
 
         #region Properties
 
@@ -15,7 +14,7 @@ namespace Limbo.Umbraco.Tables.Models {
         /// </summary>
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public new JObject JObject => base.JObject!;
+        public JObject JObject { get; }
 
         #endregion
 
@@ -26,7 +25,9 @@ namespace Limbo.Umbraco.Tables.Models {
         /// </summary>
         /// <param name="json">The instance of <see cref="Newtonsoft.Json.Linq.JObject"/> representing the object.</param>
 
-        protected TablesDataObject(JObject json) : base(json) { }
+        protected TablesDataObject(JObject json) {
+            JObject = json;
+        }
 
         #endregion
 
