@@ -3,6 +3,7 @@ using Limbo.Umbraco.Tables.Parsers;
 using Microsoft.AspNetCore.Html;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Skybrud.Essentials.Json.Newtonsoft.Converters;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 
 namespace Limbo.Umbraco.Tables.Models {
@@ -45,25 +46,25 @@ namespace Limbo.Umbraco.Tables.Models {
         public IHtmlContent Value { get; }
 
         /// <summary>
-        /// Gets a reference to the type of the cell - eg. <c>td</c> or <c>th</c>.
+        /// Gets a reference to the type of the cell - eg. <see cref="TableCellType.Td"/> or <see cref="TableCellType.Th"/>.
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; }
+        public TableCellType Type { get; }
 
         /// <summary>
         /// Gets a reference to the scope of the cell - eg. <c>row</c> or <c>col</c>.
         /// </summary>
         [JsonProperty("scope")]
-        public string? Scope { get; }
+        public TableCellScope Scope { get; }
 
         internal TablesDataCell(JObject json, int rowIndex, TablesDataRow row, int columnIndex, TablesDataColumn column, TablesHtmlParser htmlParser, bool preview) : base(json) {
             RowIndex = rowIndex;
             Row = row;
             ColumnIndex = columnIndex;
             Column = column;
-            Type = json.GetString("type")!;
             Value = new HtmlString(json.GetString("value", x => htmlParser.Parse(x, preview))!);
-            Scope = json.GetString("scope");
+            Type = row.IsHeader || column.IsHeader ? TableCellType.Th : TableCellType.Td;
+            Scope = json.GetEnum("scope", TableCellScope.None);
         }
 
     }
