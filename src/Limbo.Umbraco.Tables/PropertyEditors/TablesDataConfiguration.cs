@@ -26,10 +26,10 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
         //public bool AllowUseLastRowAsFooter { get; set; }
 
         /// <summary>
-        /// Editor
+        /// Configuration for the RTE.
         /// </summary>
-        [ConfigurationField("editor", "Editor", "views/propertyeditors/rte/rte.prevalues.html", HideLabel = true)]
-        public object? Editor { get; set; }
+        [ConfigurationField("rte", "Rich text editor", "views/propertyeditors/rte/rte.prevalues.html", Description = "Rich text editor configuration", HideLabel = true)]
+        public object? Rte { get; set; }
 
     }
 

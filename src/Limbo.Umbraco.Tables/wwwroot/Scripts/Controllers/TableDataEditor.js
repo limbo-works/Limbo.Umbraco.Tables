@@ -156,7 +156,7 @@
 				label: "",
 				view: "rte",
 				config: {
-					editor: $scope.model.config.editor
+					editor: $scope.model.config.rte
 				},
 				value: cell.value
 			},
