@@ -4,16 +4,16 @@ using Newtonsoft.Json.Linq;
 namespace Limbo.Umbraco.Tables.Models {
 
     /// <summary>
-    /// Class representing a row in a <see cref="TablesDataModel"/> value.
+    /// Class representing a row in a <see cref="TableModel"/> value.
     /// </summary>
-    public class TablesDataRow : TablesDataObject {
+    public class TableRow : TableObject {
 
         /// <summary>
-        /// gets a reference to the parent <see cref="TablesDataModel"/>.
+        /// gets a reference to the parent <see cref="TableModel"/>.
         /// </summary>
         [JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public TablesDataModel Table { get; }
+        public TableModel Table { get; }
 
         /// <summary>
         /// Gets the index of the row.
@@ -36,7 +36,7 @@ namespace Limbo.Umbraco.Tables.Models {
         [System.Text.Json.Serialization.JsonIgnore]
         public bool IsFooter { get; }
 
-        internal TablesDataRow(int index, JObject json, int rowsCount, TablesDataModel table) : base(json) {
+        internal TableRow(int index, JObject json, int rowsCount, TableModel table) : base(json) {
             Table = table;
             Index = index;
             IsHeader = index == 0 && table.UseFirstRowAsHeader;

@@ -4,7 +4,7 @@ using Skybrud.Essentials.Json.Newtonsoft.Converters.Enums;
 namespace Limbo.Umbraco.Tables.Models {
 
     /// <summary>
-    /// Enum class representing the scope of a <see cref="TablesDataCell"/>.
+    /// Enum class representing the scope of a <see cref="TableCell"/>.
     /// </summary>
     [JsonConverter(typeof(EnumCamelCaseConverter))]
     [System.Text.Json.Serialization.JsonConverter(typeof(Json.Microsoft.Converters.EnumCamelCaseConverter))]

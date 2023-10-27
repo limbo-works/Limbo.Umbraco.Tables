@@ -4,16 +4,16 @@ using Newtonsoft.Json.Linq;
 namespace Limbo.Umbraco.Tables.Models {
 
     /// <summary>
-    /// Class representing a column in a <see cref="TablesDataModel"/> value.
+    /// Class representing a column in a <see cref="TableModel"/> value.
     /// </summary>
-    public class TablesDataColumn : TablesDataObject {
+    public class TableColumn : TableObject {
 
         /// <summary>
-        /// Gets a reference to the parent <see cref="TablesDataModel"/>.
+        /// Gets a reference to the parent <see cref="TableModel"/>.
         /// </summary>
         [JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public TablesDataModel Table { get; }
+        public TableModel Table { get; }
 
         /// <summary>
         /// Gets the column index.
@@ -29,7 +29,7 @@ namespace Limbo.Umbraco.Tables.Models {
         [System.Text.Json.Serialization.JsonIgnore]
         public bool IsHeader { get; }
 
-        internal TablesDataColumn(int index, JObject json, TablesDataModel table) : base(json) {
+        internal TableColumn(int index, JObject json, TableModel table) : base(json) {
             Index = index;
             Table = table;
             IsHeader = index == 0 && table.UseFirstColumnAsHeader;

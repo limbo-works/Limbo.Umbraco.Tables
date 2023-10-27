@@ -10,9 +10,9 @@ using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 namespace Limbo.Umbraco.Tables.Models {
 
     /// <summary>
-    /// Class representing a cell in a <see cref="TablesDataModel"/> value.
+    /// Class representing a cell in a <see cref="TableModel"/> value.
     /// </summary>
-    public class TablesDataCell : TablesDataObject {
+    public class TableCell : TableObject {
 
         /// <summary>
         /// Gets the row index.
@@ -26,7 +26,7 @@ namespace Limbo.Umbraco.Tables.Models {
         /// </summary>
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public TablesDataRow Row { get; }
+        public TableRow Row { get; }
 
         /// <summary>
         /// Gets the column index.
@@ -40,7 +40,7 @@ namespace Limbo.Umbraco.Tables.Models {
         /// </summary>
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public TablesDataColumn Column { get; }
+        public TableColumn Column { get; }
 
         /// <summary>
         /// Gets a reference to the column value.
@@ -65,7 +65,7 @@ namespace Limbo.Umbraco.Tables.Models {
         [JsonPropertyName("scope")]
         public TableCellScope Scope { get; }
 
-        internal TablesDataCell(JObject json, int rowIndex, TablesDataRow row, int columnIndex, TablesDataColumn column, TablesHtmlParser htmlParser, bool preview) : base(json) {
+        internal TableCell(JObject json, int rowIndex, TableRow row, int columnIndex, TableColumn column, TablesHtmlParser htmlParser, bool preview) : base(json) {
             RowIndex = rowIndex;
             Row = row;
             ColumnIndex = columnIndex;

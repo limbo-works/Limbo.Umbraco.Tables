@@ -17,7 +17,7 @@ namespace Limbo.Umbraco.Tables.Models {
     /// <summary>
     /// Class representing the value of a <see cref="TablesDataEditor"/>.
     /// </summary>
-    public class TablesDataModel : TablesDataObject, IHtmlContent {
+    public class TableModel : TableObject, IHtmlContent {
 
         #region Properties
 
@@ -47,27 +47,27 @@ namespace Limbo.Umbraco.Tables.Models {
         /// </summary>
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public IReadOnlyList<TablesDataRow> Rows { get; }
+        public IReadOnlyList<TableRow> Rows { get; }
 
         /// <summary>
         /// Gets a list of the columns in the structued data table.
         /// </summary>
         [Newtonsoft.Json.JsonIgnore]
         [System.Text.Json.Serialization.JsonIgnore]
-        public IReadOnlyList<TablesDataColumn> Columns { get; }
+        public IReadOnlyList<TableColumn> Columns { get; }
 
         /// <summary>
         /// Gets a list of the cells in the structued data table.
         /// </summary>
         [JsonProperty("cells")]
         [JsonPropertyName("cells")]
-        public IReadOnlyList<IReadOnlyList<TablesDataCell>> Cells { get; }
+        public IReadOnlyList<IReadOnlyList<TableCell>> Cells { get; }
 
         #endregion
 
         #region Constructors
 
-        private TablesDataModel(JObject json, TablesDataConfiguration config, TablesHtmlParser htmlParser, bool preview) : base(json) {
+        private TableModel(JObject json, TablesDataConfiguration config, TablesHtmlParser htmlParser, bool preview) : base(json) {
 
             UseFirstRowAsHeader = json.GetBoolean("useFirstRowAsHeader") && config.AllowUseFirstRowAsHeader;
             UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader") && config.AllowUseFirstColumnAsHeader;
@@ -76,11 +76,11 @@ namespace Limbo.Umbraco.Tables.Models {
             JArray rows = json.GetArrayOrNew("rows");
 
             Rows = json.GetArrayOrNew("rows")
-                .ForEach((i, x) => new TablesDataRow(i, x, rows.Count, this))
+                .ForEach((i, x) => new TableRow(i, x, rows.Count, this))
                 .ToList();
 
             Columns = json.GetArrayOrNew("columns")
-                .ForEach((i, x) => new TablesDataColumn(i, x, this))
+                .ForEach((i, x) => new TableColumn(i, x, this))
                 .ToList();
 
             Cells = json
@@ -94,18 +94,18 @@ namespace Limbo.Umbraco.Tables.Models {
 
         #region Member methods
 
-        private List<TablesDataCell> ParseCellRow(int index, JArray array, TablesHtmlParser htmlParser, bool preview) {
+        private List<TableCell> ParseCellRow(int index, JArray array, TablesHtmlParser htmlParser, bool preview) {
 
-            TablesDataRow row = Rows[index];
+            TableRow row = Rows[index];
 
-            List<TablesDataCell> temp = new();
+            List<TableCell> temp = new();
 
             for (int c = 0; c < array.Count; c++) {
 
                 int columnIndex = c;
-                TablesDataColumn column = Columns[columnIndex];
+                TableColumn column = Columns[columnIndex];
 
-                temp.Add(array.GetObject(c, x => new TablesDataCell(x, index, row, columnIndex, column, htmlParser, preview))!);
+                temp.Add(array.GetObject(c, x => new TableCell(x, index, row, columnIndex, column, htmlParser, preview))!);
 
             }
 
@@ -145,7 +145,7 @@ namespace Limbo.Umbraco.Tables.Models {
 
         }
 
-        private void WriteRow(TextWriter writer, TablesDataRow row) {
+        private void WriteRow(TextWriter writer, TableRow row) {
 
             writer.WriteLine("    <tr>");
 
@@ -170,16 +170,16 @@ namespace Limbo.Umbraco.Tables.Models {
         #region Static methods
 
         /// <summary>
-        /// Returns a new instance of <see cref="TablesDataModel"/> parsed from the specified <paramref name="json"/> object, or <c>null</c> if <paramref name="json"/> is null.
+        /// Returns a new instance of <see cref="TableModel"/> parsed from the specified <paramref name="json"/> object, or <c>null</c> if <paramref name="json"/> is null.
         /// </summary>
         /// <param name="json">The JSON object.</param>
         /// <param name="config">The table configuration.</param>
         /// <param name="htmlParser">An instance of <see cref="TablesHtmlParser"/> to be used for parsing HTML values.</param>
         /// <param name="preview">Whether the model is part of a page being viewed in preview mode.</param>
-        /// <returns>An instance of <see cref="TablesDataModel"/>, or <c>null</c> if <paramref name="json"/> is null.</returns>
+        /// <returns>An instance of <see cref="TableModel"/>, or <c>null</c> if <paramref name="json"/> is null.</returns>
         [return: NotNullIfNotNull("json")]
-        public static TablesDataModel? Parse(JObject? json, TablesDataConfiguration config, TablesHtmlParser htmlParser, bool preview) {
-            return json == null ? null : new TablesDataModel(json, config, htmlParser, preview);
+        public static TableModel? Parse(JObject? json, TablesDataConfiguration config, TablesHtmlParser htmlParser, bool preview) {
+            return json == null ? null : new TableModel(json, config, htmlParser, preview);
         }
 
         #endregion

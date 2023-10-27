@@ -5,7 +5,7 @@ namespace Limbo.Umbraco.Tables.Models {
     /// <summary>
     /// Class representing an object that was parsed from an instance of <see cref="Newtonsoft.Json.Linq.JObject"/>.
     /// </summary>
-    public class TablesDataObject {
+    public class TableObject {
 
         #region Properties
 
@@ -25,7 +25,7 @@ namespace Limbo.Umbraco.Tables.Models {
         /// </summary>
         /// <param name="json">The instance of <see cref="Newtonsoft.Json.Linq.JObject"/> representing the object.</param>
 
-        protected TablesDataObject(JObject json) {
+        protected TableObject(JObject json) {
             JObject = json;
         }
 
