@@ -1,4 +1,6 @@
-﻿using Limbo.Umbraco.Tables.Parsers;
+﻿using Limbo.Umbraco.Tables.Json.Microsoft.Converters;
+using Limbo.Umbraco.Tables.Parsers;
+using Microsoft.AspNetCore.Html;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
@@ -38,7 +40,9 @@ namespace Limbo.Umbraco.Tables.Models {
         /// Gets a reference to the column value.
         /// </summary>
         [JsonProperty("value")]
-        public string Value { get; }
+        [JsonConverter(typeof(StringJsonConverter))]
+        [System.Text.Json.Serialization.JsonConverter(typeof(HtmlContentJsonConverter))]
+        public IHtmlContent Value { get; }
 
         /// <summary>
         /// Gets a reference to the type of the cell - eg. <c>td</c> or <c>th</c>.
@@ -57,8 +61,8 @@ namespace Limbo.Umbraco.Tables.Models {
             Row = row;
             ColumnIndex = columnIndex;
             Column = column;
-            Value = json.GetString("value", x => htmlParser.Parse(x, preview))!;
             Type = json.GetString("type")!;
+            Value = new HtmlString(json.GetString("value", x => htmlParser.Parse(x, preview))!);
             Scope = json.GetString("scope");
         }
 
