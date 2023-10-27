@@ -1,4 +1,5 @@
-﻿using Umbraco.Cms.Core.PropertyEditors;
+﻿using Newtonsoft.Json;
+using Umbraco.Cms.Core.PropertyEditors;
 
 namespace Limbo.Umbraco.Tables.PropertyEditors;
 
@@ -24,6 +25,12 @@ public class TablesDataConfiguration {
     /// </summary>
     [ConfigurationField("allowUseLastRowAsFooter", "Allow 'Use last row as footer' option", "boolean")]
     public bool AllowUseLastRowAsFooter { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the label of the property editor should be hidden.
+    /// </summary>
+    [ConfigurationField("hideLabel", "Hide label", "boolean", Description = "Select whether the label and description of properties using this data type should be hidden.<br /><br />Hiding the label and description can be useful in some cases - eg. to give the video picker a bit more horizontal space.")]
+    public bool HideLabel { get; set; }
 
     /// <summary>
     /// Configuration for the RTE.

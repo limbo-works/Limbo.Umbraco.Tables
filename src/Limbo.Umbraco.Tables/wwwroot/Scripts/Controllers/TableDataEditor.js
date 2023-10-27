@@ -2,6 +2,10 @@
 
 	const vm = this;
 
+	if ($scope.model.config.hideLabel === true) {
+		$scope.model.hideLabel = true;
+	}
+
 	vm.addRow = function () {
 
 		const row = {};
