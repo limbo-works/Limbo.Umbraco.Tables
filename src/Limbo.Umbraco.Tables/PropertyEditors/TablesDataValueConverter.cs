@@ -35,7 +35,8 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
         }
 
         public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object? inter, bool preview) {
-            return TablesDataModel.Parse(inter as JObject, _htmlParser, preview);
+            var config = (TablesDataConfiguration) propertyType.DataType.Configuration!;
+            return TablesDataModel.Parse(inter as JObject, config, _htmlParser, preview);
         }
 
         public override Type GetPropertyValueType(IPublishedPropertyType propertyType) {

@@ -7,23 +7,23 @@ namespace Limbo.Umbraco.Tables.PropertyEditors {
     /// </summary>
     public class TablesDataConfiguration {
 
-        ///// <summary>
-        ///// Gets or sets whether the <strong>Use first row as header</strong> option is enabled in the property editor.
-        ///// </summary>
-        //[ConfigurationField("allowUseFirstRowAsHeader", "Allow 'Use first row as header' option", "boolean")]
-        //public bool AllowUseFirstRowAsHeader { get; set; } = true;
+        /// <summary>
+        /// Gets or sets whether the <strong>Use first row as header</strong> option is enabled in the property editor.
+        /// </summary>
+        [ConfigurationField("allowUseFirstRowAsHeader", "Allow 'Use first row as header' option", "boolean")]
+        public bool AllowUseFirstRowAsHeader { get; set; } = true;
 
-        ///// <summary>
-        ///// Gets or sets whether the <strong>Use first column as header</strong> option is enabled in the property editor.
-        ///// </summary>
-        //[ConfigurationField("allowUseFirstColumnAsHeader", "Allow 'Use first column as header' option", "boolean")]
-        //public bool AllowUseFirstColumnAsHeader { get; set; } = true;
+        /// <summary>
+        /// Gets or sets whether the <strong>Use first column as header</strong> option is enabled in the property editor.
+        /// </summary>
+        [ConfigurationField("allowUseFirstColumnAsHeader", "Allow 'Use first column as header' option", "boolean")]
+        public bool AllowUseFirstColumnAsHeader { get; set; } = true;
 
-        ///// <summary>
-        ///// Gets or sets whether the <strong>Use last row as footer</strong> option is enabled in the property editor.
-        ///// </summary>
-        //[ConfigurationField("allowUseLastRowAsFooter", "Allow 'Use last row as footer' option", "boolean")]
-        //public bool AllowUseLastRowAsFooter { get; set; }
+        /// <summary>
+        /// Gets or sets whether the <strong>Use last row as footer</strong> option is enabled in the property editor.
+        /// </summary>
+        [ConfigurationField("allowUseLastRowAsFooter", "Allow 'Use last row as footer' option", "boolean")]
+        public bool AllowUseLastRowAsFooter { get; set; }
 
         /// <summary>
         /// Configuration for the RTE.

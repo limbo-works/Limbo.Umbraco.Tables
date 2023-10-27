@@ -56,18 +56,20 @@ namespace Limbo.Umbraco.Tables.Models {
 
         #region Constructors
 
-        private TablesDataModel(JObject json, TablesHtmlParser htmlParser, bool preview) : base(json) {
+        private TablesDataModel(JObject json, TablesDataConfiguration config, TablesHtmlParser htmlParser, bool preview) : base(json) {
 
-            UseFirstRowAsHeader = json.GetBoolean("useFirstRowAsHeader");
-            UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader");
-            UseLastRowAsFooter = json.GetBoolean("useLastRowAsFooter");
+            UseFirstRowAsHeader = json.GetBoolean("useFirstRowAsHeader") && config.AllowUseFirstRowAsHeader;
+            UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader") && config.AllowUseFirstColumnAsHeader;
+            UseLastRowAsFooter = json.GetBoolean("useLastRowAsFooter") && config.AllowUseLastRowAsFooter;
+
+            JArray rows = json.GetArrayOrNew("rows");
 
             Rows = json.GetArrayOrNew("rows")
-                .ForEach((i, x) => new TablesDataRow(i, x))
+                .ForEach((i, x) => new TablesDataRow(i, x, rows.Count, this))
                 .ToList();
 
             Columns = json.GetArrayOrNew("columns")
-                .ForEach((i, x) => new TablesDataColumn(i, x))
+                .ForEach((i, x) => new TablesDataColumn(i, x, this))
                 .ToList();
 
             Cells = json
@@ -108,12 +110,13 @@ namespace Limbo.Umbraco.Tables.Models {
         /// Returns a new instance of <see cref="TablesDataModel"/> parsed from the specified <paramref name="json"/> object, or <c>null</c> if <paramref name="json"/> is null.
         /// </summary>
         /// <param name="json">The JSON object.</param>
+        /// <param name="config">The table configuration.</param>
         /// <param name="htmlParser">An instance of <see cref="TablesHtmlParser"/> to be used for parsing HTML values.</param>
         /// <param name="preview">Whether the model is part of a page being viewed in preview mode.</param>
         /// <returns>An instance of <see cref="TablesDataModel"/>, or <c>null</c> if <paramref name="json"/> is null.</returns>
         [return: NotNullIfNotNull("json")]
-        public static TablesDataModel? Parse(JObject? json, TablesHtmlParser htmlParser, bool preview) {
-            return json == null ? null : new TablesDataModel(json, htmlParser, preview);
+        public static TablesDataModel? Parse(JObject? json, TablesDataConfiguration config, TablesHtmlParser htmlParser, bool preview) {
+            return json == null ? null : new TablesDataModel(json, config, htmlParser, preview);
         }
 
         #endregion

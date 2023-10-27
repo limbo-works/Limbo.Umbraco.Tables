@@ -9,13 +9,38 @@ namespace Limbo.Umbraco.Tables.Models {
     public class TablesDataRow : TablesDataObject {
 
         /// <summary>
+        /// gets a reference to the parent <see cref="TablesDataModel"/>.
+        /// </summary>
+        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        public TablesDataModel Table { get; }
+
+        /// <summary>
         /// Gets the index of the row.
         /// </summary>
         [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
         public int Index { get; }
 
-        internal TablesDataRow(int index, JObject json) : base(json) {
+        /// <summary>
+        /// Gets whether the row is a header row.
+        /// </summary>
+        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        public bool IsHeader { get; }
+
+        /// <summary>
+        /// Gets whether the row is a footer row.
+        /// </summary>
+        [JsonIgnore]
+        [System.Text.Json.Serialization.JsonIgnore]
+        public bool IsFooter { get; }
+
+        internal TablesDataRow(int index, JObject json, int rowsCount, TablesDataModel table) : base(json) {
+            Table = table;
             Index = index;
+            IsHeader = index == 0 && table.UseFirstRowAsHeader;
+            IsFooter = !IsHeader && index == rowsCount - 1 && table.UseLastRowAsFooter;
         }
 
     }
