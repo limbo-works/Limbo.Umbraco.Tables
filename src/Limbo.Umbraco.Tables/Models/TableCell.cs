@@ -1,5 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using Limbo.Umbraco.Tables.Json.Microsoft.Converters;
+﻿using Limbo.Umbraco.Tables.Json.Microsoft.Converters;
 using Limbo.Umbraco.Tables.Parsers;
 using Microsoft.AspNetCore.Html;
 using Newtonsoft.Json;
@@ -18,13 +17,13 @@ public class TableCell : TableObject {
     /// Gets the row index.
     /// </summary>
     [JsonProperty("rowIndex")]
-    [JsonPropertyName("rowIndex")]
+    [System.Text.Json.Serialization.JsonPropertyName("rowIndex")]
     public int RowIndex { get; }
 
     /// <summary>
     /// Gets a reference to the row.
     /// </summary>
-    [Newtonsoft.Json.JsonIgnore]
+    [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
     public TableRow Row { get; }
 
@@ -32,13 +31,13 @@ public class TableCell : TableObject {
     /// Gets the column index.
     /// </summary>
     [JsonProperty("columnIndex")]
-    [JsonPropertyName("columnIndex")]
+    [System.Text.Json.Serialization.JsonPropertyName("columnIndex")]
     public int ColumnIndex { get; }
 
     /// <summary>
     /// Gets a reference to the column.
     /// </summary>
-    [Newtonsoft.Json.JsonIgnore]
+    [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
     public TableColumn Column { get; }
 
@@ -46,8 +45,8 @@ public class TableCell : TableObject {
     /// Gets a reference to the column value.
     /// </summary>
     [JsonProperty("value")]
-    [JsonPropertyName("value")]
-    [Newtonsoft.Json.JsonConverter(typeof(StringJsonConverter))]
+    [System.Text.Json.Serialization.JsonPropertyName("value")]
+    [JsonConverter(typeof(StringJsonConverter))]
     [System.Text.Json.Serialization.JsonConverter(typeof(HtmlContentJsonConverter))]
     public IHtmlContent Value { get; }
 
@@ -55,14 +54,15 @@ public class TableCell : TableObject {
     /// Gets a reference to the type of the cell - eg. <see cref="TableCellType.Td"/> or <see cref="TableCellType.Th"/>.
     /// </summary>
     [JsonProperty("type")]
-    [JsonPropertyName("type")]
+    [System.Text.Json.Serialization.JsonPropertyName("type")]
     public TableCellType Type { get; }
 
     /// <summary>
     /// Gets a reference to the scope of the cell - eg. <see cref="TableCellScope.Col"/> or <see cref="TableCellScope.Row"/>.
     /// </summary>
-    [JsonProperty("scope")]
-    [JsonPropertyName("scope")]
+    [JsonProperty("scope", DefaultValueHandling = DefaultValueHandling.Ignore)]
+    [System.Text.Json.Serialization.JsonPropertyName("scope")]
+    [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public TableCellScope Scope { get; }
 
     internal TableCell(JObject json, int rowIndex, TableRow row, int columnIndex, TableColumn column, TableModel model, TablesHtmlParser htmlParser, bool preview) : base(json) {
