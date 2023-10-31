@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Limbo.Umbraco.Tables.Models;
@@ -35,6 +36,13 @@ public class TableRow : TableObject {
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
     public bool IsFooter { get; }
+
+    /// <summary>
+    /// Gets a list of the cells of the row.
+    /// </summary>
+    [JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
+    public IReadOnlyList<TableCell> Cells => Table.Cells[Index];
 
     internal TableRow(int index, JObject json, int rowsCount, TableModel table) : base(json) {
         Table = table;
