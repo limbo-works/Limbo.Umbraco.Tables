@@ -105,7 +105,7 @@ public class TableModel : TableObject, IHtmlContent {
             int columnIndex = c;
             TableColumn column = Columns[columnIndex];
 
-            temp.Add(array.GetObject(c, x => new TableCell(x, index, row, columnIndex, column, htmlParser, preview))!);
+            temp.Add(array.GetObject(c, x => new TableCell(x, index, row, columnIndex, column, this, htmlParser, preview))!);
 
         }
 

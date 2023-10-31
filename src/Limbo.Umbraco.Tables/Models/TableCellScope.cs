@@ -18,7 +18,7 @@ public enum TableCellScope {
     /// <summary>
     /// Indicates that a cell has the scope of a column.
     /// </summary>
-    Column,
+    Col,
 
     /// <summary>
     /// Indicates that a cell has the scope of a row.

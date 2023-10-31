@@ -59,20 +59,26 @@ public class TableCell : TableObject {
     public TableCellType Type { get; }
 
     /// <summary>
-    /// Gets a reference to the scope of the cell - eg. <c>row</c> or <c>col</c>.
+    /// Gets a reference to the scope of the cell - eg. <see cref="TableCellScope.Col"/> or <see cref="TableCellScope.Row"/>.
     /// </summary>
     [JsonProperty("scope")]
     [JsonPropertyName("scope")]
     public TableCellScope Scope { get; }
 
-    internal TableCell(JObject json, int rowIndex, TableRow row, int columnIndex, TableColumn column, TablesHtmlParser htmlParser, bool preview) : base(json) {
+    internal TableCell(JObject json, int rowIndex, TableRow row, int columnIndex, TableColumn column, TableModel model, TablesHtmlParser htmlParser, bool preview) : base(json) {
         RowIndex = rowIndex;
         Row = row;
         ColumnIndex = columnIndex;
         Column = column;
         Value = new HtmlString(json.GetString("value", x => htmlParser.Parse(x, preview))!);
         Type = row.IsHeader || column.IsHeader ? TableCellType.Th : TableCellType.Td;
-        Scope = json.GetEnum("scope", TableCellScope.None);
+
+        if (RowIndex == 0 && model.UseFirstRowAsHeader) {
+            Scope = TableCellScope.Col;
+        } else if (ColumnIndex == 0 && model.UseFirstRowAsHeader) {
+            Scope = TableCellScope.Row;
+        }
+
     }
 
 }
