@@ -75,7 +75,7 @@ public class TableCell : TableObject {
 
         if (RowIndex == 0 && model.UseFirstRowAsHeader) {
             Scope = TableCellScope.Col;
-        } else if (ColumnIndex == 0 && model.UseFirstRowAsHeader) {
+        } else if (ColumnIndex == 0 && model.UseFirstColumnAsHeader) {
             Scope = TableCellScope.Row;
         }
 
