@@ -2,9 +2,11 @@
 
 	const vm = this;
 
-	if ($scope.model.config.hideLabel === true) {
-		$scope.model.hideLabel = true;
-	}
+	if ($scope.model.config.hideLabel === true) $scope.model.hideLabel = true;
+
+	vm.allowUseFirstRowAsHeader = $scope.model.config.allowUseFirstRowAsHeader === true;
+	vm.allowUseFirstColumnAsHeader = $scope.model.config.allowUseFirstColumnAsHeader === true;
+	vm.allowUseLastRowAsFooter = $scope.model.config.allowUseLastRowAsFooter === true;
 
 	vm.addRow = function () {
 

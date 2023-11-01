@@ -1,4 +1,5 @@
 ﻿using Umbraco.Cms.Core.IO;
+using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Services;
 
@@ -56,6 +57,18 @@ public class TableEditor : DataEditor {
     public override IPropertyIndexValueFactory PropertyIndexValueFactory => new TablePropertyIndexValueFactory();
 
     protected override IConfigurationEditor CreateConfigurationEditor() => new TableConfigurationEditor(_ioHelper, _editorConfigurationParser);
+
+    public override IDataValueEditor GetValueEditor(object? configuration) {
+
+        IDataValueEditor editor = base.GetValueEditor(configuration);
+
+        if (editor is DataValueEditor dve) {
+            dve.View += $"?v={TablesPackage.Version}";
+        }
+
+        return editor;
+
+    }
 
     #endregion
 
