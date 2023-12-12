@@ -2,6 +2,12 @@
 
 	const vm = this;
 
+	if ($scope.model.config.hideLabel === true) $scope.model.hideLabel = true;
+
+	vm.allowUseFirstRowAsHeader = $scope.model.config.allowUseFirstRowAsHeader === true;
+	vm.allowUseFirstColumnAsHeader = $scope.model.config.allowUseFirstColumnAsHeader === true;
+	vm.allowUseLastRowAsFooter = $scope.model.config.allowUseLastRowAsFooter === true;
+
 	vm.addRow = function () {
 
 		const row = {};
@@ -155,27 +161,8 @@
 				alias: "value",
 				label: "",
 				view: "rte",
-				config: {
-					editor: {
-						toolbar: [
-							"ace",
-							"bold",
-							"italic",
-							"alignleft",
-							"aligncenter",
-							"alignright",
-							"outdent",
-							"indent",
-							"link",
-							"unlink",
-							"subscript",
-							"superscript"
-						],
-						dimensions: {
-							height: 500,
-							width: 0
-						}
-					}
+				config: {					
+					editor: $scope.model.config.rte
 				},
 				value: cell.value
 			},

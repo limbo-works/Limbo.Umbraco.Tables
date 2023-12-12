@@ -177,4 +177,65 @@
         width: 100%;
     }
 
+    .button-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+
+        > button {
+            appearance: none;
+            display: inline-block;
+            -webkit-appearance: none;
+            border: 0;
+            font-weight: bold;
+            color: #1A2650;
+            line-height: 1;
+            background-color: rgba(216,215,217, .5);
+            font-size: 13px;
+            margin: 0;
+            padding: 10px 20px;
+            border-radius: 4px;
+            transition: all .2s ease;
+            position: relative;
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(216,215,217, .3);
+                color: #2152a3;
+            }
+
+            &.--active {
+                background-color: #F5C1BC;
+                color: #1A2650;
+            }
+        }
+    }
+
+}
+
+﻿.limbo-tables-separator {
+    border-bottom: 2px solid #F4C1BC;
+    margin: 0;
+    padding: 0;
+    margin-bottom: -21px;
+    z-index: 2;
+    position: relative;
+
+    &-title {
+        font-size: 13px;
+        text-transform: uppercase;
+    }
+
+    &-description {
+        font-size: 11px;
+        color: #333;
+        margin-top: -5px;
+    }
+
+    umb-property + umb-property & {
+        background: #fff;
+        margin-top: -21px;
+        padding-top: 41px;
+    }
+
 }

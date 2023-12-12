@@ -2,18 +2,24 @@
     <div class="table-editor">
         <div class="umb-scrollable row-fluid">
             <div class="editor">
-                <div class="toolbar">
+                <div class="toolbar" ng-if="vm.allowUseFirstRowAsHeader || vm.allowUseFirstColumnAsHeader || vm.allowUseLastRowAsFooter">
                     <div class="toolbar__buttons is-fullwidth">
-                        <div>
+                        <div ng-if="vm.allowUseFirstRowAsHeader">
                             <input type="checkbox" id="useFirstRowAsHeader" ng-model="vm.table.useFirstRowAsHeader" ng-change="vm.reIndexCells()" />
                             <label for="useFirstRowAsHeader">
                                 <localize key="limboTables_useFirstRowAsHeader">Use first row as header</localize>
                             </label>
                         </div>
-                        <div>
+                        <div ng-if="vm.allowUseFirstColumnAsHeader">
                             <input type="checkbox" id="useFirstColumnAsHeader" ng-model="vm.table.useFirstColumnAsHeader" ng-change="vm.reIndexCells()" />
                             <label for="useFirstColumnAsHeader">
                                 <localize key="limboTables_useFirstColumnAsHeader">Use first column as header</localize>
+                            </label>
+                        </div>
+                        <div ng-if="vm.allowUseLastRowAsFooter">
+                            <input type="checkbox" id="useLastRowAsFooter" ng-model="vm.table.useLastRowAsFooter" ng-change="vm.reIndexCells()" />
+                            <label for="useLastRowAsFooter">
+                                <localize key="limboTables_useLastRowAsFooter">Use last row as footer</localize>
                             </label>
                         </div>
                     </div>

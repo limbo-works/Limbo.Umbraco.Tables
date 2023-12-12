@@ -7,6 +7,7 @@
 		<key alias="addContent">Tilføj indhold</key>
 		<key alias="useFirstRowAsHeader">Brug første række som header</key>
 		<key alias="useFirstColumnAsHeader">Brug første kolonne som header</key>
+		<key alias="useLastRowAsFooter">Brug sidste række som footer</key>
 		<key alias="addCellContent">Tilføj cellens indhold</key>
 		<key alias="editCellContent">Redigér cellens indhold</key>
 	</area>

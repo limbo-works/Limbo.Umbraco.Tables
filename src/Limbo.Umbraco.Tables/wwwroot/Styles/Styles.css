@@ -143,3 +143,55 @@
 .limbo-tables .textarea {
   width: 100%;
 }
+.limbo-tables .button-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+.limbo-tables .button-list > button {
+  appearance: none;
+  display: inline-block;
+  -webkit-appearance: none;
+  border: 0;
+  font-weight: bold;
+  color: #1A2650;
+  line-height: 1;
+  background-color: rgba(216, 215, 217, 0.5);
+  font-size: 13px;
+  margin: 0;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  position: relative;
+  cursor: pointer;
+}
+.limbo-tables .button-list > button:hover {
+  background-color: rgba(216, 215, 217, 0.3);
+  color: #2152a3;
+}
+.limbo-tables .button-list > button.--active {
+  background-color: #F5C1BC;
+  color: #1A2650;
+}
+.limbo-tables-separator {
+  border-bottom: 2px solid #F4C1BC;
+  margin: 0;
+  padding: 0;
+  margin-bottom: -21px;
+  z-index: 2;
+  position: relative;
+}
+.limbo-tables-separator-title {
+  font-size: 13px;
+  text-transform: uppercase;
+}
+.limbo-tables-separator-description {
+  font-size: 11px;
+  color: #333;
+  margin-top: -5px;
+}
+umb-property + umb-property .limbo-tables-separator {
+  background: #fff;
+  margin-top: -21px;
+  padding-top: 41px;
+}

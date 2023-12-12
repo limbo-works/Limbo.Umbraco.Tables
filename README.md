@@ -1,4 +1,9 @@
-# Limbo Tables  [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md) [![NuGet](https://img.shields.io/nuget/v/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables) [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables) [![Umbraco Marketplace](https://img.shields.io/badge/umbraco-marketplace-%233544B1)](https://marketplace.umbraco.com/package/limbo.umbraco.tables)
+# Limbo Tables
+
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
+[![NuGet](https://img.shields.io/nuget/v/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables)
+[![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables)
+[![Umbraco Marketplace](https://img.shields.io/badge/umbraco-marketplace-%233544B1)](https://marketplace.umbraco.com/package/limbo.umbraco.tables)
 
 Table editor for Umbraco 10+.
 
@@ -7,16 +12,16 @@ Table editor for Umbraco 10+.
 
 ## Installation
 
-Install for Umbraco 10+ via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.BlockList/3.0.1). Either via the .NET CLI:
+Install for Umbraco 10+ via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.BlockList/1.1.2). Either via the .NET CLI:
 
 ```
-dotnet add package Limbo.Umbraco.Tables --version 1.0.3
+dotnet add package Limbo.Umbraco.Tables --version 1.1.2
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.Tables -Version 1.0.3
+Install-Package Limbo.Umbraco.Tables -Version 1.1.2
 ```
 
 
@@ -39,14 +44,14 @@ The returned offers a number of different properties for accessing and rendering
 @using Limbo.Umbraco.Tables.Models
 @{
     var value = block.Content.Value("data");
-    if (value is TablesDataModel data)
+    if (value is TableModel data)
     {
         <table>
-            @foreach (IReadOnlyList<TablesDataCell> row in data.Cells)
+            @foreach (IReadOnlyList<TableCell> row in data.Cells)
             {
                 <tr>
-                    @foreach (TablesDataCell cell in row) {
-                        @if (cell.Scope == "row")
+                    @foreach (TableCell cell in row) {
+                        @if (cell.Type == TableCellType.Th)
                         {
                             <th>@Html.Raw(cell.Value)</th>
                         }

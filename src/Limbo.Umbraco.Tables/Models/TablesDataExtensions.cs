@@ -3,41 +3,39 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 
-namespace Limbo.Umbraco.Tables.Models {
+namespace Limbo.Umbraco.Tables.Models;
 
-    internal static class TablesDataExtensions {
+internal static class TablesDataExtensions {
 
-        public static JArray GetArrayOrNew(this JObject obj, string propertyName) {
-            return obj.GetArray(propertyName) ?? new JArray();
-        }
+    public static JArray GetArrayOrNew(this JObject obj, string propertyName) {
+        return obj.GetArray(propertyName) ?? new JArray();
+    }
 
-        public static IEnumerable<TResult> ForEach<TResult>(this JArray array, Func<int, JObject, TResult> callback) {
+    public static IEnumerable<TResult> ForEach<TResult>(this JArray array, Func<int, JObject, TResult> callback) {
 
-            List<TResult> temp = new();
+        List<TResult> temp = new();
 
-            for (int i = 0; i < array.Count; i++) {
+        for (int i = 0; i < array.Count; i++) {
 
-                temp.Add(callback(i, array.GetObject(i)!));
-
-            }
-
-            return temp;
+            temp.Add(callback(i, array.GetObject(i)!));
 
         }
 
-        public static IEnumerable<TResult> ForEach<TResult>(this JArray array, Func<int, JArray, TResult> callback) {
+        return temp;
 
-            List<TResult> temp = new();
+    }
 
-            for (int i = 0; i < array.Count; i++) {
+    public static IEnumerable<TResult> ForEach<TResult>(this JArray array, Func<int, JArray, TResult> callback) {
 
-                temp.Add(callback(i, array.GetArray(i)!));
+        List<TResult> temp = new();
 
-            }
+        for (int i = 0; i < array.Count; i++) {
 
-            return temp;
+            temp.Add(callback(i, array.GetArray(i)!));
 
         }
+
+        return temp;
 
     }
 

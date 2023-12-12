@@ -1,0 +1,11 @@
+﻿﻿<div class="limbo-tables" ng-controller="Limbo.Umbraco.Tables.CacheLevel as vm">
+    <div class="button-list">
+        <button type="button"
+                ng-repeat="level in vm.levels"
+                ng-class="{'--active': level.active}"
+                ng-click="vm.select(level)"
+                title="{{level.description}}">
+            {{level.name}}
+        </button>
+    </div>
+</div>
