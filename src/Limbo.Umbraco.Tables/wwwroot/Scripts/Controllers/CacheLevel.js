@@ -1,4 +1,4 @@
-﻿angular.module("umbraco").controller("Limbo.Umbraco.Tables.CacheLevel", function ($scope, $http, editorService) {
+﻿angular.module("umbraco").controller("Limbo.Umbraco.Tables.CacheLevel", function ($scope) {
 
     const vm = this;
 
