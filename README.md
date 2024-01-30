@@ -5,7 +5,7 @@
 [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables)
 [![Umbraco Marketplace](https://img.shields.io/badge/umbraco-marketplace-%233544B1)](https://marketplace.umbraco.com/package/limbo.umbraco.tables)
 
-Table editor for Umbraco 10+.
+Table editor for Umbraco 13.
 
 
 <br /><br />
@@ -15,13 +15,13 @@ Table editor for Umbraco 10+.
 Install for Umbraco 10+ via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.BlockList/1.1.2). Either via the .NET CLI:
 
 ```
-dotnet add package Limbo.Umbraco.Tables --version 1.1.2
+dotnet add package Limbo.Umbraco.Tables --version 13.0.0-beta001
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.Tables -Version 1.1.2
+Install-Package Limbo.Umbraco.Tables -Version 13.0.0-beta001
 ```
 
 
