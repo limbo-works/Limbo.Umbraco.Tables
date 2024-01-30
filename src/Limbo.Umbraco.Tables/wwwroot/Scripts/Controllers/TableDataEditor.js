@@ -162,12 +162,13 @@
 				label: "",
 				view: "rte",
 				config: {
-					editor: $scope.model.config.rte
+					editor: $scope.model.config.rte,
+					overlaySize: $scope.model.config.overlaySize
 				},
 				value: cell.value
 			},
 			submit: function (model) {
-				cell.value = model.prop.value;
+				cell.value = model.prop.value?.markup ? model.prop.value.markup : model.prop.value;
 				editorService.close();
 			},
 			close: function () {
