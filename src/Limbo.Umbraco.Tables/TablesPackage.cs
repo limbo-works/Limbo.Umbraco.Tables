@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using Skybrud.Essentials.Reflection;
 using Umbraco.Cms.Core.Semver;
 
-namespace Limbo.Umbraco.Tables; 
+namespace Limbo.Umbraco.Tables;
 
 /// <summary>
 /// Static class with various information and constants about the package.
@@ -28,12 +27,14 @@ public class TablesPackage {
     /// <summary>
     /// Gets the informational version of the package.
     /// </summary>
-    public static readonly string InformationalVersion = FileVersionInfo.GetVersionInfo(typeof(TablesPackage).Assembly.Location).ProductVersion!;
+    public static readonly string InformationalVersion = FileVersionInfo
+        .GetVersionInfo(typeof(TablesPackage).Assembly.Location).ProductVersion!
+        .Split('+')[0];
 
     /// <summary>
     /// Gets the semantic version of the package.
     /// </summary>
-    public static readonly SemVersion SemVersion = SemVersion.Parse(ReflectionUtils.GetInformationalVersion<TablesPackage>());
+    public static readonly SemVersion SemVersion = InformationalVersion;
 
     /// <summary>
     /// Gets the URL of the GitHub repository for this package.
@@ -49,6 +50,5 @@ public class TablesPackage {
     /// Gets the URL of the documentation for this package.
     /// </summary>
     public const string DocumentationUrl = "https://packages.limbo.works/limbo.umbraco.tables/v1/docs/";
-
 
 }
