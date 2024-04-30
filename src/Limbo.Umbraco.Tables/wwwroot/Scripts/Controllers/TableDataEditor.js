@@ -25,7 +25,7 @@
 
 	vm.addColumn = function () {
 
-		if (vm.table.columns.length >= 12) {
+		if (vm.table.columns.length >= 24) {
 			return;
 		}
 
