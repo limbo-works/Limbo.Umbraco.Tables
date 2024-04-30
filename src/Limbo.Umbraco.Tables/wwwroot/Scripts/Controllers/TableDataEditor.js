@@ -25,10 +25,6 @@
 
 	vm.addColumn = function () {
 
-		if (vm.table.columns.length >= 24) {
-			return;
-		}
-
 		const column = {};
 
 		vm.table.columns.push(column);
