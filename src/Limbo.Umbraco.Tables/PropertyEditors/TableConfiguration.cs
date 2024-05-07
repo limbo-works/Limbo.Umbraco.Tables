@@ -38,6 +38,12 @@ public class TableConfiguration {
     public object? Rte { get; set; }
 
     /// <summary>
+    /// Gets or sets the overlay size of the link picker overlay.
+    /// </summary>
+    [ConfigurationField("overlaySize", "Overlay Size", "overlaysize", Description = "Select the width of the link picker overlay.")]
+    public string? OverlaySize { get; set; }
+
+    /// <summary>
     /// Gets or sets the property cache level of the underlying property value converter. Defaults to <see cref="PropertyCacheLevel.Elements"/> if not specified.
     /// </summary>
     [ConfigurationField("cacheLevel", "Cache Level", "/App_Plugins/Limbo.Umbraco.Tables/Views/CacheLevel.html", Description = "Select the cache level of the underlying property value converter.")]
