@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Limbo.Umbraco.Tables.Models;
 
 /// <summary>
 /// Class representing a column in a <see cref="TableModel"/> value.
 /// </summary>
-public class TableColumn : TableObject {
+public class TableColumn {
 
     /// <summary>
     /// Gets a reference to the parent <see cref="TableModel"/>.
@@ -29,7 +28,7 @@ public class TableColumn : TableObject {
     [System.Text.Json.Serialization.JsonIgnore]
     public bool IsHeader { get; }
 
-    internal TableColumn(int index, JObject json, TableModel table) : base(json) {
+    internal TableColumn(int index, TableModel table) {
         Index = index;
         Table = table;
         IsHeader = index == 0 && table.UseFirstColumnAsHeader;
