@@ -318,7 +318,7 @@
                 },
                 submit: function (value) {
 
-                    if (!value || !(value instanceof Object) || value=="") 
+                    if (value=="") 
                     {
                         $scope.model.value = value;
                         initTable();
