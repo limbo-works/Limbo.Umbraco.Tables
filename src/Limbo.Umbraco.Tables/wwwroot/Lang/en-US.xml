@@ -10,5 +10,6 @@
 		<key alias="useLastRowAsFooter">Use last row as footer</key>
 		<key alias="addCellContent">Add cell content</key>
 		<key alias="editCellContent">Edit cell content</key>
+		<key alias="editRawValue">Edit raw value</key>
 	</area>
 </language>

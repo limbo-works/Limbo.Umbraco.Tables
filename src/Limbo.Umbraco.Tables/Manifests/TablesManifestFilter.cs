@@ -17,6 +17,7 @@ public class TablesManifestFilter : IManifestFilter {
             Version = TablesPackage.InformationalVersion,
             BundleOptions = BundleOptions.Independent,
             Scripts = new[] {
+                $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/_dev-mode.js",
                 $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/CacheLevel.js",
                 $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/TableDataEditor.js",
                 $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/TableDataOverlay.js"
