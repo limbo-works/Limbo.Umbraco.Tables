@@ -1,3 +1,6 @@
 ﻿src/.vs/
 src/Limbo.Umbraco.Tables/bin/
 src/Limbo.Umbraco.Tables/obj/
+*lnk
+/.vs
+/Custom.targets
