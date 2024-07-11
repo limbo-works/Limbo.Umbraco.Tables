@@ -12,16 +12,16 @@ Table editor for Umbraco 10+.
 
 ## Installation
 
-Install for Umbraco 10+ via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.BlockList/1.1.2). Either via the .NET CLI:
+Install for Umbraco 10+ via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.BlockList/1.1.4). Either via the .NET CLI:
 
 ```
-dotnet add package Limbo.Umbraco.Tables --version 1.1.2
+dotnet add package Limbo.Umbraco.Tables --version 1.1.4
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.Tables -Version 1.1.2
+Install-Package Limbo.Umbraco.Tables -Version 1.1.4
 ```
 
 
