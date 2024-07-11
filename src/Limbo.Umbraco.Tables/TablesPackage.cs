@@ -49,6 +49,6 @@ public class TablesPackage {
     /// <summary>
     /// Gets the URL of the documentation for this package.
     /// </summary>
-    public const string DocumentationUrl = "https://packages.limbo.works/limbo.umbraco.tables/v1/docs/";
+    public const string DocumentationUrl = "https://packages.limbo.works/limbo.umbraco.tables/v13/docs/";
 
 }
