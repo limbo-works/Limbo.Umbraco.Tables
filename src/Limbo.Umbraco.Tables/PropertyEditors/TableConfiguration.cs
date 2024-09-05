@@ -49,4 +49,11 @@ public class TableConfiguration {
     [ConfigurationField("cacheLevel", "Cache Level", "/App_Plugins/Limbo.Umbraco.Tables/Views/CacheLevel.html", Description = "Select the cache level of the underlying property value converter.")]
     public PropertyCacheLevel? CacheLevel { get; set; }
 
+    
+    /// <summary>
+    /// Gets or sets whether the label of the property editor should be hidden.
+    /// </summary>
+    [ConfigurationField("enableDevMode", "Developer mode?", "boolean", Description = "Enable a property action to edit the raw data for the editor value.")]
+    public bool EnableDevMode { get; set; }
+
 }

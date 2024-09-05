@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 
-<language alias="en" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+<language alias="da" intName="Danish" localName="Danish" lcid="" culture="da-DK">
 	<area alias="limboTables">
 		<key alias="addRow">Tilføj række</key>
 		<key alias="addColumn">Tilføj kolonne</key>
@@ -10,5 +10,6 @@
 		<key alias="useLastRowAsFooter">Brug sidste række som footer</key>
 		<key alias="addCellContent">Tilføj cellens indhold</key>
 		<key alias="editCellContent">Redigér cellens indhold</key>
+		<key alias="editRawValue">Redigér råværdi</key>
 	</area>
 </language>
