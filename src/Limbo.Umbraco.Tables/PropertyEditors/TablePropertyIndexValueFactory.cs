@@ -40,7 +40,9 @@ internal class TablePropertyIndexValueFactory : IPropertyIndexValueFactory {
 
     private static IEnumerable<string?> ProcessRow(JArray row) {
         foreach (JToken cell in row) {
-            yield return cell.Value<string>("value")?.StripHtml();
+            var value = cell.Value<JToken>("value")?.ToString();
+
+            yield return value?.StripHtml();
         }
     }
 
