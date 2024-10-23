@@ -164,7 +164,7 @@
 				value: cell.value
 			},
 			submit: function (model) {
-				cell.value = model.prop.value?.markup ? model.prop.value.markup : model.prop.value;
+				cell.value = typeof model.prop.value === "string" ? model.prop.value : model.prop.value?.markup ?? "";
 				editorService.close();
 			},
 			close: function () {
