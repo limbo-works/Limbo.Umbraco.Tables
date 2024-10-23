@@ -39,9 +39,26 @@ internal class TablePropertyIndexValueFactory : IPropertyIndexValueFactory {
     }
 
     private static IEnumerable<string?> ProcessRow(JArray row) {
+
         foreach (JToken cell in row) {
-            yield return cell.Value<string>("value")?.StripHtml();
+
+            JToken? value = cell.Value<JToken>("value");
+
+            switch (value?.Type) {
+
+                case JTokenType.String:
+                    yield return value.Value<string>()?.StripHtml();
+                    break;
+
+                case JTokenType.Object:
+                    string? markup = ((JObject) value).GetValue("markup")?.Value<string>();
+                    yield return markup?.StripHtml();
+                    break;
+
+            }
+
         }
+
     }
 
 }
