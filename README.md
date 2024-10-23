@@ -35,16 +35,16 @@ Table editor for Umbraco 13.
 
 **Umbraco 13**  
 
-Install for Umbraco 13 via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.Tables/13.0.1). Either via the .NET CLI:
+Install for Umbraco 13 via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.Tables/13.0.2). Either via the .NET CLI:
 
 ```
-dotnet add package Limbo.Umbraco.Tables --version 13.0.1
+dotnet add package Limbo.Umbraco.Tables --version 13.0.2
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.Tables -Version 13.0.1
+Install-Package Limbo.Umbraco.Tables -Version 13.0.2
 ```
 
 **Umbraco 10, 11 and 12**  
