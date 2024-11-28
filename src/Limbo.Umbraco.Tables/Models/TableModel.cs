@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -73,16 +74,35 @@ public class TableModel : TableObject, IHtmlContent {
         UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader") && config.AllowUseFirstColumnAsHeader;
         UseLastRowAsFooter = json.GetBoolean("useLastRowAsFooter") && config.AllowUseLastRowAsFooter;
 
-        JArray rows = json.GetArrayOrNew("rows");
+        //var jobString = json.ToString(Formatting.Indented);
 
-        Rows = json.GetArrayOrNew("rows")
-            .ForEach((i, x) => new TableRow(i, x, rows.Count, this))
+        JArray cells = json.GetArrayOrNew("cells");
+        var maxCell = cells.Last.Last;
+
+        //Construct rows
+        var rowsCount = maxCell.Value<int>("rowIndex") + 1;
+        var rowArray = new JArray();
+        for (int j = 0; j < rowsCount; j++) {
+            rowArray.Add("{}");
+        }
+
+        Rows = rowArray
+            .ForEach((i, x) => new TableRow(i, x, rowsCount, this))
             .ToList();
 
-        Columns = json.GetArrayOrNew("columns")
+
+        //Construct columns
+        var columnsCount = maxCell.Value<int>("columnIndex") + 1;
+        var columnsArray = new JArray();
+        for (int j = 0; j < columnsCount; j++) {
+            columnsArray.Add("{}");
+        }
+        Columns = columnsArray
             .ForEach((i, x) => new TableColumn(i, x, this))
             .ToList();
 
+
+        //Process actual cells
         Cells = json
             .GetArrayOrNew("cells")
             .ForEach((i, x) => ParseCellRow(i, x, htmlParser, preview))
