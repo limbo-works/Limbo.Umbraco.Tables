@@ -202,8 +202,55 @@
 
 
 	function loadTable() {
+
 		if (!$scope.model.value || !($scope.model.value instanceof Object)) return;
-		vm.table = $scope.model.value;
+
+		const t = $scope.model.value;
+
+		// If the current model doesn't contain a "cells" array or the array is empty, it means
+		// that we have an invalid model, which means we can stop further parsing of the model
+		if (!Array.isArray(t.cells) || t.cells.length === 0) {
+			vm.table = null;
+			return;
+		}
+
+		// If the "rows" array is missing, we can create it from the "cells" array. The "rows"
+		// array would for instance be missing if the value originates from the "Imulus.TableEditor",
+		// in which the data format is slightly different than this package.
+		let rows;
+		if (Array.isArray(t.rows)) {
+			rows = t.rows;
+		} else {
+			rows = [];
+			for (let i = 0; i < t.cells.length; i++) {
+				rows.push({});
+			}
+		}
+
+		// Similar to the "rows" array, we need to create the "columns" array is missing in the
+		// current table model
+		let columns;
+		if (Array.isArray(t.columns)) {
+			columns = t.columns;
+		} else {
+			columns = [];
+			if (rows.length > 0) {
+				for (let i = 0; i < t.cells[0].length; i++) {
+					columns.push({});
+				}
+			}
+		}
+
+		// Initialize the overall table object used by the property editor
+		vm.table = {
+			useFirstRowAsHeader: t.useFirstRowAsHeader === true,
+			useFirstColumnAsHeader: t.useFirstColumnAsHeader === true,
+			useLastRowAsFooter: t.useLastRowAsFooter === true,
+			columns,
+			rows,
+			cells: t.cells
+		};
+
 	}
 
 	function save() {

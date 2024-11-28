@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -73,45 +74,63 @@ public class TableModel : TableObject, IHtmlContent {
         UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader") && config.AllowUseFirstColumnAsHeader;
         UseLastRowAsFooter = json.GetBoolean("useLastRowAsFooter") && config.AllowUseLastRowAsFooter;
 
-        JArray rows = json.GetArrayOrNew("rows");
+        JArray? jsonCells = json.GetArray("cells");
 
-        Rows = json.GetArrayOrNew("rows")
-            .ForEach((i, x) => new TableRow(i, x, rows.Count, this))
-            .ToList();
+        TableRow[] rows = Array.Empty<TableRow>();
+        TableColumn[]? columns = null;
+        TableCell[][] cells = Array.Empty<TableCell[]>();
 
-        Columns = json.GetArrayOrNew("columns")
-            .ForEach((i, x) => new TableColumn(i, x, this))
-            .ToList();
+        if (jsonCells is not null) {
 
-        Cells = json
-            .GetArrayOrNew("cells")
-            .ForEach((i, x) => ParseCellRow(i, x, htmlParser, preview))
-            .ToList();
+            int rowCount = jsonCells.Count;
+
+            rows = new TableRow[rowCount];
+
+            cells = new TableCell[rowCount][];
+
+            int rowIndex = 0;
+
+            // ReSharper disable PossibleInvalidCastExceptionInForeachLoop
+
+            foreach (JArray array in jsonCells) {
+
+                int columnCount = array.Count;
+
+                rows[rowIndex] = new TableRow(rowIndex, rowCount, this);
+
+                cells[rowIndex] = new TableCell[columnCount];
+
+                int columnIndex = 0;
+
+                foreach (JObject jsonCell in array) {
+
+                    columns ??= new TableColumn[columnCount];
+
+                    columns[columnIndex] = new TableColumn(columnIndex, this);
+
+                    cells[rowIndex][columnIndex] = new TableCell(jsonCell, rowIndex, rowCount, columnIndex, this, htmlParser, preview);
+
+                    columnIndex++;
+
+                }
+
+                rowIndex++;
+
+            }
+
+            // ReSharper restore PossibleInvalidCastExceptionInForeachLoop
+
+        }
+
+        Rows = rows;
+        Columns = columns ?? Array.Empty<TableColumn>();
+        Cells = cells;
 
     }
 
     #endregion
 
     #region Member methods
-
-    private List<TableCell> ParseCellRow(int index, JArray array, TablesHtmlParser htmlParser, bool preview) {
-
-        TableRow row = Rows[index];
-
-        List<TableCell> temp = new();
-
-        for (int c = 0; c < array.Count; c++) {
-
-            int columnIndex = c;
-            TableColumn column = Columns[columnIndex];
-
-            temp.Add(array.GetObject(c, x => new TableCell(x, index, row, columnIndex, column, this, htmlParser, preview))!);
-
-        }
-
-        return temp;
-
-    }
 
     /// <inheritdoc />
     public void WriteTo(TextWriter writer, HtmlEncoder encoder) {

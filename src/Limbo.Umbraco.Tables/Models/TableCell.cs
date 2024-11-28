@@ -14,6 +14,13 @@ namespace Limbo.Umbraco.Tables.Models;
 public class TableCell : TableObject {
 
     /// <summary>
+    /// Gets a reference to the parent table.
+    /// </summary>
+    [JsonIgnore]
+    [System.Text.Json.Serialization.JsonIgnore]
+    public TableModel Table { get; }
+
+    /// <summary>
     /// Gets the row index.
     /// </summary>
     [JsonProperty("rowIndex")]
@@ -25,7 +32,7 @@ public class TableCell : TableObject {
     /// </summary>
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public TableRow Row { get; }
+    public TableRow Row => Table.Rows[RowIndex];
 
     /// <summary>
     /// Gets the column index.
@@ -39,7 +46,7 @@ public class TableCell : TableObject {
     /// </summary>
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public TableColumn Column { get; }
+    public TableColumn Column => Table.Columns[ColumnIndex];
 
     /// <summary>
     /// Gets a reference to the column value.
@@ -65,15 +72,18 @@ public class TableCell : TableObject {
     [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
     public TableCellScope Scope { get; }
 
-    internal TableCell(JObject json, int rowIndex, TableRow row, int columnIndex, TableColumn column, TableModel model, TablesHtmlParser htmlParser, bool preview) : base(json) {
-        RowIndex = rowIndex;
-        Row = row;
-        ColumnIndex = columnIndex;
-        Column = column;
-        Value = new HtmlString(json.GetString("value", x => htmlParser.Parse(x, preview))!);
-        Type = row.IsHeader || column.IsHeader ? TableCellType.Th : TableCellType.Td;
+    internal TableCell(JObject json, int rowIndex, int rowCount, int columnIndex, TableModel model, TablesHtmlParser htmlParser, bool preview) : base(json) {
 
-        if (RowIndex == 0 && model.UseFirstRowAsHeader) {
+        Table = model;
+        RowIndex = rowIndex;
+        ColumnIndex = columnIndex;
+        Value = new HtmlString(json.GetString("value", x => htmlParser.Parse(x, preview))!);
+
+        if (rowIndex == 0 && model.UseFirstRowAsHeader) Type = TableCellType.Th;
+        else if (rowIndex == rowCount - 1 && model.UseLastRowAsFooter) Type = TableCellType.Th;
+        else if (columnIndex == 0 && model.UseFirstColumnAsHeader) Type = TableCellType.Th;
+
+        if (rowIndex == 0 && model.UseFirstRowAsHeader) {
             Scope = TableCellScope.Col;
         } else if (ColumnIndex == 0 && model.UseFirstColumnAsHeader) {
             Scope = TableCellScope.Row;

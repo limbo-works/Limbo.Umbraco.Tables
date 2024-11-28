@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Limbo.Umbraco.Tables.Models;
 
 /// <summary>
 /// Class representing a row in a <see cref="TableModel"/> value.
 /// </summary>
-public class TableRow : TableObject {
+public class TableRow {
 
     /// <summary>
     /// gets a reference to the parent <see cref="TableModel"/>.
@@ -44,7 +43,7 @@ public class TableRow : TableObject {
     [System.Text.Json.Serialization.JsonIgnore]
     public IReadOnlyList<TableCell> Cells => Table.Cells[Index];
 
-    internal TableRow(int index, JObject json, int rowsCount, TableModel table) : base(json) {
+    internal TableRow(int index, int rowsCount, TableModel table) {
         Table = table;
         Index = index;
         IsHeader = index == 0 && table.UseFirstRowAsHeader;
