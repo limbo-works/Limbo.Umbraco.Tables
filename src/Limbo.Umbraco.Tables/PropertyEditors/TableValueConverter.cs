@@ -14,14 +14,7 @@ namespace Limbo.Umbraco.Tables.PropertyEditors;
 /// <summary>
 /// Property value converter for <see cref="TableEditor"/>.
 /// </summary>
-public class TableValueConverter : PropertyValueConverterBase {
-
-    private readonly TablesHtmlParser _htmlParser;
-
-    public TableValueConverter(TablesHtmlParser htmlParser) {
-        _htmlParser = htmlParser;
-    }
-
+public class TableValueConverter(TablesHtmlParser htmlParser) : PropertyValueConverterBase {
     public override bool IsConverter(IPublishedPropertyType propertyType) {
         return propertyType.EditorAlias == TableEditor.EditorAlias;
     }
@@ -35,8 +28,8 @@ public class TableValueConverter : PropertyValueConverterBase {
     }
 
     public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object? inter, bool preview) {
-        var config = (TableConfiguration) propertyType.DataType.Configuration!;
-        return TableModel.Parse(inter as JObject, config, _htmlParser, preview);
+        var config = propertyType.DataType.ConfigurationAs<TableConfiguration>()!;
+        return TableModel.Parse(inter as JObject, config, htmlParser, preview);
     }
 
     public override Type GetPropertyValueType(IPublishedPropertyType propertyType) {
@@ -46,7 +39,8 @@ public class TableValueConverter : PropertyValueConverterBase {
     public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType) {
 
         // Default to "Elements" if configuration doesn't match (probably wouldn't happen)
-        if (propertyType.DataType.Configuration is not TableConfiguration config) return PropertyCacheLevel.Elements;
+        var config = propertyType.DataType.ConfigurationAs<TableConfiguration>();
+        if (config is  null) return PropertyCacheLevel.Elements;
 
         // Return the configured cachwe level (or "Elements" if not specified)
         return config.CacheLevel ?? PropertyCacheLevel.Elements;

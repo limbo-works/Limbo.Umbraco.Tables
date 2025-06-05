@@ -11,13 +11,11 @@ namespace Limbo.Umbraco.Tables.PropertyEditors;
 /// </summary>
 public class TableConfigurationEditor : ConfigurationEditor<TableConfiguration> {
 
-    public TableConfigurationEditor(IIOHelper ioHelper, IEditorConfigurationParser editorConfigurationParser) : base(ioHelper, editorConfigurationParser) {
+    public TableConfigurationEditor(IIOHelper ioHelper) : base(ioHelper) {
 
         Fields.Insert(0, new ConfigurationField {
             Key = "tableSeparator",
-            Name = "Table Options",
-            View = "/App_Plugins/Limbo.Umbraco.Tables/Views/TableSeparator.html",
-            HideLabel = true
+            PropertyName = "Table Options"
         });
 
         int index1 = Fields.FindIndex(x => x.Key == "rte");
@@ -25,9 +23,7 @@ public class TableConfigurationEditor : ConfigurationEditor<TableConfiguration> 
         if (index1 >= 0) {
             Fields.Insert(index1, new ConfigurationField {
                 Key = "rteSeparator",
-                Name = Fields[index1].Name,
-                View = "/App_Plugins/Limbo.Umbraco.Tables/Views/TableSeparator.html",
-                HideLabel = true
+                PropertyName = Fields[index1].PropertyName,
             });
         }
 
@@ -36,9 +32,7 @@ public class TableConfigurationEditor : ConfigurationEditor<TableConfiguration> 
         if (index2 >= 0) {
             Fields.Insert(index2, new ConfigurationField {
                 Key = "advancedSeparator",
-                Name = "Advanced Options",
-                View = "/App_Plugins/Limbo.Umbraco.Tables/Views/TableSeparator.html",
-                HideLabel = true
+                PropertyName = "Advanced Options"
             });
         }
 
