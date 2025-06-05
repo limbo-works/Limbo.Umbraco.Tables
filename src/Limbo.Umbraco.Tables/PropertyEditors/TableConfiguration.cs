@@ -32,6 +32,18 @@ public class TableConfiguration {
     public bool HideLabel { get; set; }
 
     /// <summary>
+    /// Gets or sets the row limit option of the property editor.
+    /// </summary>
+    [ConfigurationField("rowLimit", "Row limit", "number", Description = "Specifies the number of row allowed.")]
+    public int RowLimit { get; set; } = 0;
+
+    /// <summary>
+    /// Gets or sets the column limit option of the property editor.
+    /// </summary>
+    [ConfigurationField("columnLimit", "Column limit", "number", Description = "Specifies the number of columns allowed.")]
+    public int ColumnLimit { get; set; } = 0;
+
+    /// <summary>
     /// Configuration for the RTE.
     /// </summary>
     [ConfigurationField("rte", "Rich text editor", "views/propertyeditors/rte/rte.prevalues.html", Description = "Rich text editor configuration", HideLabel = true)]

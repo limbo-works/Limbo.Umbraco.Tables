@@ -43,6 +43,20 @@ public class TableModel : TableObject, IHtmlContent {
     public bool UseLastRowAsFooter { get; }
 
     /// <summary>
+    /// Gets the number of rows allowed.
+    /// </summary>
+    [JsonProperty("rowLimit")]
+    [JsonPropertyName("rowLimit")]
+    public int RowLimit { get; }
+
+    /// <summary>
+    /// Gets the number of columns allowed.
+    /// </summary>
+    [JsonProperty("columnLimit")]
+    [JsonPropertyName("columnLimit")]
+    public int ColumnLimit { get; }
+
+    /// <summary>
     /// Gets a list of the rows in the structued data table.
     /// </summary>
     [Newtonsoft.Json.JsonIgnore]
@@ -72,6 +86,8 @@ public class TableModel : TableObject, IHtmlContent {
         UseFirstRowAsHeader = json.GetBoolean("useFirstRowAsHeader") && config.AllowUseFirstRowAsHeader;
         UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader") && config.AllowUseFirstColumnAsHeader;
         UseLastRowAsFooter = json.GetBoolean("useLastRowAsFooter") && config.AllowUseLastRowAsFooter;
+        RowLimit = json.GetInt32("rowLimit");
+        ColumnLimit = json.GetInt32("columnLimit");
 
         JArray rows = json.GetArrayOrNew("rows");
 

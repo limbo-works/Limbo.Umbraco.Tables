@@ -7,8 +7,13 @@
 	vm.allowUseFirstRowAsHeader = $scope.model.config.allowUseFirstRowAsHeader === true;
 	vm.allowUseFirstColumnAsHeader = $scope.model.config.allowUseFirstColumnAsHeader === true;
 	vm.allowUseLastRowAsFooter = $scope.model.config.allowUseLastRowAsFooter === true;
+	vm.columnLimit = $scope.model.config.columnLimit;
+	vm.rowLimit = $scope.model.config.rowLimit;
 
 	vm.addRow = function () {
+		if (vm.rowLimit > 0 && vm.table.rows.length >= vm.rowLimit) {
+			return;
+		}
 
 		const row = {};
 
@@ -24,6 +29,9 @@
 	}
 
 	vm.addColumn = function () {
+		if (vm.columnLimit > 0 && vm.table.columns.length >= vm.columnLimit) {
+			return;
+		}
 
 		const column = {};
 
