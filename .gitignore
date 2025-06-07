@@ -18,3 +18,4 @@ Thumbs.db
 **/bin/
 **/obj/
 *.user
+src/Limbo.Umbraco.Tables.StaticAssets/wwwroot
