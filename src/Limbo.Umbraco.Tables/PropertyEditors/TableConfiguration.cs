@@ -5,7 +5,7 @@ namespace Limbo.Umbraco.Tables.PropertyEditors;
 /// <summary>
 /// Represents the configuration for <see cref="TableEditor"/>.
 /// </summary>
-public class TableConfiguration {
+public class TableConfiguration : IConfigureValueType {
 
     /// <summary>
     /// Gets or sets whether the <strong>Use first row as header</strong> option is enabled in the property editor.
@@ -49,4 +49,5 @@ public class TableConfiguration {
     [ConfigurationField("cacheLevel")]
     public PropertyCacheLevel? CacheLevel { get; set; }
 
+    public string ValueType => ValueTypes.String;
 }

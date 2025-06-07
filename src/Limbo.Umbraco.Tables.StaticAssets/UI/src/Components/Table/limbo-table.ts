@@ -1,5 +1,4 @@
-import { customElement, LitElement, html, css,  property, state } from '@umbraco-cms/backoffice/external/lit';
-
+import { customElement, LitElement, html, property, state } from '@umbraco-cms/backoffice/external/lit';
 import style from './Styles.less?inline';
 import { UmbChangeEvent } from '@umbraco-cms/backoffice/event';
 import type {Table, Cell, Row} from "../../models/table.ts";
@@ -7,6 +6,7 @@ import type {Table, Cell, Row} from "../../models/table.ts";
 import {UMB_MODAL_MANAGER_CONTEXT, UmbModalManagerContext} from '@umbraco-cms/backoffice/modal';
 import { UmbElementMixin } from '@umbraco-cms/backoffice/element-api'
 import {LIMBO_TABLE_MODAL} from "../Dialogs/RteModalValue.ts";
+import {UmbPropertyEditorConfigCollection} from "@umbraco-cms/backoffice/property-editor";
 /**
  * An example element.
  *
@@ -23,17 +23,15 @@ export class LimboTable extends UmbElementMixin(LitElement) {
       this._modalContext = _instance;
     });
   }
-  /**
-   * Copy for the read the docs hint.
-   */
-  @property()
-  docsHint = 'Click on the Vite and Lit logos to learn more'
+  //state
+  @state()
+  private allowUseFirstRowAsHeader?: boolean;
 
-  /**
-   * The number of times the button has been clicked.
-   */
-  @property({ type: Number })
-  count = 0
+  @state()
+  private allowUseFirstColumnAsHeader?: boolean;
+
+  @state()
+  private allowUseLastRowAsFooter?: boolean;
 
   @state()
   private table : Table = {
@@ -43,36 +41,53 @@ export class LimboTable extends UmbElementMixin(LitElement) {
     useFirstRowAsHeader: false,
     useFirstColumnAsHeader: false
   };
+  @property({ attribute: false })
+  public set config(config: UmbPropertyEditorConfigCollection) {
+    this.allowUseFirstRowAsHeader = config.getValueByAlias("allowUseFirstRowAsHeader") ?? false;
+    this.allowUseFirstColumnAsHeader = config.getValueByAlias("allowUseFirstColumnAsHeader") ?? false;
+    this.allowUseLastRowAsFooter = config.getValueByAlias("allowUseLastRowAsFooter") ?? false;
+  }
   
   
   
-  static readonly styles = [style, css`
-    .foo {
-      color: white;
-    }
-  `];
+  
+  static readonly styles = [style];
   RenderToolBar() {
     return html`
-      <div class="toolbar" ng-if="">
+      <div class="toolbar">
       <div class="toolbar__buttons is-fullwidth">
-        <div ng-if="vm.allowUseFirstRowAsHeader">
-          <input type="checkbox" id="useFirstRowAsHeader" value="${this.table.useFirstRowAsHeader}" @change="vm.reIndexCells()" />
-          <label for="useFirstRowAsHeader">
-            <localize key="limboTables_useFirstRowAsHeader">Use first row as header</localize>
-          </label>
-        </div>
-        <div ng-if="vm.allowUseFirstColumnAsHeader">
-          <input type="checkbox" id="useFirstColumnAsHeader" value="vm.table.useFirstColumnAsHeader" @change="vm.reIndexCells()" />
-          <label for="useFirstColumnAsHeader">
-            <localize key="limboTables_useFirstColumnAsHeader">Use first column as header</localize>
-          </label>
-        </div>
-        <div ng-if="vm.allowUseLastRowAsFooter">
-          <input type="checkbox" id="useLastRowAsFooter" value="vm.table.useLastRowAsFooter" @change="vm.reIndexCells()" />
-          <label for="useLastRowAsFooter">
-            <localize key="limboTables_useLastRowAsFooter">Use last row as footer</localize>
-          </label>
-        </div>
+        ${this.allowUseFirstRowAsHeader ?? "notpopulated"}
+        ${this.allowUseFirstRowAsHeader ? html`
+              <div >
+                <input type="checkbox" id="useFirstRowAsHeader" value="${this.table.useFirstRowAsHeader}" @change="vm.reIndexCells()" />
+                <label for="useFirstRowAsHeader">
+                  <localize key="limboTables_useFirstRowAsHeader">Use first row as header</localize>
+                </label>
+              </div>
+        `:
+    html``
+    }
+        ${this.allowUseFirstColumnAsHeader ? html`
+              <div>
+                <input type="checkbox" id="useFirstColumnAsHeader" value="${this.table.useFirstColumnAsHeader}" @change="vm.reIndexCells()" />
+                <label for="useFirstColumnAsHeader">
+                  <localize key="limboTables_useFirstColumnAsHeader">Use first column as header</localize>
+                </label>
+              </div>
+        `:
+            html``
+        }
+        ${this.allowUseLastRowAsFooter ? html`
+              <div>
+                <input type="checkbox" id="useLastRowAsFooter" value="${this.table.useFirstColumnAsHeader}" @change="vm.reIndexCells()" />
+                <label for="useLastRowAsFooter">
+                  <localize key="limboTables_useLastRowAsFooter">Use last row as footer</localize>
+                </label>
+              </div>
+        `:
+            html``
+        }
+      
       </div>
     </div>
     `
@@ -83,6 +98,9 @@ export class LimboTable extends UmbElementMixin(LitElement) {
         <div class="table-editor">
             <div class="umb-scrollable row-fluid">
                 <div class="editor">
+                  test
+                  ${this.ShouldShowToolBar()}
+                  test
                     ${this.ShouldShowToolBar() ?
                       this.RenderToolBar() :
                       html``
@@ -361,9 +379,8 @@ export class LimboTable extends UmbElementMixin(LitElement) {
   #dispatchChangeEvent() {
     this.dispatchEvent(new UmbChangeEvent());
   }
-  ShouldShowToolBar = function() {
-    //<!-- vm.allowUseFirstRowAsHeader || vm.allowUseFirstColumnAsHeader || vm.allowUseLastRowAsFooter -->
-    return true;
+  ShouldShowToolBar() {
+    return this.allowUseFirstRowAsHeader || this.allowUseFirstColumnAsHeader || this.allowUseLastRowAsFooter;
   }
 }
 

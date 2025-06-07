@@ -9,33 +9,4 @@ namespace Limbo.Umbraco.Tables.PropertyEditors;
 /// <summary>
 /// Represents the configuration editor for the tables editor.
 /// </summary>
-public class TableConfigurationEditor : ConfigurationEditor<TableConfiguration> {
-
-    public TableConfigurationEditor(IIOHelper ioHelper) : base(ioHelper) {
-
-        Fields.Insert(0, new ConfigurationField {
-            Key = "tableSeparator",
-            PropertyName = "Table Options"
-        });
-
-        int index1 = Fields.FindIndex(x => x.Key == "rte");
-
-        if (index1 >= 0) {
-            Fields.Insert(index1, new ConfigurationField {
-                Key = "rteSeparator",
-                PropertyName = Fields[index1].PropertyName,
-            });
-        }
-
-        int index2 = Fields.FindIndex(x => x.Key == "cacheLevel");
-
-        if (index2 >= 0) {
-            Fields.Insert(index2, new ConfigurationField {
-                Key = "advancedSeparator",
-                PropertyName = "Advanced Options"
-            });
-        }
-
-    }
-
-}
+public class TableConfigurationEditor(IIOHelper ioHelper) : ConfigurationEditor<TableConfiguration>(ioHelper);

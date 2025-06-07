@@ -30,6 +30,13 @@ export const styledTextSchema : ManifestPropertyEditorSchema = {
                     propertyEditorUiAlias: 'Umb.PropertyEditorUi.Toggle',
                     weight: 7,
                 },
+                {
+                    alias: 'allowUseLastRowAsFooter',
+                    label: '#rte_config_allowUseLastRowAsFooter',
+                    description: '{#allowUseLastRowAsFooter_description}',
+                    propertyEditorUiAlias: 'Umbraco.RichText',
+                    weight: 7,
+                },
             ],
             defaultData: [
               

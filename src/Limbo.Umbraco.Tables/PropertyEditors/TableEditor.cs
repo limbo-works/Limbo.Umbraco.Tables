@@ -21,7 +21,7 @@ public class TableEditor(
     /// <summary>
     /// Gets the alias of the <see cref="TableEditor"/> property editor.
     /// </summary>
-    public const string EditorAlias = "limbo.tables.propertyEditor";
+    public const string EditorAlias = "limbo.table";
 
 
     #endregion
