@@ -12,6 +12,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Limbo.Umbraco.Tables", "Lim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Limbo.Umbraco.Tables.StaticAssets", "Limbo.Umbraco.Tables.StaticAssets\Limbo.Umbraco.Tables.StaticAssets.csproj", "{FDE905F2-AD58-4976-BC52-98CC1A361A6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Limbo.Umbraco.Tables.TestInstance", "Tests\Limbo.Umbraco.Tables.TestInstance\Limbo.Umbraco.Tables.TestInstance.csproj", "{6D9FCE3A-816E-4F7D-839C-672D80457A28}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{FDE905F2-AD58-4976-BC52-98CC1A361A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDE905F2-AD58-4976-BC52-98CC1A361A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDE905F2-AD58-4976-BC52-98CC1A361A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D9FCE3A-816E-4F7D-839C-672D80457A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D9FCE3A-816E-4F7D-839C-672D80457A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D9FCE3A-816E-4F7D-839C-672D80457A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D9FCE3A-816E-4F7D-839C-672D80457A28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

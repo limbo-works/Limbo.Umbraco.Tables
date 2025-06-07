@@ -4,6 +4,8 @@
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
   </PropertyGroup>
   <PropertyGroup>
+    <VersionPrefix>16.0.0</VersionPrefix>
+    <VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
     <PackageTags>Skybrud, Limbo, Umbraco, Tables, Data, StructuredData, Table, Umbraco-Marketplace</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://packages.limbo.works/limbo.umbraco.tables/v16/</PackageProjectUrl>

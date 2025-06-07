@@ -1,8 +1,8 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Umbraco.Cms.Core.Semver;
+using Umbraco.Extensions;
 
-namespace Limbo.Umbraco.Tables;
+namespace Limbo.Umbraco.Tables.StaticAssets;
 
 /// <summary>
 /// Static class with various information and constants about the package.
@@ -13,6 +13,7 @@ public class TablesPackage {
     /// Gets the alias of the package.
     /// </summary>
     public const string Alias = "Limbo.Umbraco.Tables";
+    public static readonly string AppPluginsName = typeof(TablesPackage).Assembly.GetName().Name ?? Alias;
 
     /// <summary>
     /// Gets the friendly name of the package.

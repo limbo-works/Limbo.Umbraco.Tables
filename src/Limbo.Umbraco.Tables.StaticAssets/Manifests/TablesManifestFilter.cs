@@ -1,28 +1,34 @@
 ﻿using Umbraco.Cms.Core.Manifest;
-
+using Umbraco.Cms.Infrastructure.Manifest;
+using Skybrud.Essentials.Security.Extensions;
 namespace Limbo.Umbraco.Tables.StaticAssets.Manifests;
 
 /// <inheritdoc />
-public class TablesManifestFilter : IManifestReader {
+public class TablesManifestFilter : IPackageManifestReader {
     public Task<IEnumerable<PackageManifest>> ReadPackageManifestsAsync() {
-        return Task.FromResult<IEnumerable<PackageManifest>>(Task.FromResult(
-            new List<PackageManifest>() {
-                new() {
-                    AllowPackageTelemetry = true,
-                    Id = TablesPackage.Alias,
-                    Name = TablesPackage.Name,
-                    Version = TablesPackage.InformationalVersion,
-                    Extensions = new object[] {
-                        Scripts = new[] {
-                            $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/CacheLevel.js",
-                            $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/TableDataEditor.js",
-                            $"/App_Plugins/{TablesPackage.Alias}/Scripts/Controllers/TableDataOverlay.js"
-                        },
-                        Stylesheets = new[] { $"/App_Plugins/{TablesPackage.Alias}/Styles/Styles.css" },
+        string cacheBuster = TablesPackage.InformationalVersion.ToMd5Hash();
+        List<PackageManifest> list = [
+            new() {
+                AllowTelemetry = true,
+                Id = TablesPackage.Alias,
+                Name = TablesPackage.Name,
+                Version = TablesPackage.InformationalVersion,
+                AllowPublicAccess = false,
+                Extensions = [
+                    new {
+                        name = "limbo.tables.entryPoint",
+                        alias = "Limbo.Tables.entryPoint",
+                        type = "backofficeEntryPoint",
+                        js = $"/App_Plugins/{TablesPackage.AppPluginsName}/limbo-umbraco-tables.js?v={cacheBuster}",
                     }
-                }
+                ],
+                Importmap = null,
             }
-        ));
+
+        ];
+        return Task.FromResult<IEnumerable<PackageManifest>>(
+            list
+        );
     }
 
 }
