@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Folder Include="UI\src\Components\RteConfiguration\" />
         <Folder Include="wwwroot\Legacy\"/>
     </ItemGroup>
 

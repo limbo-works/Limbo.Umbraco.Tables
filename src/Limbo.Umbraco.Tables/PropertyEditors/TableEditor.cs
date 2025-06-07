@@ -11,6 +11,7 @@ namespace Limbo.Umbraco.Tables.PropertyEditors;
 /// Represents a block list property editor.
 /// </summary>
 [DataEditor(EditorAlias)]
+
 public class TableEditor(
     IDataValueEditorFactory dataValueEditorFactory,
     IIOHelper ioHelper) : DataEditor(dataValueEditorFactory) {
@@ -20,7 +21,7 @@ public class TableEditor(
     /// <summary>
     /// Gets the alias of the <see cref="TableEditor"/> property editor.
     /// </summary>
-    public const string EditorAlias = "Limbo.Umbraco.Tables";
+    public const string EditorAlias = "limbo.tables.propertyEditor";
 
 
     #endregion

@@ -141,16 +141,21 @@ export class LimboTable extends UmbElementMixin(LitElement) {
                                             ${Object.entries(val.cells).map( ([_, cell]) =>
                                                 {return html`
                                                   <div class="table__column" ng-class="vm.getColumnClass(${cell})" ng-repeat="cell in row; track by $index" @click="${()=>this.editCell(cell)}">
-                                                      <div class="table__column--placeholder" ng-if="cell.value.length === 0">
-                                                          <div>
-                                                              <p>
-                                                                  <localize key="limboTables_addContent">Add content</localize>
-                                                              </p>
-                                                          </div>
-                                                      </div>
+                                                     
+                                                      ${cell.value?.length == 0 ?
+                                                          html`
+                                                      <div class="table__column--placeholder" >
+                                                            <div>
+                                                                <p>
+                                                                    <localize key="limboTables_addContent">Add content</localize>
+                                                                </p>
+                                                            </div>
+                                                        </div>`:
+                                                    html`
                                                       <div class="table__column--content">
                                                         ${cell.value}
                                                       </div>
+                                                      `}
                                                   </div>
                                                 `})}
                                         </div>

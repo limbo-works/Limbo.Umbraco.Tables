@@ -20,8 +20,7 @@ export class LimboTableModal extends
     content: string = '';
 
     #handleConfirm() {
-        console.log(this.data);
-        this.value = { content: this.data?.content ?? ''} ;
+        this.value = { content: this.value?.content ?? ''} ;
         this.modalContext?.submit();
     }
 
@@ -39,6 +38,11 @@ export class LimboTableModal extends
         return html`
             <umb-body-layout .headline=${this.data?.headline ?? 'Custom dialog'}>
                 <uui-box>
+                    <umb-property  alias="cell-content"
+                                   label="Cell Content"
+                                   .value=${this.data?.content}
+                                   property-editor-ui-alias="Umb.PropertyEditorUi.Tiptap" >
+                    </umb-property>
                     <uui-textarea label="content" 
                         rows=10
                         .value=${this.data?.content}

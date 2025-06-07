@@ -2,24 +2,40 @@ import type {ManifestPropertyEditorSchema, ManifestPropertyEditorUi} from "@umbr
 import type {ManifestBase} from "@umbraco-cms/backoffice/dist-cms/libs/extension-api/types/manifest-base.interface";
 export const styledTextSchema : ManifestPropertyEditorSchema = {
     type: 'propertyEditorSchema',
-    name: 'Styled textbox',
-    alias: 'styled.textbox',
+    name: 'Limbo Table',
+    alias: 'limbo.table',
     meta: {
-        defaultPropertyEditorUiAlias: 'styled.textbox.ui',
+        defaultPropertyEditorUiAlias: 'limbo.tables.propertyEditor',
         settings: {
             properties: [
+              
                 {
-                    alias: 'styleValue',
-                    label: 'Styles',
-                    description: 'Styles to apply to the box',
-                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.TextArea'
-                }
+                    alias: 'allowUseFirstRowAsHeader',
+                    label: '#allowUseFirstRowAsHeader',
+                    description: '{#allowUseFirstColumnAsHeader_description}',
+                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.Toggle',
+             
+                },
+                {
+                    alias: 'allowUseFirstColumnAsHeader',
+                    label: '#allowUseFirstColumnAsHeader',
+                    description: '{#allowUseFirstColumnAsHeader_description}',
+                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.Toggle',
+                    weight: 6,
+                },
+                {
+                    alias: 'allowUseLastRowAsFooter',
+                    label: '#rte_config_allowUseLastRowAsFooter',
+                    description: '{#allowUseLastRowAsFooter_description}',
+                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.Toggle',
+                    weight: 7,
+                },
             ],
             defaultData: [
-                {
-                    alias: 'styleValue',
-                    value: 'font-size: 20px;\r\nborder:none; border-bottom: 1px solid #444;'
-                }
+              
+                { alias: 'allowUseFirstRowAsHeader', value: true },
+                { alias: 'allowUseFirstColumnAsHeader', value: true },
+                { alias: 'allowUseLastRowAsFooter', value: true },
             ]
         }
     }
@@ -35,7 +51,7 @@ const styledTextUi : ManifestPropertyEditorUi = {
         "label": "Table",
         "icon": "icon-grid color-limbo",
         "group": "common",
-        "propertyEditorSchemaAlias": "Umbraco.Plain.Json"
+        "propertyEditorSchemaAlias": 'limbo.table'
     }
 }
 
