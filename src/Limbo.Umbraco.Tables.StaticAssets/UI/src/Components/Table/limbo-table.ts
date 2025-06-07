@@ -137,20 +137,20 @@ export class LimboTable extends UmbElementMixin(LitElement) {
                                 <uui-button pristine="" label="Delete" look="secondary"  disabled="true">
                                   <uui-icon name="icon-trash"></uui-icon>
                                 </uui-button>` : 
-                            html`
-                                 ${Object.entries(this.table.columns).map( ([key, _]) =>
-                                  {
-                                    
-                                    return html`
-                                        <div class="controls__control" ng-repeat="column in vm.table.columns">
-                                          <uui-button pristine="" label="Delete" look="secondary"  @click="${()=>this.removeColumn(parseInt(key))}">
-                                            <uui-icon name="icon-trash"></uui-icon>
-                                          </uui-button>
-                                          
-                                        </div>
-                                      `}
-                            
-                                 )}
+                              html`
+                                   ${Object.entries(this.table.columns).map( ([key, _]) =>
+                                    {
+                                      
+                                      return html`
+                                          <div class="controls__control" ng-repeat="column in vm.table.columns">
+                                            <uui-button pristine="" label="Delete" look="secondary"  @click="${()=>this.removeColumn(parseInt(key))}">
+                                              <uui-icon name="icon-trash"></uui-icon>
+                                            </uui-button>
+                                            
+                                          </div>
+                                        `}
+                              
+                                   )}
                             `}
                             <div class="controls__control no-opacity">
                               <uui-button pristine="" label="Move" look="secondary"  >
