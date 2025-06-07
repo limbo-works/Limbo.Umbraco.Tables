@@ -3,7 +3,8 @@ export type Table = {
     columns: object[],
     cells: Row[],
     useFirstRowAsHeader: boolean,
-    useFirstColumnAsHeader: boolean
+    useFirstColumnAsHeader: boolean,
+    useLastRowAsFooter: boolean,
 };
 export type Cell = {
     type: string,
