@@ -14,7 +14,8 @@ namespace Limbo.Umbraco.Tables.PropertyEditors;
 
 public class TableEditor(
     IDataValueEditorFactory dataValueEditorFactory,
-    IIOHelper ioHelper) : DataEditor(dataValueEditorFactory) {
+    IIOHelper ioHelper,
+    TablePropertyIndexValueFactory indexValueFactory) : DataEditor(dataValueEditorFactory) {
 
     #region Constants
 
@@ -32,7 +33,7 @@ public class TableEditor(
 
     #region Member methods
 
-    public override IPropertyIndexValueFactory PropertyIndexValueFactory => new TablePropertyIndexValueFactory();
+    public override IPropertyIndexValueFactory PropertyIndexValueFactory => indexValueFactory;
 
     protected override IConfigurationEditor CreateConfigurationEditor() => new TableConfigurationEditor(ioHelper);
 

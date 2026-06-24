@@ -1,5 +1,5 @@
 import type { ManifestModal } from '@umbraco-cms/backoffice/modal';
-import type {ManifestBase} from "@umbraco-cms/backoffice/dist-cms/libs/extension-api/types/manifest-base.interface";
+import type {ManifestBase} from "@umbraco-cms/backoffice/extension-api";
 
 const modals: Array<ManifestModal> = [
     {

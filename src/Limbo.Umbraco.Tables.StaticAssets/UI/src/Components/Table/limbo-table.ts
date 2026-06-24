@@ -1,21 +1,15 @@
-import { customElement, LitElement, html, property, state } from '@umbraco-cms/backoffice/external/lit';
-import style from './Styles.less?inline';
+import { customElement, LitElement, html, property, state, unsafeCSS, unsafeHTML } from '@umbraco-cms/backoffice/external/lit';
+import styleString from './Styles.less?inline';
 import { UmbChangeEvent } from '@umbraco-cms/backoffice/event';
 import type {Table, Cell, Row} from "../../models/table.ts";
 
-import {UMB_MODAL_MANAGER_CONTEXT, UmbModalManagerContext} from '@umbraco-cms/backoffice/modal';
+import {UMB_MODAL_MANAGER_CONTEXT, type UmbModalManagerContext} from '@umbraco-cms/backoffice/modal';
 import { UmbElementMixin } from '@umbraco-cms/backoffice/element-api'
 import {LIMBO_TABLE_MODAL} from "../Dialogs/RteModalValue.ts";
-import {UmbPropertyEditorConfigCollection} from "@umbraco-cms/backoffice/property-editor";
-/**
- * An example element.
- *
- * @slot - This element has a slot
- * @csspart button - The button
- */
+import type {UmbPropertyEditorConfigCollection, UmbPropertyEditorUiElement} from "@umbraco-cms/backoffice/property-editor";
+
 @customElement('limbo-table')
-// @ts-ignore
-export class LimboTable extends UmbElementMixin(LitElement) {
+export class LimboTable extends UmbElementMixin(LitElement) implements UmbPropertyEditorUiElement {
   private _modalContext?: UmbModalManagerContext;
   constructor() {
     super();
@@ -26,10 +20,7 @@ export class LimboTable extends UmbElementMixin(LitElement) {
    
   }
   override async firstUpdated() {
-    // avoid unnecessary calls by waiting for any pending updated to complete.
     await this.updateComplete;
-    console.log("loading value...")
-    console.log(this.value)
     if(this.value){
       try {
         this.table = JSON.parse(JSON.stringify(this.value)) as Table; //deep copy with removing readonly parts
@@ -48,6 +39,10 @@ export class LimboTable extends UmbElementMixin(LitElement) {
   @state()
   private allowUseLastRowAsFooter?: boolean;
 
+  private _rteExtensions?: string[];
+  private _rteToolbar?: string[][][];
+  private _useTextareaEditor?: boolean;
+
   @state()
   private table : Table = {
     rows: [],
@@ -62,13 +57,16 @@ export class LimboTable extends UmbElementMixin(LitElement) {
     this.allowUseFirstRowAsHeader = config.getValueByAlias("allowUseFirstRowAsHeader") ?? false;
     this.allowUseFirstColumnAsHeader = config.getValueByAlias("allowUseFirstColumnAsHeader") ?? false;
     this.allowUseLastRowAsFooter = config.getValueByAlias("allowUseLastRowAsFooter") ?? false;
+    this._rteExtensions = config.getValueByAlias("extensions") as string[] | undefined;
+    this._rteToolbar = config.getValueByAlias("toolbar") as string[][][] | undefined;
+    this._useTextareaEditor = config.getValueByAlias("useTextareaEditor") as boolean | undefined;
   }
   @property({ attribute: false })
   value: undefined | Table;
   
   
   
-  static readonly styles = [style];
+  static readonly styles = [unsafeCSS(styleString)];
   RenderToolBar() {
     return html`
       <div class="toolbar">
@@ -76,7 +74,7 @@ export class LimboTable extends UmbElementMixin(LitElement) {
         ${this.allowUseFirstRowAsHeader ? html`
               <div >
                 <uui-toggle pristine="" label="label" checked="${this.table.useFirstRowAsHeader}" @change="${this.switchedUseFirstRowAsHeader}">
-                  <localize key="limboTables_useFirstRowAsHeader">Use first row as header</localize>
+                  <umb-localize key="limboTables_useFirstRowAsHeader">Use first row as header</umb-localize>
                   
                 </uui-toggle>
                
@@ -87,9 +85,9 @@ export class LimboTable extends UmbElementMixin(LitElement) {
         ${this.allowUseFirstColumnAsHeader ? html`
               <div>
                 <uui-toggle pristine="" label="label" checked="${this.table.useFirstColumnAsHeader}" @change="${this.switchedUseFirstColumnAsHeader}">
-                  <localize key="limboTables_useFirstColumnAsHeader">Use first column as header</localize>
+                  <umb-localize key="limboTables_useFirstColumnAsHeader">Use first column as header</umb-localize>
                 </uui-toggle>
-               
+
               </div>
         `:
             html``
@@ -97,7 +95,7 @@ export class LimboTable extends UmbElementMixin(LitElement) {
         ${this.allowUseLastRowAsFooter ? html`
               <div>
                 <uui-toggle pristine="" label="label" checked="${this.table.useLastRowAsFooter}" @change="${this.switchedAllowUseLastRowAsFooter}">
-                  <localize key="limboTables_useFirstColumnAsHeader">Use first column as header</localize>
+                  <umb-localize key="limboTables_useLastRowAsFooter">Use last row as footer</umb-localize>
                 </uui-toggle>
               </div>
         `:
@@ -177,13 +175,13 @@ export class LimboTable extends UmbElementMixin(LitElement) {
                                                       <div class="table__column--placeholder" >
                                                             <div>
                                                                 <p>
-                                                                    <localize key="limboTables_addContent">Add content</localize>
+                                                                    <umb-localize key="limboTables_addContent">Add content</umb-localize>
                                                                 </p>
                                                             </div>
                                                         </div>`:
                                                     html`
                                                       <div class="table__column--content">
-                                                        ${cell.value}
+                                                        ${unsafeHTML(cell.value)}
                                                       </div>
                                                       `}
                                                   </div>
@@ -245,7 +243,7 @@ export class LimboTable extends UmbElementMixin(LitElement) {
     this.updateUi();
   }
   addColumnAction() {
-    this.table.columns.push({id:Date.now()});
+    this.table.columns.push({id: crypto.randomUUID()});
     this.addEmptyCells();
 
   }
@@ -368,38 +366,33 @@ export class LimboTable extends UmbElementMixin(LitElement) {
   async editCell(cell:Cell){
     const customContext = this._modalContext?.open(this, LIMBO_TABLE_MODAL, {
       data: {
-        headline: 'A Custom modal',
-        content: cell.value ?? ""
+        headline: 'Edit cell',
+        content: cell.value ?? "",
+        rteExtensions: this._rteExtensions,
+        rteToolbar: this._rteToolbar,
+        useTextareaEditor: this._useTextareaEditor,
       }
     });
     const data = await customContext?.onSubmit();
 
     if (!data) return;
-    console.log(data);
     cell.value = data.content;
     this.updateUi()
-  }
-
-  getCssClass () {
-    return "";
   }
 
   getTableClass() {
     return "";
   }
 
-  getRowClass(rowIndex:number) {
-    console.log(rowIndex);
-    return "";
+  getRowClass(rowIndex: number) {
+    if (this.table.useFirstRowAsHeader && rowIndex === 0) return 'header';
+    if (this.table.useLastRowAsFooter && rowIndex === this.table.cells.length - 1) return 'footer';
+    return '';
   }
 
-  getColumnClass(cell:Cell) {
-    console.log(cell);
-    return "";
-  }
-
-  showRowAndColumnSettings() {
-    return "";
+  getColumnClass(cell: Cell) {
+    if (this.table.useFirstColumnAsHeader && cell.columnIndex === 0) return 'header';
+    return '';
   }
   #dispatchChangeEvent() {
     this.value = JSON.parse(JSON.stringify(this.table)) as Table;
@@ -415,3 +408,5 @@ declare global {
     'limbo-table': LimboTable
   }
 }
+
+export default LimboTable;

@@ -1,5 +1,5 @@
-import type {ManifestPropertyEditorSchema, ManifestPropertyEditorUi} from "@umbraco-cms/backoffice/dist-cms/packages/core/property-editor";
-import type {ManifestBase} from "@umbraco-cms/backoffice/dist-cms/libs/extension-api/types/manifest-base.interface";
+import type {ManifestPropertyEditorSchema, ManifestPropertyEditorUi} from "@umbraco-cms/backoffice/property-editor";
+import type {ManifestBase} from "@umbraco-cms/backoffice/extension-api";
 export const styledTextSchema : ManifestPropertyEditorSchema = {
     type: 'propertyEditorSchema',
     name: 'Limbo Table',
@@ -8,41 +8,64 @@ export const styledTextSchema : ManifestPropertyEditorSchema = {
         defaultPropertyEditorUiAlias: 'limbo.tables.propertyEditor',
         settings: {
             properties: [
-              
                 {
                     alias: 'allowUseFirstRowAsHeader',
-                    label: '#allowUseFirstRowAsHeader',
-                    description: '{#allowUseFirstColumnAsHeader_description}',
+                    label: '#limboTables_useFirstRowAsHeader',
                     propertyEditorUiAlias: 'Umb.PropertyEditorUi.Toggle',
-             
                 },
                 {
                     alias: 'allowUseFirstColumnAsHeader',
-                    label: '#allowUseFirstColumnAsHeader',
-                    description: '{#allowUseFirstColumnAsHeader_description}',
+                    label: '#limboTables_useFirstColumnAsHeader',
                     propertyEditorUiAlias: 'Umb.PropertyEditorUi.Toggle',
                     weight: 6,
                 },
                 {
                     alias: 'allowUseLastRowAsFooter',
-                    label: '#rte_config_allowUseLastRowAsFooter',
-                    description: '{#allowUseLastRowAsFooter_description}',
+                    label: '#limboTables_useLastRowAsFooter',
                     propertyEditorUiAlias: 'Umb.PropertyEditorUi.Toggle',
                     weight: 7,
                 },
                 {
-                    alias: 'allowUseLastRowAsFooter',
-                    label: '#rte_config_allowUseLastRowAsFooter',
-                    description: '{#allowUseLastRowAsFooter_description}',
-                    propertyEditorUiAlias: 'Umbraco.RichText',
-                    weight: 7,
+                    alias: 'useTextareaEditor',
+                    label: '#limboTables_useTextareaEditor',
+                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.Toggle',
+                    weight: 8,
+                },
+                {
+                    alias: 'extensions',
+                    label: '#tiptap_config_extensions',
+                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.Tiptap.ExtensionsConfiguration',
+                    weight: 10,
+                },
+                {
+                    alias: 'toolbar',
+                    label: '#tiptap_config_toolbar',
+                    propertyEditorUiAlias: 'Umb.PropertyEditorUi.Tiptap.ToolbarConfiguration',
+                    weight: 15,
                 },
             ],
             defaultData: [
-              
                 { alias: 'allowUseFirstRowAsHeader', value: true },
                 { alias: 'allowUseFirstColumnAsHeader', value: true },
                 { alias: 'allowUseLastRowAsFooter', value: true },
+                { alias: 'useTextareaEditor', value: false },
+                {
+                    alias: 'extensions',
+                    value: [
+                        'Umb.Tiptap.Bold', 'Umb.Tiptap.Italic', 'Umb.Tiptap.Underline', 'Umb.Tiptap.Strike',
+                        'Umb.Tiptap.BulletList', 'Umb.Tiptap.OrderedList', 'Umb.Tiptap.Heading', 'Umb.Tiptap.Link',
+                    ],
+                },
+                {
+                    alias: 'toolbar',
+                    value: [[
+                        ['Umb.Tiptap.Toolbar.Undo', 'Umb.Tiptap.Toolbar.Redo'],
+                        ['Umb.Tiptap.Toolbar.Bold', 'Umb.Tiptap.Toolbar.Italic', 'Umb.Tiptap.Toolbar.Underline', 'Umb.Tiptap.Toolbar.Strike'],
+                        ['Umb.Tiptap.Toolbar.BulletList', 'Umb.Tiptap.Toolbar.OrderedList'],
+                        ['Umb.Tiptap.Toolbar.Heading1', 'Umb.Tiptap.Toolbar.Heading2'],
+                        ['Umb.Tiptap.Toolbar.Link', 'Umb.Tiptap.Toolbar.Unlink'],
+                    ]],
+                },
             ]
         }
     }

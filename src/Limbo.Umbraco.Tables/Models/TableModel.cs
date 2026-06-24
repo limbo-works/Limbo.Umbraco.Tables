@@ -94,18 +94,20 @@ public class TableModel : TableObject, IHtmlContent {
 
     #region Member methods
 
-    private List<TableCell> ParseCellRow(int index, JArray array, TablesHtmlParser htmlParser, bool preview) {
+    private List<TableCell> ParseCellRow(int index, JObject rowObj, TablesHtmlParser htmlParser, bool preview) {
 
         TableRow row = Rows[index];
 
         List<TableCell> temp = new();
 
-        for (int c = 0; c < array.Count; c++) {
+        JArray cells = rowObj.GetArrayOrNew("cells");
+
+        for (int c = 0; c < cells.Count; c++) {
 
             int columnIndex = c;
             TableColumn column = Columns[columnIndex];
 
-            temp.Add(array.GetObject(c, x => new TableCell(x, index, row, columnIndex, column, this, htmlParser, preview))!);
+            temp.Add(cells.GetObject(c, x => new TableCell(x, index, row, columnIndex, column, this, htmlParser, preview))!);
 
         }
 

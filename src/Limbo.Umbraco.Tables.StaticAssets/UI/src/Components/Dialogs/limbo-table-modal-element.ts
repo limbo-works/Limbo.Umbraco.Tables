@@ -1,26 +1,45 @@
-import { customElement, html, state } from "@umbraco-cms/backoffice/external/lit";
+import { customElement, html } from "@umbraco-cms/backoffice/external/lit";
 import { UmbModalBaseElement } from "@umbraco-cms/backoffice/modal";
-import {type RteModalData, type RteModalValue} from "./RteModalValue";
-import { UUIInputEvent } from "@umbraco-cms/backoffice/external/uui";
+import { UmbChangeEvent } from "@umbraco-cms/backoffice/event";
+import { UmbPropertyEditorConfigCollection } from "@umbraco-cms/backoffice/property-editor";
+import type { RteModalData, RteModalValue } from "./RteModalValue";
+import '@umbraco-cms/backoffice/tiptap';
 
 @customElement('limbo-table-modal')
-export class LimboTableModal extends
-    UmbModalBaseElement<RteModalData, RteModalValue>
-{
-    constructor() {
-        super();
-    }
+export class LimboTableModal extends UmbModalBaseElement<RteModalData, RteModalValue> {
 
-    connectedCallback(): void {
+    #rteConfig!: UmbPropertyEditorConfigCollection;
+
+    override connectedCallback(): void {
         super.connectedCallback();
-        this.updateValue({content: this.data?.content});
+        this.updateValue({ content: this.data?.content ?? '' });
+        this.#rteConfig = new UmbPropertyEditorConfigCollection([
+            {
+                alias: 'extensions',
+                value: this.data?.rteExtensions ?? [
+                    'Umb.Tiptap.Bold', 'Umb.Tiptap.Italic', 'Umb.Tiptap.Underline', 'Umb.Tiptap.Strike',
+                    'Umb.Tiptap.BulletList', 'Umb.Tiptap.OrderedList', 'Umb.Tiptap.Heading', 'Umb.Tiptap.Link',
+                ],
+            },
+            {
+                alias: 'toolbar',
+                value: this.data?.rteToolbar ?? [[
+                    ['Umb.Tiptap.Toolbar.Undo', 'Umb.Tiptap.Toolbar.Redo'],
+                    ['Umb.Tiptap.Toolbar.Bold', 'Umb.Tiptap.Toolbar.Italic', 'Umb.Tiptap.Toolbar.Underline', 'Umb.Tiptap.Toolbar.Strike'],
+                    ['Umb.Tiptap.Toolbar.BulletList', 'Umb.Tiptap.Toolbar.OrderedList'],
+                    ['Umb.Tiptap.Toolbar.Heading1', 'Umb.Tiptap.Toolbar.Heading2'],
+                    ['Umb.Tiptap.Toolbar.Link', 'Umb.Tiptap.Toolbar.Unlink'],
+                ]],
+            },
+        ]);
     }
 
-    @state()
-    content: string = '';
+    #onValueChange(e: UmbChangeEvent) {
+        const editor = e.target as HTMLElement & { value: string };
+        this.updateValue({ content: editor.value });
+    }
 
     #handleConfirm() {
-        this.value = { content: this.value?.content ?? ''} ;
         this.modalContext?.submit();
     }
 
@@ -28,41 +47,38 @@ export class LimboTableModal extends
         this.modalContext?.reject();
     }
 
-    #contentChange(event: UUIInputEvent) {
-        console.log(event);
-        console.log(event.target.value);
-        this.updateValue({content: event.target.value.toString()});
+    #onTextareaChange(e: Event) {
+        const textarea = e.target as HTMLTextAreaElement & { value: string };
+        this.updateValue({ content: textarea.value });
     }
 
     render() {
         return html`
-            <umb-body-layout .headline=${this.data?.headline ?? 'Custom dialog'}>
+            <umb-body-layout .headline=${this.data?.headline ?? 'Edit cell'}>
                 <uui-box>
-                    <umb-property  alias="cell-content"
-                                   label="Cell Content"
-                                   .value=${this.data?.content}
-                                   property-editor-ui-alias="Umb.PropertyEditorUi.Tiptap" >
-                    </umb-property>
-                    <uui-textarea label="content" 
-                        rows=10
-                        .value=${this.data?.content}
-                        @input=${this.#contentChange}>
-                    </uui-textarea>
-                </uui-box>
-                <uui-box>
-                    <h2>Return Value</h2>
-                    <pre>${this.value?.content}</pre>
+                    ${this.data?.useTextareaEditor
+                        ? html`<uui-textarea
+                            .value=${this.value?.content ?? ''}
+                            style="width:100%;min-height:200px;"
+                            @change=${this.#onTextareaChange}>
+                          </uui-textarea>`
+                        : html`<umb-input-tiptap
+                            .value=${this.value?.content ?? ''}
+                            .configuration=${this.#rteConfig}
+                            @change=${this.#onValueChange}>
+                          </umb-input-tiptap>`
+                    }
                 </uui-box>
 
                 <div slot="actions">
-                        <uui-button id="cancel" label="Cancel" @click="${this.#handleCancel}">Cancel</uui-button>
-                        <uui-button
-                            id="submit"
-                            color='positive'
-                            look="primary"
-                            label="Submit"
-                            @click=${this.#handleConfirm}></uui-button>
-            </div>
+                    <uui-button id="cancel" label="Cancel" @click=${this.#handleCancel}>Cancel</uui-button>
+                    <uui-button
+                        id="submit"
+                        color="positive"
+                        look="primary"
+                        label="Submit"
+                        @click=${this.#handleConfirm}>Submit</uui-button>
+                </div>
             </umb-body-layout>
         `;
     }

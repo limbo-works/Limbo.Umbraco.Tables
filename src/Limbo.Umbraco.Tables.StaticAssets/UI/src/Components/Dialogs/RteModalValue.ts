@@ -3,6 +3,9 @@ import { UmbModalToken } from "@umbraco-cms/backoffice/modal";
 export interface RteModalData {
     headline: string;
     content: string;
+    rteExtensions?: string[];
+    rteToolbar?: string[][][];
+    useTextareaEditor?: boolean;
 }
 export interface RteModalValue {
     content: string

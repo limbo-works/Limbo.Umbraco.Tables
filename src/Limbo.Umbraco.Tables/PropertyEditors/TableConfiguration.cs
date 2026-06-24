@@ -49,5 +49,6 @@ public class TableConfiguration : IConfigureValueType {
     [ConfigurationField("cacheLevel")]
     public PropertyCacheLevel? CacheLevel { get; set; }
 
+    /// <inheritdoc />
     public string ValueType => ValueTypes.Json;
 }

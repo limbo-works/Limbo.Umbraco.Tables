@@ -10,7 +10,10 @@ using Umbraco.Extensions;
 
 namespace Limbo.Umbraco.Tables.PropertyEditors;
 
-internal class TablePropertyIndexValueFactory : IPropertyIndexValueFactory {
+/// <summary>
+/// Index value factory for <see cref="TableEditor"/>. Extracts plain-text cell content for full-text search indexing.
+/// </summary>
+public class TablePropertyIndexValueFactory : IPropertyIndexValueFactory {
     private static IEnumerable<string?> ProcessRow(JArray row) {
 
         foreach (JToken cell in row) {
@@ -34,6 +37,7 @@ internal class TablePropertyIndexValueFactory : IPropertyIndexValueFactory {
 
     }
 
+    /// <inheritdoc />
     public IEnumerable<IndexValue> GetIndexValues(IProperty property, string? culture, string? segment, bool published, IEnumerable<string> availableCultures,
         IDictionary<Guid, IContentType> contentTypeDictionary) {
         // Get the source value from the property

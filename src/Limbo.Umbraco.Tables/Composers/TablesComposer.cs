@@ -13,6 +13,7 @@ public class TablesComposer : IComposer {
     /// <inheritdoc />
     public void Compose(IUmbracoBuilder builder) {
         builder.Services.AddSingleton<TablesHtmlParser>();
+        builder.Services.AddSingleton<TablePropertyIndexValueFactory>();
         builder.PropertyValueConverters().Append<TableValueConverter>()
           ;
 
