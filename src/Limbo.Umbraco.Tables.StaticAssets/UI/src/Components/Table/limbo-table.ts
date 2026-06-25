@@ -23,7 +23,12 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
     await this.updateComplete;
     if(this.value){
       try {
-        this.table = JSON.parse(JSON.stringify(this.value)) as Table; //deep copy with removing readonly parts
+        const parsed = JSON.parse(JSON.stringify(this.value)) as Table;
+        // Migrate legacy array format (Cell[][]) to current Row[] format
+        parsed.cells = parsed.cells.map((row: any) =>
+          Array.isArray(row) ? { cells: row } : row
+        );
+        this.table = parsed;
       } catch (e) {
         console.error('Failed to parse table value:', e);
       }
