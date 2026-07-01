@@ -3,7 +3,6 @@ using Limbo.Umbraco.Tables.PropertyEditors;
 using Microsoft.Extensions.DependencyInjection;
 using Umbraco.Cms.Core.Composing;
 using Umbraco.Cms.Core.DependencyInjection;
-using Umbraco.Cms.Infrastructure.DependencyInjection;
 
 namespace Limbo.Umbraco.Tables.Composers;
 
@@ -14,9 +13,7 @@ public class TablesComposer : IComposer {
     public void Compose(IUmbracoBuilder builder) {
         builder.Services.AddSingleton<TablesHtmlParser>();
         builder.Services.AddSingleton<TablePropertyIndexValueFactory>();
-        builder.PropertyValueConverters().Append<TableValueConverter>()
-          ;
-
+        builder.PropertyValueConverters().Append<TableValueConverter>();
     }
 
 }

@@ -47,7 +47,7 @@ public class TablePropertyIndexValueFactory : IPropertyIndexValueFactory {
         if (source is not string str || !str.DetectIsJson()) yield break;
 
         // Add the property value (JSON serialized string) to the index
-        yield return new IndexValue() {
+        yield return new IndexValue {
             Culture = culture,
             FieldName = property.Alias,
             Values = [str]

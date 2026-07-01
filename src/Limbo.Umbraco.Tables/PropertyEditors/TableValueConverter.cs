@@ -42,7 +42,7 @@ public class TableValueConverter(TablesHtmlParser htmlParser) : PropertyValueCon
         var config = propertyType.DataType.ConfigurationAs<TableConfiguration>();
         if (config is  null) return PropertyCacheLevel.Elements;
 
-        // Return the configured cachwe level (or "Elements" if not specified)
+        // Return the configured cache level (or "Elements" if not specified)
         return config.CacheLevel ?? PropertyCacheLevel.Elements;
 
     }
