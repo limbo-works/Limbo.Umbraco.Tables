@@ -17,7 +17,7 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
       this._modalContext = _instance;
     });
 
-   
+
   }
   override async firstUpdated() {
     await this.updateComplete;
@@ -68,9 +68,9 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
   }
   @property({ attribute: false })
   value: undefined | Table;
-  
-  
-  
+
+
+
   static readonly styles = [unsafeCSS(styleString)];
   RenderToolBar() {
     return html`
@@ -78,35 +78,32 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
       <div class="toolbar__buttons is-fullwidth">
         ${this.allowUseFirstRowAsHeader ? html`
               <div >
-                <uui-toggle pristine="" label="label" checked="${this.table.useFirstRowAsHeader}" @change="${this.switchedUseFirstRowAsHeader}">
+                <uui-toggle pristine="" label="label" @checked="${this.table.useFirstRowAsHeader}" @change="${this.switchedUseFirstRowAsHeader}">
                   <umb-localize key="limboTables_useFirstRowAsHeader">Use first row as header</umb-localize>
-                  
                 </uui-toggle>
-               
               </div>
         `:
     html``
     }
         ${this.allowUseFirstColumnAsHeader ? html`
               <div>
-                <uui-toggle pristine="" label="label" checked="${this.table.useFirstColumnAsHeader}" @change="${this.switchedUseFirstColumnAsHeader}">
+                <uui-toggle pristine="" label="label" @checked="${this.table.useFirstColumnAsHeader}" @change="${this.switchedUseFirstColumnAsHeader}">
                   <umb-localize key="limboTables_useFirstColumnAsHeader">Use first column as header</umb-localize>
                 </uui-toggle>
-
               </div>
         `:
             html``
         }
         ${this.allowUseLastRowAsFooter ? html`
               <div>
-                <uui-toggle pristine="" label="label" checked="${this.table.useLastRowAsFooter}" @change="${this.switchedAllowUseLastRowAsFooter}">
+                <uui-toggle pristine="" label="label" @checked="${this.table.useLastRowAsFooter}" @change="${this.switchedAllowUseLastRowAsFooter}">
                   <umb-localize key="limboTables_useLastRowAsFooter">Use last row as footer</umb-localize>
                 </uui-toggle>
               </div>
         `:
             html``
         }
-      
+
       </div>
     </div>
     `
@@ -121,38 +118,38 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                       this.RenderToolBar() :
                       html``
                       }
-                    
+
                     <div class="toolbar">
                         <div class="toolbar__buttons is-fullwidth">
-                          <uui-button pristine="" label="Add row" look="secondary" @click="${this.addRow}">
-                            <uui-icon name="icon-add" ></uui-icon> Add row
+                          <uui-button pristine="" label="${this.localize.term("limboTables_addRow")}" look="secondary" @click="${this.addRow}">
+                            <uui-icon name="icon-add" ></uui-icon> ${this.localize.term("limboTables_addRow")}
                           </uui-button>
-                          <uui-button pristine="" label="Add column" look="secondary" @click="${this.addColumn}">
-                            <uui-icon name="icon-add"></uui-icon> Add column
+                          <uui-button pristine="" label="${this.localize.term("limboTables_addColumn")}" look="secondary" @click="${this.addColumn}">
+                            <uui-icon name="icon-add"></uui-icon> ${this.localize.term("limboTables_addColumn")}
                           </uui-button>
-                           
+
                         </div>
                     </div>
                     <div class="table">
                         <div class="controls">
-                          ${this.table.columns.length == 1 ? 
+                          ${this.table.columns.length == 1 ?
                               html`
                                 <uui-button pristine="" label="Delete" look="secondary"  disabled="true">
                                   <uui-icon name="icon-trash"></uui-icon>
-                                </uui-button>` : 
+                                </uui-button>` :
                               html`
                                    ${Object.entries(this.table.columns).map( ([key, _]) =>
                                     {
-                                      
+
                                       return html`
                                           <div class="controls__control" ng-repeat="column in vm.table.columns">
                                             <uui-button pristine="" label="Delete" look="secondary"  @click="${()=>this.removeColumn(parseInt(key))}">
                                               <uui-icon name="icon-trash"></uui-icon>
                                             </uui-button>
-                                            
+
                                           </div>
                                         `}
-                              
+
                                    )}
                             `}
                             <div class="controls__control no-opacity">
@@ -162,11 +159,10 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                               <uui-button pristine="" label="Delete" look="secondary"  >
                                 <uui-icon name="icon-trash"></uui-icon>
                               </uui-button>
-                              
                             </div>
                         </div>
                         <div ui-sortable="sortableOptions" class="table-element ${this.getTableClass()}">
-                             ${Object.entries(this.table.cells).map( ([key, val]) => 
+                             ${Object.entries(this.table.cells).map( ([key, val]) =>
                                 {
                                   return html`
                                     <div class="table__row--wrapper" >
@@ -174,7 +170,7 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                                             ${Object.entries(val.cells).map( ([_, cell]) =>
                                                 {return html`
                                                   <div class="table__column ${this.getColumnClass(cell)}" @click="${()=>this.editCell(cell)}">
-                                                     
+
                                                       ${cell.value?.length == 0 ?
                                                           html`
                                                       <div class="table__column--placeholder" >
@@ -196,10 +192,10 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                                           <uui-button pristine="" label="Move" look="secondary" >
                                             <uui-icon name="icon-navigation"></uui-icon>
                                           </uui-button>
-                                          <uui-button pristine="" label="Delete row" look="secondary" @click="${()=>this.removeRow(parseInt(key))}">  
+                                          <uui-button pristine="" label="Delete row" look="secondary" @click="${()=>this.removeRow(parseInt(key))}">
                                             <uui-icon name="icon-trash"></uui-icon>
                                           </uui-button>
-                                            
+
                                         </div>
                                     </div>
                                   `})}
@@ -228,7 +224,7 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
   this.updateUi();
   }
   //helpers
-  
+
   addRow() {
 
     const row = {};
@@ -309,7 +305,7 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
 
     this.updateUi()
   }
- 
+
   reIndexCells() {
     var table = this.table;
     table.cells.forEach(function (row:Row, rowIndex:number) {
@@ -337,7 +333,7 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
         cell.rowIndex = rowIndex;
       });
     });
-   
+
   }
   removeColumn (index:number) {
     if (this.table.columns.length === 1) {
