@@ -1,4 +1,4 @@
-﻿# Node artifact files
+# Node artifact files
 node_modules/
 dist/
 # Visual Studio
@@ -19,3 +19,4 @@ Thumbs.db
 **/obj/
 *.user
 src/Limbo.Umbraco.Tables.StaticAssets/wwwroot
+src/Limbo.Umbraco.Tables/wwwroot/

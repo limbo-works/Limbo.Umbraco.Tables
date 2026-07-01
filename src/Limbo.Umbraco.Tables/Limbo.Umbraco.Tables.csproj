@@ -1,33 +1,67 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup>
- 
-    <Company>Limbo</Company>
-    <Product>Limbo Tables</Product>
-    <Authors>Anders Bjerner</Authors>
-    <Copyright>Copyright © $([System.DateTime]::UtcNow.ToString(`yyyy`))</Copyright>
-    <Title>Limbo Tables</Title>
-    <PackageId>Limbo.Umbraco.Tables</PackageId>
-    <Description>Table editor for Umbraco.</Description>
-  </PropertyGroup>
 
-  <!-- Include NuGet dependencies -->
-  <ItemGroup>
-    <PackageReference Include="Skybrud.Essentials" />
-    <PackageReference Include="Umbraco.Cms.Core" />
-    <PackageReference Include="Umbraco.Cms.Web.Website" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\Limbo.Umbraco.Tables.StaticAssets\Limbo.Umbraco.Tables.StaticAssets.csproj" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<StaticWebAssetBasePath>App_Plugins/$(AssemblyName)</StaticWebAssetBasePath>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <!-- Generate XML documentation -->
-  <PropertyGroup>
-    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-  </PropertyGroup>
+	<!-- Ignore vulnerabilities from transient dependencies -->
+	<PropertyGroup>
+		<NuGetAuditMode>direct</NuGetAuditMode>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<VersionPrefix>17.0.0-alpha000</VersionPrefix>
+		<VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
+		<Company>Limbo</Company>
+		<Product>Limbo Tables</Product>
+		<Authors>Anders Bjerner</Authors>
+		<Copyright>Copyright © $([System.DateTime]::UtcNow.ToString(`yyyy`))</Copyright>
+		<Title>Limbo Tables</Title>
+		<Description>Table editor for Umbraco.</Description>
+	</PropertyGroup>
+
+	<!-- Information for the NuGet package -->
+	<PropertyGroup>
+		<PackageId>Limbo.Umbraco.Tables</PackageId>
+		<PackageTags>Skybrud, Limbo, Umbraco, Tables, Data, StructuredData, Table, Umbraco-Marketplace</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://packages.limbo.works/limbo.umbraco.tables/v17/</PackageProjectUrl>
+		<PackageIcon>Limbo.png</PackageIcon>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/limbo-works/Limbo.Umbraco.Tables</RepositoryUrl>
+	</PropertyGroup>
+
+	<!-- Include additional metadata in the assembly -->
+	<ItemGroup>
+		<AssemblyMetadata Include="PackageProjectUrl" Value="https://packages.limbo.works/limbo.umbraco.tables/" />
+		<AssemblyMetadata Include="DocumentationUrl" Value="https://packages.limbo.works/limbo.umbraco.tables/docs/v17/" />
+		<AssemblyMetadata Include="NuGetUrl" Value="https://www.nuget.org/packages/Limbo.Umbraco.Tables" />
+		<AssemblyMetadata Include="UmbracoMarketplaceUrl" Value="https://marketplace.umbraco.com/package/limbo.umbraco.tables" />
+	</ItemGroup>
+
+	<!-- Include NuGet dependencies -->
+	<ItemGroup>
+		<PackageReference Include="Skybrud.Essentials" Version="1.1.68" />
+		<PackageReference Include="Umbraco.Cms.Core" Version="[17.0.0,17.999)" />
+		<PackageReference Include="Umbraco.Cms.Web.Website" Version="[17.0.0,17.999)" />
+	</ItemGroup>
+
+	<!-- Include package icon for NuGet -->
+	<ItemGroup>
+		<Content Include="../build/Limbo.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<!-- Generate XML documentation -->
+	<PropertyGroup>
+		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+	</PropertyGroup>
+
+	<!-- Build frontend assets -->
+	<!--<Target Name="BuildFrontend" BeforeTargets="Build">
+		<Exec WorkingDirectory="$(MSBuildProjectDirectory)\Client" Command="npm install" />
+		<Exec WorkingDirectory="$(MSBuildProjectDirectory)\Client" Command="npm run build" />
+	</Target>-->
 
 </Project>

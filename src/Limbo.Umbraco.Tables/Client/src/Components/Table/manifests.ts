@@ -3,7 +3,7 @@ import type {ManifestBase} from "@umbraco-cms/backoffice/extension-api";
 export const styledTextSchema : ManifestPropertyEditorSchema = {
     type: 'propertyEditorSchema',
     name: 'Limbo Table',
-    alias: 'limbo.table',
+    alias: 'Limbo.Umbraco.Tables',
     meta: {
         defaultPropertyEditorUiAlias: 'limbo.tables.propertyEditor',
         settings: {
@@ -73,15 +73,15 @@ export const styledTextSchema : ManifestPropertyEditorSchema = {
 
 const styledTextUi : ManifestPropertyEditorUi = {
     type: 'propertyEditorUi',
-    alias: 'limbo.tables.propertyEditor',
-    name: 'Limbo Table Property Editor',
+    alias: 'Limbo.Umbraco.Tables.PropertyEditorUI',
+    name: 'Limbo Table Property Editor UI',
     js: () => import('./limbo-table.ts'),
     elementName: 'limbo-table',
     meta: {
         "label": "Table",
         "icon": "icon-grid color-limbo",
-        "group": "common",
-        "propertyEditorSchemaAlias": 'limbo.table'
+        "group": "Limbo",
+        "propertyEditorSchemaAlias": 'Limbo.Umbraco.Tables'
     }
 }
 
