@@ -1,0 +1,13 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Skybrud.Essentials" Version="1.1.59" />
+    <PackageVersion Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
+    <PackageVersion Include="Umbraco.Cms" Version="17.2.2" />
+    <PackageVersion Include="Umbraco.Cms.Core" Version="17.2.2" />
+<PackageVersion Include="Umbraco.Cms.Web.Website" Version="17.2.2" />
+  </ItemGroup>
+</Project>

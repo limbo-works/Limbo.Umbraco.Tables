@@ -1,2 +1,3 @@
 @echo off
+dotnet build src/Limbo.Umbraco.Tables.StaticAssets --configuration Release /t:rebuild /t:pack -p:PackageOutputPath=../../releases/nuget
 dotnet build src/Limbo.Umbraco.Tables --configuration Release /t:rebuild /t:pack -p:PackageOutputPath=../../releases/nuget
