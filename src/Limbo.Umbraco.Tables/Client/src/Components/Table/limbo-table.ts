@@ -1,7 +1,8 @@
 import { customElement, LitElement, html, property, state, unsafeCSS, unsafeHTML, when, repeat } from '@umbraco-cms/backoffice/external/lit';
 import styleString from './Styles.less?inline';
 import { UmbChangeEvent } from '@umbraco-cms/backoffice/event';
-import type {Table, Cell, Row} from "../../models/table.ts";
+import type {Table, Cell, Row, Column} from "../../models/table.ts";
+import { UmbSorterController, UmbSorterResolvePlacementAsGrid } from '@umbraco-cms/backoffice/sorter';
 
 import {UMB_MODAL_MANAGER_CONTEXT, type UmbModalManagerContext} from '@umbraco-cms/backoffice/modal';
 import { UmbElementMixin } from '@umbraco-cms/backoffice/element-api'
@@ -15,7 +16,16 @@ function clone<T>(value: T): T {
 @customElement('limbo-table')
 export class LimboTable extends UmbElementMixin(LitElement) implements UmbPropertyEditorUiElement {
 
+    #rowSorter: UmbSorterController<Row, HTMLDivElement>;
+    #columnSorter: UmbSorterController<Column, HTMLDivElement>;
+
     private _modalContext?: UmbModalManagerContext;
+    
+    @state()
+    private _activeRowSortId?: string;
+
+    @state()
+    private _activeColumnSortId?: string;
 
     @state()
     private allowUseFirstRowAsHeader?: boolean;
@@ -58,6 +68,47 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
 
     constructor() {
         super();
+        this.#rowSorter = new UmbSorterController(this, {
+            identifier: 'limbo-table-rows',
+            itemSelector: '.table__row--wrapper[data-sortable-id]',
+            containerSelector: '.table-element',
+            handleSelector: '.row-move-handle',
+            getUniqueOfElement: (element: HTMLDivElement) => element.dataset.sortableId,
+            getUniqueOfModel: (model: Row) => model.id,
+            onStart: ({ item }: { item: Row }) => {
+                this._activeRowSortId = item.id;
+            },
+            onChange: ({ model }: { model: Row[] }) => {
+                this.table.rows = model;
+                this.reIndexCells();
+                this.updateUi();
+            },
+            onEnd: () => {
+                this._activeRowSortId = undefined;
+            },
+        });
+        this.#columnSorter = new UmbSorterController(this, {
+            identifier: 'limbo-table-columns',
+            itemSelector: '.controls__control[data-sortable-id]',
+            containerSelector: '.controls',
+            handleSelector: '.column-move-handle',
+            getUniqueOfElement: (element: HTMLDivElement) => element.dataset.sortableId,
+            getUniqueOfModel: (model: Column) => model.id,
+            resolvePlacement: UmbSorterResolvePlacementAsGrid,
+            onStart: ({ item }: { item: Column }) => {
+                this._activeColumnSortId = item.id;
+            },
+            onChange: ({ model }: { model: Column[] }) => {
+                const oldColumns = [...this.table.columns];
+                this.table.columns = model;
+                this.reorderCells(oldColumns, model);
+                this.reIndexCells();
+                this.updateUi();
+            },
+            onEnd: () => {
+                this._activeColumnSortId = undefined;
+            },
+        });
         this.consumeContext(UMB_MODAL_MANAGER_CONTEXT, (instance) => {
             this._modalContext = instance;
         });
@@ -97,9 +148,9 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                 }
             });
 
-            if (modified) this.updateUi();
-
             this.table = parsed;
+            this.#syncSorters();
+            if (modified) this.updateUi();
 
         } catch (e) {
             console.error("Failed to parse table value:", e);
@@ -131,11 +182,11 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                         </div>
                     `)}
                     ${when(this.allowUseLastRowAsFooter, () => html`
-                          <div>
+                        <div>
                             <uui-toggle pristine="" label="label" .checked="${this.table.useLastRowAsFooter}" @change="${this.switchedAllowUseLastRowAsFooter}">
                               <umb-localize key="limboTables_useLastRowAsFooter">Use last row as footer</umb-localize>
                             </uui-toggle>
-                          </div>
+                        </div>
                     `)}
                 </div>
             </div>
@@ -147,7 +198,7 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
             <div class="toolbar">
                 <div class="toolbar__buttons is-fullwidth">
                     <uui-button pristine="" label="${this.localize.term("limboTables_addRow")}" look="secondary" @click="${this.addRow}">
-                        <uui-icon name="icon-add" ></uui-icon>
+                        <uui-icon name="icon-add"></uui-icon>
                         ${this.localize.term("limboTables_addRow")}
                     </uui-button>
                     <uui-button pristine="" label="${this.localize.term("limboTables_addColumn")}" look="secondary" @click="${this.addColumn}">
@@ -176,24 +227,27 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                                     ${when(this.table.columns.length == 1, () => html`
                                         <uui-action-bar>
                                             <uui-button label="Delete" look="secondary" color="danger" disabled="true">
-                                            <uui-icon name="icon-trash"></uui-icon>
+                                                <uui-icon name="icon-trash"></uui-icon>
                                             </uui-button>
                                         </uui-action-bar>
                                     `, () => html`
-                                        ${repeat(this.table.columns, (_, index) => {
+                                        ${repeat(this.table.columns, (column) => column.id, (column, index) => {
                                             return html`
-                                                <div class="controls__control">
+                                        <div class="controls__control" data-sortable-id="${column.id}">
                                                     <uui-action-bar>
+                                                        <uui-button class="drag-handle column-move-handle" look="secondary" aria-label="Move column">
+                                                            <uui-icon name="icon-navigation"></uui-icon>
+                                                        </uui-button>
                                                         <uui-button label="Delete" look="secondary" color="danger" @click="${() => this.removeColumn(index)}">
-                                                      <uui-icon name="icon-trash"></uui-icon>
-                                                    </uui-button>
+                                                            <uui-icon name="icon-trash"></uui-icon>
+                                                        </uui-button>
                                                     </uui-action-bar>
                                                 </div>
                                             `;
                                         })}
                                     `)}
                                     <div class="controls__control no-opacity">
-                                        <uui-button label="Move" look="secondary">
+                                        <uui-button class="drag-handle column-move-handle" look="secondary" aria-label="Move column">
                                             <uui-icon name="icon-navigation"></uui-icon>
                                         </uui-button>
                                         <uui-button label="Delete" look="secondary">
@@ -201,12 +255,12 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                                         </uui-button>
                                     </div>
                                 </div>
-                                <div ui-sortable="sortableOptions" class="table-element ${this.getTableClass()}">
-                                    ${repeat(this.table.rows, (_, index) => index, (row, index) => html`
-                                        <div class="table__row--wrapper" >
+                                <div class="table-element ${this.getTableClass()}">
+                                    ${repeat(this.table.rows, (row) => row.id, (row, index) => html`
+                                        <div class="table__row--wrapper ${this.getRowWrapperClass(row.id)}" data-sortable-id="${row.id}">
                                             <div class="table__row ${this.getRowClass(index)}">
-                                                ${repeat(row.cells, (_, cellIndex) => cellIndex, (cell) => html`
-                                                    <div class="table__column ${this.getColumnClass(cell)}" @click="${() => this.editCell(cell)}">
+                                                ${repeat(row.cells, (_, cellIndex) => cellIndex, (cell, cellIndex) => html`
+                                                    <div class="table__column ${this.getColumnClass(cell)} ${this.getColumnCellClass(cellIndex)}" @click="${() => this.editCell(cell)}">
                                                     ${when(cell.value?.length == 0, () => html`
                                                         <div class="table__column--placeholder" >
                                                             <div>
@@ -225,12 +279,12 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                                             </div>
                                             <div class="buttons">
                                                 <uui-action-bar>
-                                                    <uui-button label="Move" look="secondary">
-                                                    <uui-icon name="icon-navigation"></uui-icon>
-                                                </uui-button>
+                                                    <uui-button class="drag-handle row-move-handle" look="secondary" aria-label="Move row">
+                                                        <uui-icon name="icon-navigation"></uui-icon>
+                                                    </uui-button>
                                                     <uui-button label="Delete row" look="secondary" color="danger" @click="${() => this.removeRow(index)}">
-                                                    <uui-icon name="icon-trash"></uui-icon>
-                                                </uui-button>
+                                                        <uui-icon name="icon-trash"></uui-icon>
+                                                    </uui-button>
                                                 </uui-action-bar>
                                             </div>
                                         </div>
@@ -241,6 +295,8 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                     </div>
                 </div>
             </div>
+            <pre style="font-size: 13px; line-height: 13px;">${this.value}</pre>
+            <pre style="font-size: 13px; line-height: 13px;">${JSON.stringify(this.table, null, 2)}</pre>
         `;
     }
 
@@ -254,6 +310,24 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
             cells: undefined
         };
         this.updateUi();
+    }
+
+    #syncSorters() {
+        this.#rowSorter.setModel(this.table.rows);
+        this.#columnSorter.setModel(this.table.columns);
+    }
+
+    reorderCells(previousColumns: Table["columns"], nextColumns: Table["columns"]) {
+        const previousColumnIndexes = new Map(previousColumns.map((column, index) => [column.id, index]));
+        this.table.rows.forEach((row, rowIndex) => {
+            const previousCells = [...row.cells];
+            row.cells = nextColumns.map((column, columnIndex) => {
+                const previousIndex = previousColumnIndexes.get(column.id);
+                return previousIndex === undefined || previousCells[previousIndex] === undefined
+                    ? this.getEmptyCell(rowIndex, columnIndex)
+                    : previousCells[previousIndex];
+            });
+        });
     }
 
     //on change callbacks
@@ -390,6 +464,7 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
     }
 
     updateUi() {
+        this.#syncSorters();
         this.#dispatchChangeEvent();
         this.requestUpdate();
     }
@@ -423,6 +498,16 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
     getColumnClass(cell: Cell) {
         if (this.table.useFirstColumnAsHeader && cell.columnIndex === 0) return "header";
         return "";
+    }
+
+    getRowWrapperClass(rowId: string) {
+        return this._activeRowSortId === rowId ? "is-sorting" : "";
+    }
+
+    getColumnCellClass(cellIndex: number) {
+        const activeColumnId = this._activeColumnSortId;
+        if (!activeColumnId) return "";
+        return this.table.columns[cellIndex]?.id === activeColumnId ? "is-sorting" : "";
     }
 
     #dispatchChangeEvent() {
