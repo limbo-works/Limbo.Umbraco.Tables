@@ -14,7 +14,14 @@ namespace Limbo.Umbraco.Tables.PropertyEditors;
 /// <summary>
 /// Property value converter for <see cref="TableEditor"/>.
 /// </summary>
-public class TableValueConverter(TablesHtmlParser htmlParser) : PropertyValueConverterBase {
+public class TableValueConverter : PropertyValueConverterBase {
+
+    protected TablesJsonParser JsonParser { get; }
+
+    public TableValueConverter(TablesJsonParser jsonParser) {
+        JsonParser = jsonParser;
+    }
+
     public override bool IsConverter(IPublishedPropertyType propertyType) {
         return propertyType.EditorAlias == TableEditor.EditorAlias;
     }
@@ -28,8 +35,8 @@ public class TableValueConverter(TablesHtmlParser htmlParser) : PropertyValueCon
     }
 
     public override object? ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object? inter, bool preview) {
-        var config = propertyType.DataType.ConfigurationAs<TableConfiguration>()!;
-        return TableModel.Parse(inter as JObject, config, htmlParser, preview);
+        TableConfiguration config = propertyType.DataType.ConfigurationAs<TableConfiguration>()!;
+        return inter is JObject json ? JsonParser.Parse(json, config, preview) : null;
     }
 
     public override Type GetPropertyValueType(IPublishedPropertyType propertyType) {
@@ -39,7 +46,7 @@ public class TableValueConverter(TablesHtmlParser htmlParser) : PropertyValueCon
     public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType) {
 
         // Default to "Elements" if configuration doesn't match (probably wouldn't happen)
-        var config = propertyType.DataType.ConfigurationAs<TableConfiguration>();
+        TableConfiguration? config = propertyType.DataType.ConfigurationAs<TableConfiguration>();
         if (config is  null) return PropertyCacheLevel.Elements;
 
         // Return the configured cache level (or "Elements" if not specified)

@@ -1,18 +1,25 @@
 export type Table = {
-    rows: object[],
-    columns: object[],
-    cells: Row[],
+    columns: Column[],
+    rows: Row[],
+    cells: Cell[][] | undefined,
     useFirstRowAsHeader: boolean,
     useFirstColumnAsHeader: boolean,
     useLastRowAsFooter: boolean,
 };
+
+export type Column = {
+    id: string
+};
+
+export type Row = {
+    id: string,
+    cells: Cell[],
+};
+
 export type Cell = {
     type: string,
-    scope:string | null,
+    scope: string | null,
     columnIndex: number,
     rowIndex: number
     value?: string,
-};
-export type Row = {
-    cells: Cell[],
 };

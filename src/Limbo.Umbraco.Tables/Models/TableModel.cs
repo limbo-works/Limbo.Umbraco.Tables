@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json.Serialization;
-using Limbo.Umbraco.Tables.Parsers;
 using Limbo.Umbraco.Tables.PropertyEditors;
 using Microsoft.AspNetCore.Html;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Skybrud.Essentials.Json.Newtonsoft.Extensions;
 using Skybrud.Essentials.Strings.Extensions;
 
 namespace Limbo.Umbraco.Tables.Models;
@@ -26,94 +23,49 @@ public class TableModel : TableObject, IHtmlContent {
     /// </summary>
     [JsonProperty("useFirstRowAsHeader")]
     [JsonPropertyName("useFirstRowAsHeader")]
-    public bool UseFirstRowAsHeader { get; }
+    public bool UseFirstRowAsHeader { get; init; }
 
     /// <summary>
     /// Gets whether the first column of the table should be used as a header.
     /// </summary>
     [JsonProperty("useFirstColumnAsHeader")]
     [JsonPropertyName("useFirstColumnAsHeader")]
-    public bool UseFirstColumnAsHeader { get; }
+    public bool UseFirstColumnAsHeader { get; init; }
 
     /// <summary>
     /// Gets whether the last row of the table should be used as a footer.
     /// </summary>
     [JsonProperty("useLastRowAsFooter")]
     [JsonPropertyName("useLastRowAsFooter")]
-    public bool UseLastRowAsFooter { get; }
+    public bool UseLastRowAsFooter { get; init; }
 
     /// <summary>
-    /// Gets a list of the rows in the structued data table.
+    /// Gets a list of the columns in the table.
     /// </summary>
     [Newtonsoft.Json.JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public IReadOnlyList<TableRow> Rows { get; }
+    public required IReadOnlyList<TableColumn> Columns { get; init; }
 
     /// <summary>
-    /// Gets a list of the columns in the structued data table.
+    /// Gets a list of the rows in the table.
     /// </summary>
     [Newtonsoft.Json.JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public IReadOnlyList<TableColumn> Columns { get; }
-
-    /// <summary>
-    /// Gets a list of the cells in the structued data table.
-    /// </summary>
-    [JsonProperty("cells")]
-    [JsonPropertyName("cells")]
-    public IReadOnlyList<IReadOnlyList<TableCell>> Cells { get; }
+    public required IReadOnlyList<TableRow> Rows { get; init; }
 
     #endregion
 
     #region Constructors
 
-    private TableModel(JObject json, TableConfiguration config, TablesHtmlParser htmlParser, bool preview) : base(json) {
-
-        UseFirstRowAsHeader = json.GetBoolean("useFirstRowAsHeader") && config.AllowUseFirstRowAsHeader;
-        UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader") && config.AllowUseFirstColumnAsHeader;
-        UseLastRowAsFooter = json.GetBoolean("useLastRowAsFooter") && config.AllowUseLastRowAsFooter;
-
-        JArray rows = json.GetArrayOrNew("rows");
-
-        Rows = json.GetArrayOrNew("rows")
-            .ForEach((i, x) => new TableRow(i, x, rows.Count, this))
-            .ToList();
-
-        Columns = json.GetArrayOrNew("columns")
-            .ForEach((i, x) => new TableColumn(i, x, this))
-            .ToList();
-
-        Cells = json
-            .GetArrayOrNew("cells")
-            .ForEach((i, x) => ParseCellRow(i, x, htmlParser, preview))
-            .ToList();
-
-    }
+    /// <summary>
+    /// Initializes a new instance of <see cref="TableModel"/> from the specified <paramref name="json"/> object.
+    /// </summary>
+    /// <param name="json">The JSON object representing the table.</param>
+    public TableModel(JObject json) : base(json) { }
 
     #endregion
 
     #region Member methods
-
-    private List<TableCell> ParseCellRow(int index, JObject rowObj, TablesHtmlParser htmlParser, bool preview) {
-
-        TableRow row = Rows[index];
-
-        List<TableCell> temp = new();
-
-        JArray cells = rowObj.GetArrayOrNew("cells");
-
-        for (int c = 0; c < cells.Count; c++) {
-
-            int columnIndex = c;
-            TableColumn column = Columns[columnIndex];
-
-            temp.Add(cells.GetObject(c, x => new TableCell(x, index, row, columnIndex, column, this, htmlParser, preview))!);
-
-        }
-
-        return temp;
-
-    }
 
     /// <inheritdoc />
     public void WriteTo(TextWriter writer, HtmlEncoder encoder) {
@@ -151,7 +103,7 @@ public class TableModel : TableObject, IHtmlContent {
 
         writer.WriteLine("    <tr>");
 
-        foreach (var cell in row.Table.Cells[row.Index]) {
+        foreach (var cell in row.Cells) {
 
             writer.Write($"      <{cell.Type.ToLower()}");
             if (cell.Scope is not TableCellScope.None) writer.Write($" scope=\"{cell.Scope.ToLower()}\"");
@@ -165,23 +117,6 @@ public class TableModel : TableObject, IHtmlContent {
 
         writer.WriteLine("    </tr>");
 
-    }
-
-    #endregion
-
-    #region Static methods
-
-    /// <summary>
-    /// Returns a new instance of <see cref="TableModel"/> parsed from the specified <paramref name="json"/> object, or <c>null</c> if <paramref name="json"/> is null.
-    /// </summary>
-    /// <param name="json">The JSON object.</param>
-    /// <param name="config">The table configuration.</param>
-    /// <param name="htmlParser">An instance of <see cref="TablesHtmlParser"/> to be used for parsing HTML values.</param>
-    /// <param name="preview">Whether the model is part of a page being viewed in preview mode.</param>
-    /// <returns>An instance of <see cref="TableModel"/>, or <c>null</c> if <paramref name="json"/> is null.</returns>
-    [return: NotNullIfNotNull("json")]
-    public static TableModel? Parse(JObject? json, TableConfiguration config, TablesHtmlParser htmlParser, bool preview) {
-        return json == null ? null : new TableModel(json, config, htmlParser, preview);
     }
 
     #endregion

@@ -72,16 +72,16 @@ export const styledTextSchema : ManifestPropertyEditorSchema = {
 };
 
 const styledTextUi : ManifestPropertyEditorUi = {
-    type: 'propertyEditorUi',
-    alias: 'Limbo.Umbraco.Tables.PropertyEditorUI',
-    name: 'Limbo Table Property Editor UI',
-    js: () => import('./limbo-table.ts'),
-    elementName: 'limbo-table',
+    type: "propertyEditorUi",
+    alias: "Limbo.Umbraco.Tables.PropertyEditorUI",
+    name: "Limbo Table Property Editor UI",
+    js: () => import("./limbo-table.ts"),
+    elementName: "limbo-table",
     meta: {
-        "label": "Table",
+        "label": "Limbo Tables",
         "icon": "icon-grid color-limbo",
         "group": "Limbo",
-        "propertyEditorSchemaAlias": 'Limbo.Umbraco.Tables'
+        "propertyEditorSchemaAlias": "Limbo.Umbraco.Tables"
     }
 }
 

@@ -14,41 +14,38 @@ public class TableRow : TableObject {
     /// </summary>
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public TableModel Table { get; }
+    public required TableModel Table { get; init; }
 
     /// <summary>
     /// Gets the index of the row.
     /// </summary>
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public int Index { get; }
+    public required int Index { get; init; }
 
     /// <summary>
     /// Gets whether the row is a header row.
     /// </summary>
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public bool IsHeader { get; }
+    public required bool IsHeader { get; init; }
 
     /// <summary>
     /// Gets whether the row is a footer row.
     /// </summary>
     [JsonIgnore]
     [System.Text.Json.Serialization.JsonIgnore]
-    public bool IsFooter { get; }
+    public required bool IsFooter { get; init; }
 
     /// <summary>
     /// Gets a list of the cells of the row.
     /// </summary>
-    [JsonIgnore]
-    [System.Text.Json.Serialization.JsonIgnore]
-    public IReadOnlyList<TableCell> Cells => Table.Cells[Index];
+    public required IReadOnlyList<TableCell> Cells { get; init; }
 
-    internal TableRow(int index, JObject json, int rowsCount, TableModel table) : base(json) {
-        Table = table;
-        Index = index;
-        IsHeader = index == 0 && table.UseFirstRowAsHeader;
-        IsFooter = !IsHeader && index == rowsCount - 1 && table.UseLastRowAsFooter;
-    }
+    /// <summary>
+    /// Initializes a new instance of <see cref="TableRow"/> from the specified <paramref name="json"/> object.
+    /// </summary>
+    /// <param name="json">The JSON object representing the row.</param>
+    public TableRow(JObject json) : base(json) { }
 
 }
