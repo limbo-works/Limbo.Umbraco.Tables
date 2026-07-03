@@ -173,25 +173,30 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                             ${this.#renderActions()}
                             <div class="table">
                                 <div class="controls">
-                                    ${this.table.columns.length == 1 ? html`
-                                        <uui-button pristine="" label="Delete" look="secondary"  disabled="true">
+                                    ${when(this.table.columns.length == 1, () => html`
+                                        <uui-action-bar>
+                                            <uui-button label="Delete" look="secondary" color="danger" disabled="true">
                                             <uui-icon name="icon-trash"></uui-icon>
-                                        </uui-button>` : html`
-                                        ${Object.entries(this.table.columns).map(([key, _]) => {
+                                            </uui-button>
+                                        </uui-action-bar>
+                                    `, () => html`
+                                        ${repeat(this.table.columns, (_, index) => {
                                             return html`
-                                                <div class="controls__control" ng-repeat="column in vm.table.columns">
-                                                    <uui-button pristine="" label="Delete" look="secondary"  @click="${() => this.removeColumn(parseInt(key))}">
+                                                <div class="controls__control">
+                                                    <uui-action-bar>
+                                                        <uui-button label="Delete" look="secondary" color="danger" @click="${() => this.removeColumn(index)}">
                                                       <uui-icon name="icon-trash"></uui-icon>
                                                     </uui-button>
+                                                    </uui-action-bar>
                                                 </div>
-                                            `
+                                            `;
                                         })}
-                                    `}
+                                    `)}
                                     <div class="controls__control no-opacity">
-                                        <uui-button pristine="" label="Move" look="secondary">
+                                        <uui-button label="Move" look="secondary">
                                             <uui-icon name="icon-navigation"></uui-icon>
                                         </uui-button>
-                                        <uui-button pristine="" label="Delete" look="secondary">
+                                        <uui-button label="Delete" look="secondary">
                                             <uui-icon name="icon-trash"></uui-icon>
                                         </uui-button>
                                     </div>
@@ -219,12 +224,14 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                                                 `)}
                                             </div>
                                             <div class="buttons">
-                                                <uui-button pristine="" label="Move" look="secondary" >
+                                                <uui-action-bar>
+                                                    <uui-button label="Move" look="secondary">
                                                     <uui-icon name="icon-navigation"></uui-icon>
                                                 </uui-button>
-                                                <uui-button pristine="" label="Delete row" look="secondary" @click="${() => this.removeRow(index)}">
+                                                    <uui-button label="Delete row" look="secondary" color="danger" @click="${() => this.removeRow(index)}">
                                                     <uui-icon name="icon-trash"></uui-icon>
                                                 </uui-button>
+                                                </uui-action-bar>
                                             </div>
                                         </div>
                                     `)}
