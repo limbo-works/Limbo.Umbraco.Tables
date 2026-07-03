@@ -20,7 +20,7 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
     #columnSorter: UmbSorterController<Column, HTMLDivElement>;
 
     private _modalContext?: UmbModalManagerContext;
-    
+
     @state()
     private _activeRowSortId?: string;
 
@@ -295,8 +295,6 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                     </div>
                 </div>
             </div>
-            <pre style="font-size: 13px; line-height: 13px;">${this.value}</pre>
-            <pre style="font-size: 13px; line-height: 13px;">${JSON.stringify(this.table, null, 2)}</pre>
         `;
     }
 
