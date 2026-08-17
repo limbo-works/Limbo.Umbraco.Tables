@@ -4,10 +4,11 @@ import { UmbChangeEvent } from '@umbraco-cms/backoffice/event';
 import type {Table, Cell, Row, Column} from "../../models/table.ts";
 import { UmbSorterController, UmbSorterResolvePlacementAsGrid } from '@umbraco-cms/backoffice/sorter';
 
-import {UMB_MODAL_MANAGER_CONTEXT, type UmbModalManagerContext} from '@umbraco-cms/backoffice/modal';
+import {UMB_MODAL_MANAGER_CONTEXT, umbConfirmModal, type UmbModalManagerContext} from '@umbraco-cms/backoffice/modal';
 import { UmbElementMixin } from '@umbraco-cms/backoffice/element-api'
 import {LIMBO_TABLE_MODAL} from "../Dialogs/RteModalValue.ts";
 import type {UmbPropertyEditorConfigCollection, UmbPropertyEditorUiElement} from "@umbraco-cms/backoffice/property-editor";
+import { parseCsv } from "../../utils/csv.ts";
 
 function clone<T>(value: T): T {
     return JSON.parse(JSON.stringify(value));
@@ -205,10 +206,20 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
                         <uui-icon name="icon-add"></uui-icon>
                         ${this.localize.term("limboTables_addColumn")}
                     </uui-button>
+                    <uui-button pristine="" label="${this.localize.term("limboTables_importCsv")}" look="secondary" @click="${this.#triggerCsvImport}">
+                        <uui-icon name="icon-download"></uui-icon>
+                        ${this.localize.term("limboTables_importCsv")}
+                    </uui-button>
                     <uui-button pristine="" label="Reset" look="secondary" @click="${this.reset}">
                         <uui-icon name="icon-add"></uui-icon>
                         Reset
                     </uui-button>
+                    <input
+                        id="csv-import-input"
+                        type="file"
+                        accept=".csv,text/csv"
+                        hidden
+                        @change="${this.#onCsvFileChange}" />
                 </div>
             </div>
         `;
@@ -308,6 +319,87 @@ export class LimboTable extends UmbElementMixin(LitElement) implements UmbProper
             cells: undefined
         };
         this.updateUi();
+    }
+
+    #triggerCsvImport() {
+        this.shadowRoot?.querySelector<HTMLInputElement>("#csv-import-input")?.click();
+    }
+
+    async #onCsvFileChange(event: Event) {
+
+        const input = event.target as HTMLInputElement | null;
+        const file = input?.files?.[0];
+
+        // Reset the input so picking the same file again still raises a change event
+        if (input) input.value = "";
+        if (!file) return;
+
+        try {
+            await this.#importCsv(await file.text());
+        } catch (e) {
+            console.error("Failed to import CSV:", e);
+        }
+
+    }
+
+    async #importCsv(text: string) {
+
+        const records = parseCsv(text);
+        if (records.length === 0) return;
+
+        // Importing replaces the table, so confirm before discarding existing content
+        if (this.#hasContent()) {
+            try {
+                await umbConfirmModal(this, {
+                    headline: this.localize.term("limboTables_importCsv"),
+                    content: this.localize.term("limboTables_importCsvConfirm"),
+                    confirmLabel: this.localize.term("limboTables_importCsvConfirmLabel"),
+                    color: "danger"
+                });
+            } catch {
+                return;
+            }
+        }
+
+        this.table.columns = records[0].map(() => ({ id: crypto.randomUUID() }));
+
+        this.table.rows = records.map((values, rowIndex) => ({
+            id: crypto.randomUUID(),
+            cells: values.map((value, columnIndex) => ({
+                ...this.getEmptyCell(rowIndex, columnIndex),
+                value: this.#toCellHtml(value)
+            }))
+        }));
+
+        // Cells are stored on the rows - the legacy top level array must not linger
+        this.table.cells = undefined;
+
+        this.reIndexCells();
+        this.updateUi();
+
+    }
+
+    #hasContent() {
+        return this.table.rows.some(row => row.cells.some(cell => (cell.value?.length ?? 0) > 0));
+    }
+
+    #toCellHtml(value: string) {
+        const trimmed = value.trim();
+        if (trimmed.length === 0) return "";
+        // Cell values are rich text, so each line of a multi line CSV field becomes a paragraph
+        return trimmed
+            .split(/\r?\n/)
+            .map(line => `<p>${this.#escapeHtml(line)}</p>`)
+            .join("");
+    }
+
+    #escapeHtml(value: string) {
+        return value
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 
     #syncSorters() {
