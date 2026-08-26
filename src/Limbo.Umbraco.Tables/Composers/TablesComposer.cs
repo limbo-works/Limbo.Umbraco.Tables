@@ -17,7 +17,7 @@ public class TablesComposer : IComposer {
         builder.Services.AddSingleton<TablesJsonParser>();
         builder.Services.AddSingleton<TablePropertyIndexValueFactory>();
         builder.PropertyValueConverters().Append<TableValueConverter>();
-        builder.Services.AddSingleton<IPackageManifestReader, TablesManifestFilter>();
+        builder.Services.AddSingleton<IPackageManifestReader, TablesManifestReader>();
     }
 
 }

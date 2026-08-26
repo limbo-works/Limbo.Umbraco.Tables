@@ -1,11 +1,20 @@
 import type {ManifestPropertyEditorSchema, ManifestPropertyEditorUi} from "@umbraco-cms/backoffice/property-editor";
-import type {ManifestBase} from "@umbraco-cms/backoffice/extension-api";
-export const styledTextSchema : ManifestPropertyEditorSchema = {
+import type { ManifestBase } from "@umbraco-cms/backoffice/extension-api";
+
+
+const ALIAS = "Limbo.Umbraco.Tables";
+const NAME = "Limbo Tables";
+
+const SCHEMA_ALIAS = ALIAS;
+
+const UI_ALIAS = `${SCHEMA_ALIAS}.Ui`;
+
+export const tablesSchema : ManifestPropertyEditorSchema = {
     type: 'propertyEditorSchema',
-    name: 'Limbo Table',
-    alias: 'Limbo.Umbraco.Tables',
+    alias: SCHEMA_ALIAS,
+    name: `${NAME}: Table Property Editor Schema`,
     meta: {
-        defaultPropertyEditorUiAlias: 'limbo.tables.propertyEditor',
+        defaultPropertyEditorUiAlias: UI_ALIAS,
         settings: {
             properties: [
                 {
@@ -71,18 +80,18 @@ export const styledTextSchema : ManifestPropertyEditorSchema = {
     }
 };
 
-const styledTextUi : ManifestPropertyEditorUi = {
+const tablesUi : ManifestPropertyEditorUi = {
     type: "propertyEditorUi",
-    alias: "Limbo.Umbraco.Tables.PropertyEditorUI",
-    name: "Limbo Table Property Editor UI",
+    alias: UI_ALIAS,
+    name: `${NAME}: Table Property Editor UI`,
     js: () => import("./limbo-table.ts"),
     elementName: "limbo-table",
     meta: {
         "label": "Limbo Tables",
         "icon": "icon-grid color-limbo",
         "group": "Limbo",
-        "propertyEditorSchemaAlias": "Limbo.Umbraco.Tables"
+        "propertyEditorSchemaAlias": SCHEMA_ALIAS
     }
 }
 
-export const manifests:ManifestBase[] = [styledTextSchema, styledTextUi];
+export const manifests:ManifestBase[] = [tablesSchema, tablesUi];

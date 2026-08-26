@@ -1,28 +1,28 @@
 # Limbo Tables
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/limbo-works/Limbo.Umbraco.Tables/blob/v13/main/LICENSE.md)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/limbo-works/Limbo.Umbraco.Tables/blob/v17/main/LICENSE.md)
 [![NuGet](https://img.shields.io/nuget/v/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables)
 [![NuGet](https://img.shields.io/nuget/dt/Limbo.Umbraco.Tables.svg)](https://www.nuget.org/packages/Limbo.Umbraco.Tables)
 [![Umbraco Marketplace](https://img.shields.io/badge/umbraco-marketplace-%233544B1)](https://marketplace.umbraco.com/package/limbo.umbraco.tables)
 [![Limbo.Umbraco.Tables at packages.limbo.works](https://img.shields.io/badge/limbo-packages-blue)](https://packages.limbo.works/limbo.umbraco.tables/)
 
-Table editor for Umbraco 13.
+Table editor for Umbraco.
 
 <table>
   <tr>
     <td><strong>License:</strong></td>
-    <td><a href="https://github.com/limbo-works/Limbo.Umbraco.Tables/blob/v13/main/LICENSE.md"><strong>MIT License</strong></a></td>
+    <td><a href="https://github.com/limbo-works/Limbo.Umbraco.Tables/blob/v17/main/LICENSE.md"><strong>MIT License</strong></a></td>
   </tr>
   <tr>
     <td><strong>Umbraco:</strong></td>
     <td>
-      Umbraco 13
+      Umbraco 17
     </td>
   </tr>
   <tr>
     <td><strong>Target Framework:</strong></td>
     <td>
-      .NET 8
+      .NET 10
     </td>
   </tr>
 </table>
@@ -33,24 +33,24 @@ Table editor for Umbraco 13.
 
 ## Installation
 
-**Umbraco 13**  
+**Umbraco 17**  
 
-Install for Umbraco 13 via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.Tables/13.0.2). Either via the .NET CLI:
+Install for Umbraco 17 via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.Tables). Either via the .NET CLI:
 
 ```
-dotnet add package Limbo.Umbraco.Tables --version 13.0.2
+dotnet add package Limbo.Umbraco.Tables --version 17.0.0-alpha001
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.Tables -Version 13.0.2
+Install-Package Limbo.Umbraco.Tables -Version 17.0.0-alpha001
 ```
 
-**Umbraco 10, 11 and 12**  
-For the Umbraco 10-12 version of this package, see the [**v1/main**](https://github.com/limbo-works/Limbo.Umbraco.Tables/tree/v1/main) branch instead.
+### Other versions of Umbraco
 
-
+- [**`v13/main`**](https://www.nuget.org/packages/Limbo.Umbraco.Tables/tree/v13/main) Umbraco 13
+- ~~[**`v1/main`**](https://www.nuget.org/packages/Limbo.Umbraco.Tables/tree/v1/main) Umbraco 10, 11 and 12~~ <sub title="Umbraco 10, 11 and 12 have reached end-of-life"><sup>(EOL)</sup></sub>
 
 
 

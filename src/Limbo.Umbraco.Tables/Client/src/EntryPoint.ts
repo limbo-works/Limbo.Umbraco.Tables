@@ -3,19 +3,22 @@ import { manifests as tableManifest } from './Components/Table/manifests.ts';
 import { manifests as modalManifest }  from './Components/Dialogs/manifests.ts';
 import type {UmbEntryPointOnInit, UmbEntryPointOnUnload} from '@umbraco-cms/backoffice/extension-api';
 
+const ALIAS = "Limbo.Umbraco.Tables";
+const NAME = "Limbo Tables";
+
 const localizationManifests = [
     {
         type: 'localization' as const,
-        alias: 'Limbo.Tables.Localization.EnUs',
-        name: 'English (United States)',
-        meta: { culture: 'en-us' },
+        alias: `${ALIAS}.Localization.EnUs`,
+        name: `${NAME}: English (en-US)`,
+        meta: { culture: 'en' },
         js: () => import('./Lang/en.ts'),
     },
     {
         type: 'localization' as const,
-        alias: 'Limbo.Tables.Localization.DaDk',
-        name: 'Danish (Denmark)',
-        meta: { culture: 'da-dk' },
+        alias: `${ALIAS}.Localization.DaDk`,
+        name: `${NAME}: Danish (da-DK)`,
+        meta: { culture: 'da' },
         js: () => import('./Lang/da.ts'),
     },
 ];

@@ -9,7 +9,7 @@ using Umbraco.Cms.Infrastructure.Manifest;
 namespace Limbo.Umbraco.Tables.Manifests;
 
 /// <inheritdoc />
-public class TablesManifestFilter : IPackageManifestReader {
+public class TablesManifestReader : IPackageManifestReader {
 
     public Task<IEnumerable<PackageManifest>> ReadPackageManifestsAsync() {
 
@@ -24,8 +24,8 @@ public class TablesManifestFilter : IPackageManifestReader {
                 AllowPublicAccess = false,
                 Extensions = [
                     new {
-                        name = "limbo.tables.entryPoint",
-                        alias = "Limbo.Tables.entryPoint",
+                        alias = $"{TablesPackage.Alias}.EntryPoint",
+                        name = $"{TablesPackage.Name}: Entry Point",
                         type = "backofficeEntryPoint",
                         js = $"/App_Plugins/{TablesPackage.Alias}/limbo-umbraco-tables.js?v={cacheBuster}",
                     }

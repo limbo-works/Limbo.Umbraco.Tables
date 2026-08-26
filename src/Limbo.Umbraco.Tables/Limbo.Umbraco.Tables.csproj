@@ -6,11 +6,6 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
-	<!-- Ignore vulnerabilities from transient dependencies -->
-	<PropertyGroup>
-		<NuGetAuditMode>direct</NuGetAuditMode>
-	</PropertyGroup>
-
 	<PropertyGroup>
 		<VersionPrefix>17.0.0-alpha001</VersionPrefix>
 		<VersionSuffix Condition="'$(Configuration)'=='Debug'">build$([System.DateTime]::UtcNow.ToString(`yyyyMMddHHmm`))</VersionSuffix>
@@ -35,11 +30,17 @@
 
 	<!-- Include additional metadata in the assembly -->
 	<ItemGroup>
+		<AssemblyMetadata Include="Authors" Value="$(Authors)" />
 		<AssemblyMetadata Include="PackageProjectUrl" Value="https://packages.limbo.works/limbo.umbraco.tables/" />
 		<AssemblyMetadata Include="DocumentationUrl" Value="https://packages.limbo.works/limbo.umbraco.tables/docs/v17/" />
 		<AssemblyMetadata Include="NuGetUrl" Value="https://www.nuget.org/packages/Limbo.Umbraco.Tables" />
 		<AssemblyMetadata Include="UmbracoMarketplaceUrl" Value="https://marketplace.umbraco.com/package/limbo.umbraco.tables" />
 	</ItemGroup>
+
+	<!-- Ignore vulnerabilities from transient dependencies -->
+	<PropertyGroup>
+		<NuGetAuditMode>direct</NuGetAuditMode>
+	</PropertyGroup>
 
 	<!-- Include NuGet dependencies -->
 	<ItemGroup>
