@@ -9,5 +9,8 @@ export default {
         addCellContent: 'Add cell content',
         editCellContent: 'Edit cell content',
         useTextareaEditor: 'Use textarea cell editor instead of RTE',
+        importCsv: 'Import CSV',
+        importCsvConfirm: 'Importing a CSV file replaces the current contents of the table. Do you want to continue?',
+        importCsvConfirmLabel: 'Import',
     },
 };
