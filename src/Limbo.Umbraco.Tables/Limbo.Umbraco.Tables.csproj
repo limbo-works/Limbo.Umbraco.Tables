@@ -61,9 +61,9 @@
 
   <!-- Keep client source files out of the NuGet package -->
   <ItemGroup>
-    <Content Remove="Client\package.json" />
-    <Content Remove="Client\package-lock.json" />
-    <Content Remove="Client\tsconfig.json" />
+    <Content Update="Client\package.json" Pack="false" />
+    <Content Update="Client\package-lock.json" Pack="false" />
+    <Content Update="Client\tsconfig.json" Pack="false" />
   </ItemGroup>
 
 	<!-- Build frontend assets -->
