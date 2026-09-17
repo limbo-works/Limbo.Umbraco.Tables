@@ -11,7 +11,7 @@ using Umbraco.Extensions;
 namespace Limbo.Umbraco.Tables.PropertyEditors;
 
 /// <summary>
-/// Index value factory for <see cref="TableEditor"/>. Extracts plain-text cell content for full-text search indexing.
+/// Index value factory for <see cref="TablePropertyEditor"/>. Extracts plain-text cell content for full-text search indexing.
 /// </summary>
 public class TablePropertyIndexValueFactory : IPropertyIndexValueFactory {
     private static IEnumerable<string?> ProcessRow(JArray row) {

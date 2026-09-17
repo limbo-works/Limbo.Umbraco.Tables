@@ -12,7 +12,7 @@ using Umbraco.Extensions;
 namespace Limbo.Umbraco.Tables.PropertyEditors;
 
 /// <summary>
-/// Property value converter for <see cref="TableEditor"/>.
+/// Property value converter for <see cref="TablePropertyEditor"/>.
 /// </summary>
 public class TableValueConverter : PropertyValueConverterBase {
 
@@ -23,7 +23,7 @@ public class TableValueConverter : PropertyValueConverterBase {
     }
 
     public override bool IsConverter(IPublishedPropertyType propertyType) {
-        return propertyType.EditorAlias == TableEditor.EditorAlias;
+        return propertyType.EditorAlias == TablePropertyEditor.EditorAlias;
     }
 
     public override object? ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object? source, bool preview) {

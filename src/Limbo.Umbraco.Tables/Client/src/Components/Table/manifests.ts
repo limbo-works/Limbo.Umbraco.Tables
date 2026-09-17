@@ -7,7 +7,7 @@ const NAME = "Limbo Tables";
 
 const SCHEMA_ALIAS = ALIAS;
 
-const UI_ALIAS = `${SCHEMA_ALIAS}.Ui`;
+const UI_ALIAS = `${SCHEMA_ALIAS}.PropertyEditorUi`;
 
 export const tablesSchema : ManifestPropertyEditorSchema = {
     type: 'propertyEditorSchema',
@@ -88,7 +88,7 @@ const tablesUi : ManifestPropertyEditorUi = {
     elementName: "limbo-table",
     meta: {
         "label": "Limbo Tables",
-        "icon": "icon-grid color-limbo",
+        "icon": "icon-grid",
         "group": "Limbo",
         "propertyEditorSchemaAlias": SCHEMA_ALIAS
     }

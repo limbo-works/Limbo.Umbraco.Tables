@@ -12,7 +12,7 @@ using Skybrud.Essentials.Strings.Extensions;
 namespace Limbo.Umbraco.Tables.Models;
 
 /// <summary>
-/// Class representing the value of a <see cref="TableEditor"/>.
+/// Class representing the value of a <see cref="TablePropertyEditor"/>.
 /// </summary>
 public class TableModel : TableObject, IHtmlContent {
 

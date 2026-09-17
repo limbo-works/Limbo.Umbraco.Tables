@@ -3,7 +3,7 @@
 namespace Limbo.Umbraco.Tables.PropertyEditors;
 
 /// <summary>
-/// Represents the configuration for <see cref="TableEditor"/>.
+/// Represents the configuration for <see cref="TablePropertyEditor"/>.
 /// </summary>
 public class TableConfiguration : IConfigureValueType {
 
