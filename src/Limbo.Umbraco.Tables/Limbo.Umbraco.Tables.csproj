@@ -59,6 +59,13 @@
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
 	</PropertyGroup>
 
+  <!-- Keep client source files out of the NuGet package -->
+  <ItemGroup>
+    <Content Remove="Client\package.json" />
+    <Content Remove="Client\package-lock.json" />
+    <Content Remove="Client\tsconfig.json" />
+  </ItemGroup>
+
 	<!-- Build frontend assets -->
 	<!--<Target Name="BuildFrontend" BeforeTargets="Build">
 		<Exec WorkingDirectory="$(MSBuildProjectDirectory)\Client" Command="npm install" />
