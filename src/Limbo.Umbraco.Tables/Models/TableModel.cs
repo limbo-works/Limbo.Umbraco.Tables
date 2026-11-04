@@ -53,6 +53,13 @@ public class TableModel : TableObject, IHtmlContent {
     [System.Text.Json.Serialization.JsonIgnore]
     public required IReadOnlyList<TableRow> Rows { get; init; }
 
+    /// <summary>
+    /// Gets a two-dimensional array of the cells making up the table.
+    /// </summary>
+    [JsonProperty("cells")]
+    [JsonPropertyName("cells")]
+    public required IReadOnlyList<IReadOnlyList<TableCell>> Cells { get; init; }
+
     #endregion
 
     #region Constructors

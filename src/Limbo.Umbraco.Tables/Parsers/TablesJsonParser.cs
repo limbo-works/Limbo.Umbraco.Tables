@@ -57,6 +57,7 @@ public class TablesJsonParser {
 
         List<TableColumn> columns = [];
         List<TableRow> rows = [];
+        List<IReadOnlyList<TableCell>> cells = [];
 
         // Initialize the table model with the parsed columns and rows, and apply header/footer flags based on the JSON and configuration
         TableModel table = new(json) {
@@ -64,7 +65,8 @@ public class TablesJsonParser {
             UseFirstColumnAsHeader = json.GetBoolean("useFirstColumnAsHeader") && config.AllowUseFirstColumnAsHeader,
             UseLastRowAsFooter = json.GetBoolean("useLastRowAsFooter") && config.AllowUseLastRowAsFooter,
             Columns = columns,
-            Rows = rows
+            Rows = rows,
+            Cells = cells
         };
 
         // Parse the columns
@@ -81,7 +83,9 @@ public class TablesJsonParser {
         int r = 0;
         JObject[] array = json.GetObjectArray("rows");
         foreach (JObject row in array) {
-            rows.Add(ParseRow(r, row, array.Length, table, config, preview));
+            TableRow tr = ParseRow(r, row, array.Length, table, config, preview);
+            rows.Add(tr);
+            cells.Add(tr.Cells);
             r++;
         }
 
