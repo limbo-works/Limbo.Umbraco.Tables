@@ -38,13 +38,13 @@ Table editor for Umbraco.
 Install for Umbraco 17 via [**NuGet**](https://www.nuget.org/packages/Limbo.Umbraco.Tables). Either via the .NET CLI:
 
 ```
-dotnet add package Limbo.Umbraco.Tables --version 17.0.0-alpha002
+dotnet add package Limbo.Umbraco.Tables --version 17.0.0-alpha003
 ```
 
 or the NuGet Package Manager:
 
 ```
-Install-Package Limbo.Umbraco.Tables -Version 17.0.0-alpha002
+Install-Package Limbo.Umbraco.Tables -Version 17.0.0-alpha003
 ```
 
 ### Other versions of Umbraco
