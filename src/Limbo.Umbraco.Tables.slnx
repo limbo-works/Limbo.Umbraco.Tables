@@ -1,3 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="../debug.bat" />
@@ -5,6 +6,8 @@
     <File Path="../README.md" />
     <File Path="../release.bat" />
     <File Path=".editorconfig" />
+    <File Path="../.gitignore" />
+    <File Path="Limbo.Umbraco.Tables.sln.DotSettings" />
   </Folder>
   <Project Path="Limbo.Umbraco.Tables/Limbo.Umbraco.Tables.csproj" />
 </Solution>
