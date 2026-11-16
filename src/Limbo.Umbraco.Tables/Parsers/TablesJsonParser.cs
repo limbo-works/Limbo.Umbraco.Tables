@@ -77,7 +77,7 @@ public class TablesJsonParser {
         }
 
         // If the JSON contains a legacy "cells" array, parse it and populate the table model accordingly
-        if (TryParseLegacyCellsArray(json, table, config, preview)) return table;
+        if (TryParseLegacyCellsArray(json, table, rows, config, preview)) return table;
 
         // Parse the rows
         int r = 0;
@@ -150,6 +150,7 @@ public class TablesJsonParser {
     /// </summary>
     /// <param name="source">The JSON object that contains the legacy cells array.</param>
     /// <param name="table">The table model to populate.</param>
+    /// <param name="rows">The list of rows to populate.</param>
     /// <param name="config">The table configuration.</param>
     /// <param name="preview">Indicates whether parsing is performed in preview mode.</param>
     /// <returns><see langword="true"/>> if the legacy cells array was successfully parsed; otherwise, <see langword="false"/>.</returns>
@@ -157,7 +158,7 @@ public class TablesJsonParser {
     /// Prior to Umbraco 17, the package would save both a "rows" and a "cells" property. If we detect the latter, we
     /// need to treat the data as legacy, and convert it as such.
     /// </remarks>
-    protected bool TryParseLegacyCellsArray(JObject source , TableModel table, TableConfiguration config, bool preview) {
+    protected virtual bool TryParseLegacyCellsArray(JObject source , TableModel table, List<TableRow> rows, TableConfiguration config, bool preview) {
 
         // Return right away if "cells" is not present, as this indicates that the data is not in legacy format.
         if (GetLegacyCellsArray(source) is not { } cells) return false;
@@ -173,6 +174,7 @@ public class TablesJsonParser {
 
             List<TableCell> rowCells = [];
 
+            // Initialize the new row
             TableRow row = new(rowsArray[rowIndex]) {
                 Table = table,
                 Index = rowIndex,
@@ -180,6 +182,9 @@ public class TablesJsonParser {
                 IsFooter = isFooter,
                 Cells = rowCells
             };
+
+            // Append the row to the overall list
+            rows.Add(row);
 
             int cellIndex = 0;
             foreach (JObject cell in array) {
