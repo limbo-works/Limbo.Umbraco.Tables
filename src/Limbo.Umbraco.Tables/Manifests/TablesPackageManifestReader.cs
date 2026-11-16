@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Skybrud.Essentials.Security.Extensions;
 using Umbraco.Cms.Core.Manifest;
 using Umbraco.Cms.Infrastructure.Manifest;
 
@@ -9,11 +8,9 @@ using Umbraco.Cms.Infrastructure.Manifest;
 namespace Limbo.Umbraco.Tables.Manifests;
 
 /// <inheritdoc />
-public class TablesManifestReader : IPackageManifestReader {
+public class TablesPackageManifestReader : IPackageManifestReader {
 
     public Task<IEnumerable<PackageManifest>> ReadPackageManifestsAsync() {
-
-        string cacheBuster = TablesPackage.InformationalVersion.ToMd5Hash();
 
         List<PackageManifest> list = [
             new() {
@@ -27,10 +24,9 @@ public class TablesManifestReader : IPackageManifestReader {
                         alias = $"{TablesPackage.Alias}.EntryPoint",
                         name = $"{TablesPackage.Name}: Entry Point",
                         type = "backofficeEntryPoint",
-                        js = $"/App_Plugins/{TablesPackage.Alias}/limbo-umbraco-tables.js?v={cacheBuster}",
+                        js = $"/App_Plugins/{TablesPackage.Alias}/limbo-umbraco-tables.js",
                     }
-                ],
-                Importmap = null,
+                ]
             }
 
         ];
